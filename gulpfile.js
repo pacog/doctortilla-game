@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var traceur = require('gulp-traceur');
 var traceurOptions = require('./config').traceur;
@@ -5,12 +7,23 @@ var connect = require('gulp-connect');
 var browserify = require('gulp-browserify');
 var concat = require('gulp-concat');
 var filter = require('gulp-filter');
-
+// var debug = require('gulp-debug');
 var rimraf = require('rimraf');
+var mainBowerFiles = require('main-bower-files');
 
 var path = {
   src: './src/**/*.js'
 };
+
+// Copy bower files to ./lib folder
+gulp.task('bower-files', ['clean'], function(){
+  return gulp.src(mainBowerFiles())
+          // .pipe(debug({title: 'bower_files:'}))
+          .pipe(concat('vendor.js'))
+          .pipe(gulp.dest('compiled/lib'))
+          ;
+
+});
 
 // clean the output directory
 gulp.task('clean', function(cb){
@@ -18,7 +31,7 @@ gulp.task('clean', function(cb){
 });
 
 // TRANSPILE ES6
-gulp.task('build', ['clean'], function() {
+gulp.task('build', ['bower-files'], function() {
   gulp.src(path.src)
       .pipe(traceur(traceurOptions))
       .pipe(gulp.dest('compiled/src'))

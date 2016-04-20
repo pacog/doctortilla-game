@@ -1,0 +1,26 @@
+{
+  "name": "Doctortilla Game",
+  "version": "0.0.0",
+  "description": "Graphic adventure in HTML5",
+  "homepage": "https://github.com/pacog/doctortilla-game",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thoughtram/es6-browserify-boilerplate.git"
+  },
+  "dependencies": {
+    "traceur": "0.0.28",
+    "requirejs": "~2.1.11"
+  },
+  "devDependencies": {
+    "gulp": "~3.8.10",
+    "gulp-browserify": "^0.5.0",
+    "gulp-clean": "~0.3.0",
+    "gulp-concat": "^2.4.2",
+    "gulp-connect": "~1.0.7",
+    "gulp-filter": "^1.0.2",
+    "gulp-traceur": "~0.1.3",
+    "rimraf": "~2.2.8"
+  },
+  "author": "Paco Gómez",
+  "license": "MIT"
+}

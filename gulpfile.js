@@ -10,6 +10,7 @@ var filter = require('gulp-filter');
 // var debug = require('gulp-debug');
 var rimraf = require('rimraf');
 var mainBowerFiles = require('main-bower-files');
+var open = require('gulp-open');
 
 var path = {
   src: './src/**/*.js'
@@ -57,7 +58,12 @@ gulp.task('serve', function() {
   });
 });
 
-gulp.task('default', ['build', 'watch', 'serve']);
+gulp.task('open-browser', function() {
+    gulp.src(__filename)
+      .pipe(open({uri: 'http://localhost:8000'}));
+});
+
+gulp.task('default', ['build', 'watch', 'serve', 'open-browser']);
 
 /*jslint latedef:false*/
 function swallowError (error) {

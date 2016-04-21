@@ -34,10 +34,13 @@ gulp.task('clean', function(cb){
 gulp.task('build', ['bower-files'], function() {
   gulp.src(path.src)
       .pipe(traceur(traceurOptions))
+      .on('error', swallowError)
       .pipe(gulp.dest('compiled/src'))
       .pipe(browserify())
+      .on('error', swallowError)
       .pipe(filter('app.js'))
-      .pipe(gulp.dest('compiled/combined'));
+      .pipe(gulp.dest('compiled/combined'))
+      .pipe(connect.reload());
 });
 
 // WATCH FILES FOR CHANGES
@@ -46,9 +49,19 @@ gulp.task('watch', function() {
 });
 
 // WEB SERVER
-gulp.task('serve', connect.server({
-  root: [__dirname],
-  port: 8000,
-  open: true,
-  livereload: false
-}));
+gulp.task('serve', function() {
+  connect.server({
+    root: [__dirname],
+    port: 8000,
+    livereload: true
+  });
+});
+
+gulp.task('default', ['build', 'watch', 'serve']);
+
+/*jslint latedef:false*/
+function swallowError (error) {
+  console.log(error.toString());
+  /* jshint validthis: true */
+  this.emit('end');
+}

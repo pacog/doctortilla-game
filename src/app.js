@@ -1,7 +1,8 @@
-import {Person} from './model/Person';
+import {GamePainter} from './engine/graphics/GamePainter';
+import {DoctortillaGame} from './game/DoctortillaGame';
 
 global.app = function () {
-    var christoph = new Person('Christoph', 'Burgdorf');
-    console.log(christoph.fullName);
-    console.log(window.PIXI);
+    var doctortillaGame = new DoctortillaGame();
+    var gamePainter = new GamePainter();
+    gamePainter.paint();
 };

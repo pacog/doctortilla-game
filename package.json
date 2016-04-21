@@ -5,7 +5,7 @@
   "homepage": "https://github.com/pacog/doctortilla-game",
   "repository": {
     "type": "git",
-    "url": "git://github.com/thoughtram/es6-browserify-boilerplate.git"
+    "url": "git://github.com/pacog/doctortilla-game.git"
   },
   "dependencies": {
     "requirejs": "^2.2.0",

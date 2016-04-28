@@ -4,7 +4,7 @@ class GamePainter {
     }
 
     paint() {
-        console.log('painting3!');
+        console.log('painting4!');
     }
 }
 export {GamePainter};

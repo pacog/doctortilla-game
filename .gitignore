@@ -1,3 +1,6 @@
 node_modules
-compiled
-.idea
+
+.tmp
+dist
+.publish
+gulp.config.json

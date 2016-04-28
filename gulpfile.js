@@ -1,67 +1,102 @@
 'use strict';
 
 var gulp = require('gulp');
-var traceur = require('gulp-traceur');
-var traceurOptions = require('./config').traceur;
-var connect = require('gulp-connect');
-var browserify = require('gulp-browserify');
-var concat = require('gulp-concat');
-var filter = require('gulp-filter');
-// var debug = require('gulp-debug');
-var rimraf = require('rimraf');
-var mainBowerFiles = require('main-bower-files');
+var gutil = require('gulp-util');
 
-var path = {
-  src: './src/**/*.js'
+var browserify = require('browserify');
+var watchify = require('watchify');
+var source = require('vinyl-source-stream');
+
+var browserSync = require('browser-sync').create();
+var del = require('del');
+var merge = require('merge-stream');
+
+
+var ghpages = require('gulp-gh-pages');
+
+
+
+//
+// browserify and js
+//
+
+var bundler = browserify([
+  './src/js/main.js'
+]);
+
+var bundle = function ()  {
+  return bundler
+    .bundle()
+    .on('error', gutil.log)
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('.tmp/js/'))
+    .pipe(browserSync.stream({once: true}));
 };
 
-// Copy bower files to ./lib folder
-gulp.task('bower-files', ['clean'], function(){
-  return gulp.src(mainBowerFiles())
-          // .pipe(debug({title: 'bower_files:'}))
-          .pipe(concat('vendor.js'))
-          .pipe(gulp.dest('compiled/lib'))
-          ;
 
+gulp.task('browserify', bundle);
+
+// 3rd party libs that don't play nice with browserify
+gulp.task('libs', function () {
+  var dir = './node_modules/phaser/dist/';
+  return gulp.src(['phaser.min.js', 'phaser.map'], { cwd: dir, base: dir})
+    .pipe(gulp.dest('./.tmp/js/lib/'));
 });
 
-// clean the output directory
-gulp.task('clean', function(cb){
-    rimraf('compiled', cb);
+gulp.task('js', ['browserify', 'libs']);
+
+//
+// build and deploy
+//
+
+gulp.task('build', ['js']);
+
+gulp.task('dist', ['build'], function () {
+  var rawFiles = gulp.src([
+    'index.html', 'raw.html',
+    'styles.css',
+    'images/**/*', 'fonts/**/*', 'audio/**/*'
+  ], { cwd: './src', base: './src' })
+    .pipe(gulp.dest('./dist/'));
+
+  var builtFiles = gulp.src(['js/**/*'], { cwd: '.tmp', base: '.tmp' })
+    .pipe(gulp.dest('./dist/'));
+
+  return merge(rawFiles, builtFiles);
 });
 
-// TRANSPILE ES6
-gulp.task('build', ['bower-files'], function() {
-  gulp.src(path.src)
-      .pipe(traceur(traceurOptions))
-      .on('error', swallowError)
-      .pipe(gulp.dest('compiled/src'))
-      .pipe(browserify())
-      .on('error', swallowError)
-      .pipe(filter('app.js'))
-      .pipe(gulp.dest('compiled/combined'))
-      .pipe(connect.reload());
+gulp.task('clean', function () {
+  return del(['.tmp', 'dist', '.publish']);
 });
 
-// WATCH FILES FOR CHANGES
-gulp.task('watch', function() {
-  gulp.watch(path.src, ['build']);
+
+gulp.task('deploy:ghpages', ['dist'], function () {
+  return gulp.src('dist/**/*')
+    .pipe(ghpages());
 });
 
-// WEB SERVER
-gulp.task('serve', function() {
-  connect.server({
-    root: [__dirname],
-    port: 8000,
-    livereload: true
+
+gulp.task('deploy', ['deploy:ghpages'])
+
+//
+// dev tasks
+//
+
+gulp.task('watch', function () {
+  bundler = watchify(bundler, watchify.args);
+  bundler.on('update', bundle);
+});
+
+gulp.task('run', ['watch', 'build'], function () {
+  browserSync.init({
+    server: ['src', '.tmp']
   });
+
+  gulp.watch('src/**/*.{html,css}').on('change', browserSync.reload);
 });
 
-gulp.task('default', ['build', 'watch', 'serve']);
+//
+// default task
+//
 
-/*jslint latedef:false*/
-function swallowError (error) {
-  console.log(error.toString());
-  /* jshint validthis: true */
-  this.emit('end');
-}
+gulp.task('default', ['dist']);

@@ -1,4 +1,5 @@
-var Player = require('./player.js');
+var Player = require('./Player.js');
+var SceneBoundaries = require('./SceneBoundaries.js');
 
 class Scene {
     constructor(phaserGame) {
@@ -7,14 +8,26 @@ class Scene {
         this.phaserGame = phaserGame;
         this.createBackground();
         this.player = new Player(this.phaserGame);
+        this.sceneBoundaries = new SceneBoundaries();
     }
 
     createBackground() {
         var background = this.phaserGame.add.sprite(
-                    this.phaserGame.world.centerX,
-                    this.phaserGame.world.centerY,
+                    0,
+                    0,
                     this.BG);
-        background.anchor.setTo(0.5, 0.5);
+        background.anchor.setTo(0, 0);
+
+        background.inputEnabled = true;
+        background.pixelPerfectClick = true;
+        background.events.onInputDown.add( (dest, ev) => {
+            this.handleClick(ev.x, ev.y);
+        });
+    }
+
+
+    handleClick(x, y) {
+        this.player.moveTo(this.sceneBoundaries.getPositionInside(x, y));
     }
 }
 

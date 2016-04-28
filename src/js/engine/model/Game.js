@@ -1,6 +1,11 @@
+var Scene = require('./scene.js');
+
 class Game {
-    constructor() {
-        console.log('Create Game');
+
+    constructor(phaserGame) {
+        this.phaserGame = phaserGame;
+        this.currentScene = new Scene(this.phaserGame);
     }
 }
-export {Game};
+
+module.exports = Game;

@@ -2,8 +2,8 @@ class Player {
 
     constructor(phaserGame) {
         this.BG = 'vaca1';
-        this.INITIAL_X = 160;
-        this.INITIAL_Y = 160;
+        this.INITIAL_X = 160 * 2;
+        this.INITIAL_Y = 160 * 2;
         this.X_SPEED = 100; //px/s
         this.Y_SPEED = 50; //px/s
         this.phaserGame = phaserGame;

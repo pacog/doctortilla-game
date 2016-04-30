@@ -1,9 +1,9 @@
 class SceneBoundaries {
     constructor() {
-        this.MIN_Y = 429;
-        this.MAX_Y = 1000;
-        this.MIN_X = 173;
-        this.MAX_X = 1000;
+        this.MIN_Y = 113;
+        this.MAX_Y = 149;
+        this.MIN_X = 43;
+        this.MAX_X = 500;
     }
 
     getPositionInside(x, y) {
@@ -13,8 +13,8 @@ class SceneBoundaries {
         y = Math.min(this.MAX_Y, y);
 
         return {
-            x: x,
-            y: y
+            x: Math.round(x),
+            y: Math.round(y)
         };
 
     }

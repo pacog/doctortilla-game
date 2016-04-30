@@ -1,9 +1,9 @@
 class Player {
 
     constructor(phaserGame) {
-        this.BG = 'ghost1';
-        this.INITIAL_X = 460;
-        this.INITIAL_Y = 460;
+        this.BG = 'vaca1';
+        this.INITIAL_X = 160;
+        this.INITIAL_Y = 160;
         this.X_SPEED = 100; //px/s
         this.Y_SPEED = 50; //px/s
         this.phaserGame = phaserGame;
@@ -15,7 +15,6 @@ class Player {
                     this.INITIAL_X,
                     this.INITIAL_Y,
                     this.BG);
-        this.sprite.scale.setTo(2, 2);
         this.sprite.anchor.setTo(0.5, 0.99);
     }
 
@@ -36,7 +35,7 @@ class Player {
         var diff2 = this.sprite.y - desiredPos.y;
         var distance = Math.sqrt((diff1 * diff1) + (diff2 * diff2));
 
-        var speedFromX = Math.abs(Math.cos(angleBetween))* distance / this.X_SPEED;
+        var speedFromX = Math.abs(Math.cos(angleBetween)) * distance / this.X_SPEED;
         var speedFromY = Math.abs(Math.sin(angleBetween)) * distance / this.Y_SPEED;
 
         return 1000 * ((speedFromX + speedFromY) / 2);

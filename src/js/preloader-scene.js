@@ -7,7 +7,7 @@ var PreloaderScene = {
         this.load.setPreloadSprite(this.loadingBar);
 
         this.game.load.image('scene1_BG', 'images/fondo1.png');
-        this.game.load.image('ghost1', 'images/ghost1.png');
+        this.game.load.image('vaca1', 'images/vaca1.png');
     },
 
     create: function () {

@@ -26,6 +26,7 @@ class Player {
         var timeToAnimate = this._getTime(pos);
         if (this.tween && this.tween.isRunning) {
             this.tween.stop();
+            this.tween.onComplete.removeAll();
         }
 
         this.tween = this.phaserGame.add.tween(this.sprite);

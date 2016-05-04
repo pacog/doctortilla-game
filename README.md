@@ -3,6 +3,8 @@
 Doctortilla game by
 [pacog](https://github.com/pacog).
 
+[Latest demo deployed](http://pacog.github.io/doctortilla-game/)
+
 Initial scaffolding generated with [generator-gamejam](https://github.com/belen-albeza/generator-gamejam/).
 
 ## Installation

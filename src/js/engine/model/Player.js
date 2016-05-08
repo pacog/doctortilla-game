@@ -19,6 +19,7 @@ class Player {
         this.INITIAL_Y = 300;
         this.X_SPEED = 80; //px/s
         this.Y_SPEED = 55; //px/s
+        this.ANIMATION_SPEED = 6;
     }
 
     createSprite() {
@@ -33,17 +34,17 @@ class Player {
     }
 
     _addSpriteAnimations() {
-        this.sprite.animations.add('stand_right', [0], 6, true);
-        this.sprite.animations.add('walk_right', [1, 2, 3, 4, 5, 6], 6, true);
+        this.sprite.animations.add('stand_right', [0], this.ANIMATION_SPEED, true);
+        this.sprite.animations.add('walk_right', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
 
         this.sprite.animations.add('stand_left', [0], 6, true);
-        this.sprite.animations.add('walk_left', [1, 2, 3, 4, 5, 6], 6, true);
+        this.sprite.animations.add('walk_left', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
 
         this.sprite.animations.add('stand_up', [0], 6, true);
-        this.sprite.animations.add('walk_up', [1, 2, 3, 4, 5, 6], 6, true);
+        this.sprite.animations.add('walk_up', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
 
-        this.sprite.animations.add('stand_down', [0], 6, true);
-        this.sprite.animations.add('walk_down', [1, 2, 3, 4, 5, 6], 6, true);
+        this.sprite.animations.add('stand_down', [7], 6, true);
+        this.sprite.animations.add('walk_down', [7, 8, 9, 10, 11, 12], this.ANIMATION_SPEED, true);
     }
 
     moveTo(pos) {

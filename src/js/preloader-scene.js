@@ -7,9 +7,8 @@ var PreloaderScene = {
         this.load.setPreloadSprite(this.loadingBar);
 
         this.game.load.image('scene1_BG', 'images/fondo2.png');
-        this.game.load.image('vaca1', 'images/vaca4.png');
         //Last number is optional (number of images in sprite)
-        this.game.load.spritesheet('vaca_sprite', 'images/vaca_sprite7.png', 44, 61, 7);
+        this.game.load.spritesheet('vaca_sprite', 'images/vaca_sprite9.png', 44, 61, 14);
     },
 
     create: function () {

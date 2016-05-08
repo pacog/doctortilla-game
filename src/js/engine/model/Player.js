@@ -1,3 +1,5 @@
+var Directions = require('./directions.js');
+
 class Player {
 
     //TODO: leave here general player functionality
@@ -14,7 +16,7 @@ class Player {
 
     _initConstants() {
         this.BG = 'vaca_sprite';
-        this.direction = 'right';
+        this.direction = Directions.RIGHT;
         this.INITIAL_X = 200;
         this.INITIAL_Y = 300;
         this.X_SPEED = 80; //px/s
@@ -64,13 +66,13 @@ class Player {
         let angleDegrees = (angleBetween * 180 / Math.PI);
 
         if ((angleDegrees >= -45) && (angleDegrees <= 45)) {
-            this.direction = 'left';
+            this.direction = Directions.LEFT;
         } else if ((angleDegrees >= 45) && (angleDegrees <= 135)) {
-            this.direction = 'up';
+            this.direction = Directions.UP;
         } else if ((angleDegrees >= -135) && (angleDegrees <= -45)) {
-            this.direction = 'down';
+            this.direction = Directions.DOWN;
         } else {
-            this.direction = 'right';
+            this.direction = Directions.RIGHT;
         }
 
     }
@@ -83,13 +85,13 @@ class Player {
     }
 
     _playWalkingAnimation() {
-        this.sprite.animations.play('walk_' + this.direction);
+        var directionName = Directions.getName(this.direction);
+        this.sprite.animations.play('walk_' + directionName);
         this._flipXIfNeeded();
-        
     }
 
     _flipXIfNeeded() {
-        if (this.direction === 'left') {
+        if (this.direction === Directions.LEFT) {
             this.sprite.scale.x = -1;
         } else {
             this.sprite.scale.x = 1;
@@ -97,7 +99,8 @@ class Player {
     }
 
     _playStandAnimation() {
-        this.sprite.animations.play('stand_' + this.direction);
+        var directionName = Directions.getName(this.direction);
+        this.sprite.animations.play('stand_' + directionName);
         this._flipXIfNeeded();
     }
 

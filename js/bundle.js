@@ -21,64 +21,138 @@ var BootScene = {
 
 module.exports = BootScene;
 },{}],2:[function(require,module,exports){
+var Directions = require('./directions.js');
+
 class Player {
 
+    //TODO: leave here general player functionality
+    //Create model for doctortilla game that inherits from this
+    //Do all game related stuff and initial config in game player model
+
     constructor(phaserGame) {
+        this._initConstants();
+        this.phaserGame = phaserGame;
+        this.createSprite();
+        this._playStandAnimation();
+        this.sprite.animations.stop();
+    }
+
+    _initConstants() {
         this.BG = 'vaca_sprite';
+        this.direction = Directions.RIGHT;
         this.INITIAL_X = 200;
         this.INITIAL_Y = 300;
         this.X_SPEED = 80; //px/s
         this.Y_SPEED = 55; //px/s
-        this.phaserGame = phaserGame;
-        this.createSprite();
+        this.ANIMATION_SPEED = 6;
     }
 
     createSprite() {
         this.sprite = this.phaserGame.add.sprite(
-                    this.INITIAL_X,
-                    this.INITIAL_Y,
-                    this.BG);
-        this.sprite.animations.add('stand_right', [0], 6, true);
-        this.sprite.animations.add('walk_right', [1, 2, 3, 4, 5, 6], 6, true);
+                        this.INITIAL_X,
+                        this.INITIAL_Y,
+                        this.BG);
+        this._addSpriteAnimations();
+        
 
         this.sprite.anchor.setTo(0.5, 0.99);
     }
 
+    _addSpriteAnimations() {
+        this.sprite.animations.add('stand_right', [0], this.ANIMATION_SPEED, true);
+        this.sprite.animations.add('walk_right', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
+
+        this.sprite.animations.add('stand_left', [0], 6, true);
+        this.sprite.animations.add('walk_left', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
+
+        this.sprite.animations.add('stand_up', [14], 6, true);
+        this.sprite.animations.add('walk_up', [15, 16, 17, 18, 19, 20], this.ANIMATION_SPEED, true);
+
+        this.sprite.animations.add('stand_down', [7], 6, true);
+        this.sprite.animations.add('walk_down', [8, 9, 10, 11, 12, 13], this.ANIMATION_SPEED, true);
+    }
+
     moveTo(pos) {
-        this.sprite.animations.play('walk_right');
-        var timeToAnimate = this._getTime(pos);
-        if (this.tween && this.tween.isRunning) {
-            this.tween.stop();
-            this.tween.onComplete.removeAll();
-        }
+        this._updateDirection(pos);
+        this._cancelCurrentTween();
+        this._playWalkingAnimation();
+        
+        let timeToAnimate = this._getTimeForAnimation(pos);
 
         this.tween = this.phaserGame.add.tween(this.sprite);
         this.tween.to({ x: pos.x, y: pos.y }, timeToAnimate, 'Linear', true, 0);
         this.tween.onComplete.add(this._stopAnimations, this);
     }
 
+    _updateDirection(pos) {
+        let angleBetween = this._getAngleToDesiredPosition(pos);
+        let angleDegrees = (angleBetween * 180 / Math.PI);
+
+        if ((angleDegrees >= -45) && (angleDegrees <= 45)) {
+            this.direction = Directions.LEFT;
+        } else if ((angleDegrees >= 45) && (angleDegrees <= 135)) {
+            this.direction = Directions.UP;
+        } else if ((angleDegrees >= -135) && (angleDegrees <= -45)) {
+            this.direction = Directions.DOWN;
+        } else {
+            this.direction = Directions.RIGHT;
+        }
+
+    }
+
+    _cancelCurrentTween() {
+        if (this.tween && this.tween.isRunning) {
+            this.tween.stop();
+            this.tween.onComplete.removeAll();
+        }
+    }
+
+    _playWalkingAnimation() {
+        var directionName = Directions.getName(this.direction);
+        this.sprite.animations.play('walk_' + directionName);
+        this._flipXIfNeeded();
+    }
+
+    _flipXIfNeeded() {
+        if (this.direction === Directions.LEFT) {
+            this.sprite.scale.x = -1;
+        } else {
+            this.sprite.scale.x = 1;
+        }
+    }
+
+    _playStandAnimation() {
+        var directionName = Directions.getName(this.direction);
+        this.sprite.animations.play('stand_' + directionName);
+        this._flipXIfNeeded();
+    }
+
     _stopAnimations() {
-        this.sprite.animations.play('stand_right');
+        this._playStandAnimation();
         this.sprite.animations.stop();
     }
 
-    _getTime(desiredPos) {
-        var angleBetween = Math.atan2(this.sprite.y - desiredPos.y,
-                                      this.sprite.x - desiredPos.x);
-        var diff1 = this.sprite.x - desiredPos.x;
-        var diff2 = this.sprite.y - desiredPos.y;
-        var distance = Math.sqrt((diff1 * diff1) + (diff2 * diff2));
+    _getTimeForAnimation(desiredPos) {
+        let angleBetween = this._getAngleToDesiredPosition(desiredPos);
+        let diff1 = this.sprite.x - desiredPos.x;
+        let diff2 = this.sprite.y - desiredPos.y;
+        let distance = Math.sqrt((diff1 * diff1) + (diff2 * diff2));
 
-        var speedFromX = Math.abs(Math.cos(angleBetween)) * distance / this.X_SPEED;
-        var speedFromY = Math.abs(Math.sin(angleBetween)) * distance / this.Y_SPEED;
+        let speedFromX = Math.abs(Math.cos(angleBetween)) * distance / this.X_SPEED;
+        let speedFromY = Math.abs(Math.sin(angleBetween)) * distance / this.Y_SPEED;
 
         return 1000 * ((speedFromX + speedFromY) / 2);
+    }
+
+    _getAngleToDesiredPosition(desiredPos) {
+        return Math.atan2(this.sprite.y - desiredPos.y,
+                                      this.sprite.x - desiredPos.x);
     }
 
 }
 
 module.exports = Player;
-},{}],3:[function(require,module,exports){
+},{"./directions.js":4}],3:[function(require,module,exports){
 class SceneBoundaries {
     constructor() {
         this.MIN_Y = 113 * 2;
@@ -104,6 +178,43 @@ class SceneBoundaries {
 module.exports = SceneBoundaries;
 
 },{}],4:[function(require,module,exports){
+'use strict';
+
+const LEFT = Symbol();
+const RIGHT = Symbol();
+const UP = Symbol();
+const DOWN = Symbol();
+
+
+function getName(direction) {
+
+    switch (direction) {
+
+    case LEFT:
+        return 'left';
+    case RIGHT:
+        return 'right';
+    case UP:
+        return 'up';
+    case DOWN:
+        return 'down';
+    default:
+        return 'unknown';
+
+    }
+}
+
+let directions = {
+    LEFT: LEFT,
+    RIGHT: RIGHT,
+    UP: UP,
+    DOWN: DOWN,
+    getName: getName
+};
+
+module.exports = directions;
+
+},{}],5:[function(require,module,exports){
 var Scene = require('./scene.js');
 
 class Game {
@@ -116,7 +227,7 @@ class Game {
 
 module.exports = Game;
 
-},{"./scene.js":5}],5:[function(require,module,exports){
+},{"./scene.js":6}],6:[function(require,module,exports){
 var Player = require('./Player.js');
 var SceneBoundaries = require('./SceneBoundaries.js');
 
@@ -152,7 +263,7 @@ class Scene {
 
 module.exports = Scene;
 
-},{"./Player.js":2,"./SceneBoundaries.js":3}],6:[function(require,module,exports){
+},{"./Player.js":2,"./SceneBoundaries.js":3}],7:[function(require,module,exports){
 'use strict';
 
 var PlayScene = require('./play-scene.js');
@@ -169,7 +280,7 @@ window.onload = function () {
     game.state.start('boot');
 };
 
-},{"./boot-scene.js":1,"./play-scene.js":7,"./preloader-scene.js":8}],7:[function(require,module,exports){
+},{"./boot-scene.js":1,"./play-scene.js":8,"./preloader-scene.js":9}],8:[function(require,module,exports){
 'use strict';
 
 var Game = require('./engine/model/game.js');
@@ -182,7 +293,7 @@ var PlayScene = {
 
 module.exports = PlayScene;
 
-},{"./engine/model/game.js":4}],8:[function(require,module,exports){
+},{"./engine/model/game.js":5}],9:[function(require,module,exports){
 'use strict';
 
 var PreloaderScene = {
@@ -192,9 +303,8 @@ var PreloaderScene = {
         this.load.setPreloadSprite(this.loadingBar);
 
         this.game.load.image('scene1_BG', 'images/fondo2.png');
-        this.game.load.image('vaca1', 'images/vaca4.png');
         //Last number is optional (number of images in sprite)
-        this.game.load.spritesheet('vaca_sprite', 'images/vaca_sprite2.png', 44, 61, 7);
+        this.game.load.spritesheet('vaca_sprite', 'images/vaca_sprite10.png', 44, 61, 21);
     },
 
     create: function () {
@@ -203,4 +313,4 @@ var PreloaderScene = {
 };
 
 module.exports = PreloaderScene;
-},{}]},{},[6]);
+},{}]},{},[7]);

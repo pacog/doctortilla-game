@@ -42,11 +42,11 @@ class Player {
         this.sprite.animations.add('stand_left', [0], 6, true);
         this.sprite.animations.add('walk_left', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
 
-        this.sprite.animations.add('stand_up', [0], 6, true);
-        this.sprite.animations.add('walk_up', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
+        this.sprite.animations.add('stand_up', [14], 6, true);
+        this.sprite.animations.add('walk_up', [15, 16, 17, 18, 19, 20], this.ANIMATION_SPEED, true);
 
         this.sprite.animations.add('stand_down', [7], 6, true);
-        this.sprite.animations.add('walk_down', [7, 8, 9, 10, 11, 12], this.ANIMATION_SPEED, true);
+        this.sprite.animations.add('walk_down', [8, 9, 10, 11, 12, 13], this.ANIMATION_SPEED, true);
     }
 
     moveTo(pos) {

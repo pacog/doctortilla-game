@@ -1,15 +1,20 @@
-var Thing = require('./Thing.js');
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var actions = require('./Actions.singleton.js');
 
 class Scene {
+
     constructor(phaserGame, options) {
         this.options = options;
 
         this.phaserGame = phaserGame;
         this._createBackground();
-        this.door = new Thing(this.phaserGame);
+        this._createBoundaries();
+        this._createThings();
 
+    }
+
+    get boundaries() {
+        return this._boundaries;
     }
 
     _createBackground() {
@@ -25,6 +30,18 @@ class Scene {
             actionDispatcher.execute(actions.CLICK_STAGE, ev);
         });
 
+    }
+
+    _createBoundaries() {
+        this._boundaries = new this.options.boundaries();
+    }
+
+    _createThings() {
+        this._things = new Set();
+        var things = this.options.things || [];
+        for (let i = 0; i < things.length; i++) {
+            this._things.add(new things[i](this.phaserGame));
+        }
     }
 }
 

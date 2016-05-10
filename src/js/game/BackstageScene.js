@@ -1,17 +1,20 @@
 var Scene = require('../engine/scene.js');
 var BackstageSceneBoundaries = require('./BackstageSceneBoundaries.js');
+var BackstageDoorToStreet = require('./BackstageDoorToStreet.js');
 
 class BackstageScene extends Scene {
+
     constructor(phaserGame) {
-        super(phaserGame, {
-            BG: 'scene1_BG'
-        });
-        this._boundaries = new BackstageSceneBoundaries();
+        let options = {
+            BG: 'scene1_BG',
+            boundaries: BackstageSceneBoundaries,
+            things: [BackstageDoorToStreet]
+        };
+
+        super(phaserGame, options);
+
     }
 
-    get boundaries() {
-        return this._boundaries;
-    }
 }
 
 module.exports = BackstageScene;

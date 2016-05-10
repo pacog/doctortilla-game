@@ -2,33 +2,22 @@ var Directions = require('./directions.js');
 
 class Player {
 
-    //TODO: leave here general player functionality
-    //Create model for doctortilla game that inherits from this
-    //Do all game related stuff and initial config in game player model
+    constructor(phaserGame, options) {
+        this.options = options;
 
-    constructor(phaserGame) {
-        this._initConstants();
         this.phaserGame = phaserGame;
         this.createSprite();
+
+        this.direction = Directions.RIGHT;
         this._playStandAnimation();
         this.sprite.animations.stop();
     }
 
-    _initConstants() {
-        this.BG = 'vaca_sprite';
-        this.direction = Directions.RIGHT;
-        this.INITIAL_X = 200;
-        this.INITIAL_Y = 300;
-        this.X_SPEED = 80; //px/s
-        this.Y_SPEED = 55; //px/s
-        this.ANIMATION_SPEED = 6;
-    }
-
     createSprite() {
         this.sprite = this.phaserGame.add.sprite(
-                        this.INITIAL_X,
-                        this.INITIAL_Y,
-                        this.BG);
+                        this.options.INITIAL_X,
+                        this.options.INITIAL_Y,
+                        this.options.SPRITE_ID);
         this._addSpriteAnimations();
         
 
@@ -36,17 +25,9 @@ class Player {
     }
 
     _addSpriteAnimations() {
-        this.sprite.animations.add('stand_right', [0], this.ANIMATION_SPEED, true);
-        this.sprite.animations.add('walk_right', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
-
-        this.sprite.animations.add('stand_left', [0], 6, true);
-        this.sprite.animations.add('walk_left', [1, 2, 3, 4, 5, 6], this.ANIMATION_SPEED, true);
-
-        this.sprite.animations.add('stand_up', [14], 6, true);
-        this.sprite.animations.add('walk_up', [15, 16, 17, 18, 19, 20], this.ANIMATION_SPEED, true);
-
-        this.sprite.animations.add('stand_down', [7], 6, true);
-        this.sprite.animations.add('walk_down', [8, 9, 10, 11, 12, 13], this.ANIMATION_SPEED, true);
+        this.options.SPRITE_OPTIONS.forEach( (spritePosition, key) => {
+            this.sprite.animations.add(key, spritePosition.frames, this.options.ANIMATION_SPEED, true);
+        });
     }
 
     moveTo(pos) {
@@ -85,13 +66,15 @@ class Player {
     }
 
     _playWalkingAnimation() {
-        var directionName = Directions.getName(this.direction);
-        this.sprite.animations.play('walk_' + directionName);
-        this._flipXIfNeeded();
+        let directionName = Directions.getName(this.direction);
+        let spriteState = 'walk_' + directionName;
+        this.sprite.animations.play(spriteState);
+        this._flipXIfNeeded(spriteState);
     }
 
-    _flipXIfNeeded() {
-        if (this.direction === Directions.LEFT) {
+    _flipXIfNeeded(spriteState) {
+        let spriteStateOptions = this.options.SPRITE_OPTIONS.get(spriteState);
+        if (spriteStateOptions && spriteStateOptions.inverse) {
             this.sprite.scale.x = -1;
         } else {
             this.sprite.scale.x = 1;
@@ -99,9 +82,10 @@ class Player {
     }
 
     _playStandAnimation() {
-        var directionName = Directions.getName(this.direction);
-        this.sprite.animations.play('stand_' + directionName);
-        this._flipXIfNeeded();
+        let directionName = Directions.getName(this.direction);
+        let spriteState = 'stand_' + directionName;
+        this.sprite.animations.play(spriteState);
+        this._flipXIfNeeded(spriteState);
     }
 
     _stopAnimations() {
@@ -115,8 +99,8 @@ class Player {
         let diff2 = this.sprite.y - desiredPos.y;
         let distance = Math.sqrt((diff1 * diff1) + (diff2 * diff2));
 
-        let speedFromX = Math.abs(Math.cos(angleBetween)) * distance / this.X_SPEED;
-        let speedFromY = Math.abs(Math.sin(angleBetween)) * distance / this.Y_SPEED;
+        let speedFromX = Math.abs(Math.cos(angleBetween)) * distance / this.options.X_SPEED;
+        let speedFromY = Math.abs(Math.sin(angleBetween)) * distance / this.options.Y_SPEED;
 
         return 1000 * ((speedFromX + speedFromY) / 2);
     }

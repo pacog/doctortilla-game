@@ -1,12 +1,19 @@
-// 
+var Game = require('../engine/Game.js');
+var BackstageScene = require('./BackstageScene.js');
+var Player = require('../engine/Player.js');
 
-class DoctortillaGame {
-    constructor() {
-        console.log('Create DoctortillaGame');
+class DoctortillaGame extends Game {
+    constructor(phaserGame) {
+        super(phaserGame);
+
+        this.currentScene = new BackstageScene(this.phaserGame);
+
+        this.player = new Player(this.phaserGame);
+
+        this.initUI();
+
     }
 
-    get name() {
-        return '';
-    }
 }
-export {DoctortillaGame};
+
+module.exports = DoctortillaGame;

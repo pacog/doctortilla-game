@@ -1,10 +1,10 @@
 'use strict';
 
-var Game = require('./engine/Game.js');
+var DoctortillaGame = require('./game/DoctortillaGame.js');
 
 var PlayScene = {
     create: function () {
-        this.gameModel = new Game(this.game);
+        this.gameModel = new DoctortillaGame(this.game);
     }
 };
 

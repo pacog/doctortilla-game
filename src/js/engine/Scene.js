@@ -1,39 +1,30 @@
-var Player = require('./Player.js');
 var Thing = require('./Thing.js');
-var SceneBoundaries = require('./SceneBoundaries.js');
+var actionDispatcher = require('./ActionDispatcher.singleton.js');
+var actions = require('./Actions.singleton.js');
 
 class Scene {
-    constructor(phaserGame) {
-        this.BG = 'scene1_BG';
+    constructor(phaserGame, options) {
+        this.options = options;
 
         this.phaserGame = phaserGame;
-        this.createBackground();
-
+        this._createBackground();
         this.door = new Thing(this.phaserGame);
-
-        this.player = new Player(this.phaserGame);
-
-        this.sceneBoundaries = new SceneBoundaries();
 
     }
 
-    createBackground() {
+    _createBackground() {
         let background = this.phaserGame.add.sprite(
                     0,
                     0,
-                    this.BG);
+                    this.options.BG);
         background.anchor.setTo(0, 0);
 
         background.inputEnabled = true;
         background.pixelPerfectClick = true;
         background.events.onInputDown.add( (dest, ev) => {
-            this.handleClick(ev.x, ev.y);
+            actionDispatcher.execute(actions.CLICK_STAGE, ev);
         });
-    }
 
-
-    handleClick(x, y) {
-        this.player.moveTo(this.sceneBoundaries.getPositionInside(x, y));
     }
 }
 

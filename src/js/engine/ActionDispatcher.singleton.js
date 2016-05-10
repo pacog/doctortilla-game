@@ -1,29 +1,44 @@
-var actions = require('./Actions.singleton.js');
+// var actions = require('./Actions.singleton.js');
 
 class ActionDispatcher {
 
     constructor() {
+        this._subscribers = new Map();
     }
 
     execute(action, params) {
-        switch (action) {
+        //TODO: check if action exists
+        this._notifyAction(action, params);
+    }
 
-        case actions.SELECT_VERB:
-            this._selectVerb(params);
-            break;
-        default:
-            this._showUnknowActionError(action);
-            break;
+    subscribeTo(action, callback) {
+        let subscribers = this._getSubscribers(action);
+        subscribers.add(callback);
+    }
+
+    unsubscribeTo(action, callback) {
+        let subscribers = this._getSubscribers(action);
+        subscribers.delete(callback);
+    }
+
+    _getSubscribers(action) {
+        let currentSubscribers = this._subscribers.get(action);
+        if (!currentSubscribers) {
+            currentSubscribers = new Set();
+            this._subscribers.set(action, currentSubscribers);
         }
+        return currentSubscribers;
     }
 
     _showUnknowActionError(action) {
         throw 'ERROR: executing incorrect action ' + action;
     }
 
-    _selectVerb(verb) {
-        console.log(verb.label);
+    _notifyAction(action, params) {
+        let subscribers = this._getSubscribers(action);
+        subscribers.forEach( (callback) => callback(params) );
     }
+
 }
 
 let actionDispatcherInstance = new ActionDispatcher();

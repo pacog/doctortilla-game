@@ -13,15 +13,15 @@ class Thing {
     }
 
     _onClick() {
-        console.log('ThingClick');
+        // console.log('ThingClick');
     }
 
     _onInputOver() {
-        console.log('_onInputOver');
+        // console.log('_onInputOver');
     }
 
     _onInputOut() {
-        console.log('_onInputOut');
+        // console.log('_onInputOut');
     }
 }
 

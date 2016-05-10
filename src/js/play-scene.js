@@ -1,6 +1,6 @@
 'use strict';
 
-var Game = require('./engine/model/game.js');
+var Game = require('./engine/Game.js');
 
 var PlayScene = {
     create: function () {

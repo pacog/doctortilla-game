@@ -1,4 +1,5 @@
 var Player = require('./Player.js');
+var Thing = require('./Thing.js');
 var SceneBoundaries = require('./SceneBoundaries.js');
 
 class Scene {
@@ -7,12 +8,17 @@ class Scene {
 
         this.phaserGame = phaserGame;
         this.createBackground();
+
+        this.door = new Thing(this.phaserGame);
+
         this.player = new Player(this.phaserGame);
+
         this.sceneBoundaries = new SceneBoundaries();
+
     }
 
     createBackground() {
-        var background = this.phaserGame.add.sprite(
+        let background = this.phaserGame.add.sprite(
                     0,
                     0,
                     this.BG);

@@ -1,14 +1,22 @@
 var ActionButton = require('./ActionButton.js');
 var Verbs = require('./Verbs.js');
+var selectedVerb = require('./SelectedVerb.singleton.js');
 
 class GraphicUI {
 
+    //TODO at some point separate this in Inventory, verbs and verb info
     constructor(phaserGame) {
         this.phaserGame = phaserGame;
 
         this._createBackground();
         this._createButtons();
+        this._createVerbsInfo();
     }
+
+    _createVerbsInfo() {
+        selectedVerb.subscribeToChange(newVerb => console.log(newVerb));
+    }
+    
 
     _createButtons() {
         this.buttons = [

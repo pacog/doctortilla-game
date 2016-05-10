@@ -1,6 +1,7 @@
 var Scene = require('../engine/scene.js');
 var BackstageSceneBoundaries = require('./BackstageSceneBoundaries.js');
 var BackstageDoorToStreet = require('./BackstageDoorToStreet.js');
+var BackstageVendingMachine = require('./BackstageVendingMachine.js');
 
 class BackstageScene extends Scene {
 
@@ -8,7 +9,7 @@ class BackstageScene extends Scene {
         let options = {
             BG: 'scene1_BG',
             boundaries: BackstageSceneBoundaries,
-            things: [BackstageDoorToStreet]
+            things: [BackstageDoorToStreet, BackstageVendingMachine]
         };
 
         super(phaserGame, options);

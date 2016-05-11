@@ -4,9 +4,13 @@ var Verbs = require('../engine/Verbs.js');
 class BackstageDoorToStreet extends Thing {
     constructor(phaserGame) {
         let options = {
-            x: 100,
-            y: 161,
-            spriteId: 'door_sprite'
+            x: 150,
+            y: 95,
+            spriteId: 'door_sprite',
+            goToPosition: {
+                x: 175,
+                y: 165
+            }
         };
         super(phaserGame, options);
     }

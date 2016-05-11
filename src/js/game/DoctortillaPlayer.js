@@ -18,7 +18,7 @@ class DoctortillaPlayer extends Player {
         let options = {
             SPRITE_ID: 'vaca_sprite',
             INITIAL_X: 200,
-            INITIAL_Y: 300,
+            INITIAL_Y: 200,
             X_SPEED: 80, //px/s
             Y_SPEED: 55, //px/s
             ANIMATION_SPEED: 6,

@@ -33,7 +33,7 @@ class Thing {
 
     getPositionToGoTo() {
         if (this.options.goToPosition) {
-            return this.options.goToPosition();
+            return this.options.goToPosition;
         } else {
             return {
                 x: this.options.x,

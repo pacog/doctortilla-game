@@ -6,7 +6,7 @@ var PreloaderScene = {
         this.loadingBar.anchor.setTo(0, 0.5);
         this.load.setPreloadSprite(this.loadingBar);
 
-        this.game.load.image('scene1_BG', 'images/fondo2.png');
+        this.game.load.image('scene1_BG', 'images/fondo4.png');
         this.game.load.image('UI_BG', 'images/uibg.png');
         this.game.load.bitmapFont('font_32_orange', 'images/font_32_orange.png', 'images/font_32_orange.fnt');
         this.game.load.bitmapFont('font_32_black', 'images/font_32_black.png', 'images/font_32_black.fnt');

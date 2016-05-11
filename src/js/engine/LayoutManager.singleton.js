@@ -5,7 +5,9 @@ const LAYOUT_ZOOM = 2;
 const VERB_BUTTON_HEIGHT = 60;
 const VERB_BUTTON_WIDTH = 200;
 const VERB_BUTTON_MARGIN = 4;
-const VERBS_COLUMNS = 1;
+const VERBS_ROWS = 3;
+
+const CURRENT_ACTION_INFO_HEIGHT = 40;
 
 class LayoutManager {
 
@@ -25,11 +27,32 @@ class LayoutManager {
         return VERB_BUTTON_WIDTH / LAYOUT_ZOOM;
     }
 
+    get VERBS_HEIGHT() {
+        let marginY = (VERBS_ROWS + 1) * VERB_BUTTON_MARGIN;
+        let heightY = VERBS_ROWS * this.VERB_BUTTON_HEIGHT;
+        return marginY + heightY;
+    }
+
     get VERBS_Y_START() {
-        let marginY = (VERBS_COLUMNS + 1) * VERB_BUTTON_MARGIN;
-        let heightY = VERBS_COLUMNS * VERB_BUTTON_HEIGHT;
-        
-        return this.HEIGHT - heightY - marginY;
+        return this.HEIGHT - this.VERBS_HEIGHT;
+    }
+
+    get UI_SIZE() {
+        return {
+            width: this.WIDTH,
+            height: this.VERBS_HEIGHT + this.CURRENT_ACTION_INFO_HEIGHT
+        };
+    }
+
+    get CURRENT_ACTION_INFO_HEIGHT() {
+        return CURRENT_ACTION_INFO_HEIGHT / LAYOUT_ZOOM;
+    }
+
+    get UI_START_POSITION() {
+        return {
+            x: 0,
+            y: this.VERBS_Y_START - this.CURRENT_ACTION_INFO_HEIGHT
+        };
     }
 
     getVerbButtonPosition(position) {

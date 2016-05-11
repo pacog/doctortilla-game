@@ -18,6 +18,7 @@ class SelectedVerb {
 
     subscribeToChange(callback) {
         this._subscribers.add(callback);
+        callback(this._selectedVerb);
     }
 
     unsubscribeToChange(callback) {

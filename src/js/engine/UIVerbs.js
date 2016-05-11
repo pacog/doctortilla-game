@@ -19,7 +19,7 @@ class UIVerbs {
                              {x: 0, y: 1}
                             ),
             new ActionButton(this.phaserGame,
-                             Verbs.REFLECT,
+                             Verbs.GIVE,
                              {x: 0, y: 2}
                             ),
             new ActionButton(this.phaserGame,
@@ -39,11 +39,11 @@ class UIVerbs {
                              {x: 2, y: 0}
                             ),
             new ActionButton(this.phaserGame,
-                             Verbs.GIVE,
+                             Verbs.OPEN,
                              {x: 2, y: 1}
                             ),
             new ActionButton(this.phaserGame,
-                             Verbs.OPEN,
+                             Verbs.CLOSE,
                              {x: 2, y: 2}
                             )
         ];

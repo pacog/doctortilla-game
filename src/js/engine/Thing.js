@@ -8,6 +8,7 @@ class Thing {
         this.options = options;
         this.phaserGame = phaserGame;
         this._createSprite();
+        this._state = new Map();
     }
 
     get name() {
@@ -40,6 +41,17 @@ class Thing {
             };
         }
     }
+
+    changeAttr(attrName, value) {
+        this._state.set(attrName, value);
+        this._onStateChange();
+    }
+
+    getAttr(attrName) {
+        return this._state.get(attrName);
+    }
+
+    _onStateChange() {}
 
     _createSprite() {
 

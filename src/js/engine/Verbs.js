@@ -5,8 +5,8 @@ const Verbs = {
     LOOK: {
         label: 'Look at'
     },
-    REFLECT: {
-        label: 'Reflect'
+    CLOSE: {
+        label: 'Close'
     },
     PUSH: {
         label: 'Push'

@@ -8,6 +8,8 @@ const VERB_BUTTON_MARGIN = 1;
 const VERBS_ROWS = 3;
 
 const CURRENT_ACTION_INFO_HEIGHT = 40;
+const CURRENT_ACTION_INFO_PADDING_X = 5;
+const CURRENT_ACTION_INFO_PADDING_Y = 7;
 
 class LayoutManager {
 
@@ -52,6 +54,13 @@ class LayoutManager {
         return {
             x: 0,
             y: this.VERBS_Y_START - this.CURRENT_ACTION_INFO_HEIGHT
+        };
+    }
+
+    get CURRENT_ACTION_POSITION() {
+        return {
+            x: CURRENT_ACTION_INFO_PADDING_X,
+            y: this.HEIGHT - this.VERBS_HEIGHT - this.CURRENT_ACTION_INFO_HEIGHT + CURRENT_ACTION_INFO_PADDING_Y
         };
     }
 

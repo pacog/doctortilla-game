@@ -12,7 +12,7 @@ var PreloaderScene = {
         this.game.load.bitmapFont('font_32_black', 'images/font_32_black.png', 'images/font_32_black.fnt');
         this.game.load.bitmapFont('font_32_white', 'images/font_32_white.png', 'images/font_32_orange.fnt');
 
-        this.game.load.spritesheet('buttons_BG', 'images/buttons_bg.png', 100, 30);
+        this.game.load.spritesheet('buttons_BG', 'images/verb_buttons.png', 75, 18);
         //Last number is optional (number of images in sprite)
         this.game.load.spritesheet('vaca_sprite', 'images/vaca_sprite10.png', 44, 61, 21);
         this.game.load.spritesheet('vending', 'images/vending.png', 26, 50, 1);

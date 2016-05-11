@@ -1,7 +1,6 @@
 var GraphicUI = require('./GraphicUI.js');
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var actions = require('./Actions.singleton.js');
-var selectedVerb = require('./SelectedVerb.singleton.js');
 
 class Game {
 
@@ -13,7 +12,6 @@ class Game {
         this._createScenes();
         this._createPlayer();
         this._createUI();
-        this.selectedVerb = selectedVerb;
 
         actionDispatcher.subscribeTo(actions.CLICK_STAGE, ev => this._movePlayerTo(ev) );
     }

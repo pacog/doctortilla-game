@@ -9,6 +9,10 @@ class BackstageDoorToStreet extends Thing {
         };
         super(phaserGame, options);
     }
+
+    get name() {
+        return 'street';
+    }
 }
 
 module.exports = BackstageDoorToStreet;

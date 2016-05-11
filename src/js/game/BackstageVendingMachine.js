@@ -5,7 +5,8 @@ class BackstageVendingMachine extends Thing {
         let options = {
             x: 70,
             y: 181,
-            spriteId: 'vending'
+            spriteId: 'vending',
+            name: 'vending machine'
         };
         super(phaserGame, options);
     }

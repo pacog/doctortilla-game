@@ -1,10 +1,16 @@
+var actionDispatcher = require('./ActionDispatcher.singleton.js');
+var actions = require('./Actions.singleton.js');
+
 class Thing {
 
     constructor(phaserGame, options) {
         this.options = options;
         this.phaserGame = phaserGame;
         this._createSprite();
-        
+    }
+
+    get name() {
+        return this.options.name || 'thing';
     }
 
     _createSprite() {
@@ -23,15 +29,15 @@ class Thing {
     }
 
     _onClick() {
-        // console.log('ThingClick');
+        actionDispatcher.execute(actions.SELECT_THING, this);
     }
 
     _onInputOver() {
-        // console.log('_onInputOver');
+        actionDispatcher.execute(actions.CURSOR_OVER_THING, this);
     }
 
     _onInputOut() {
-        // console.log('_onInputOut');
+        actionDispatcher.execute(actions.CURSOR_OUT_THING, this);
     }
 }
 

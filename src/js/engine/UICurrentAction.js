@@ -1,5 +1,6 @@
 var selectedVerb = require('./SelectedVerb.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
+var highlightedThing = require('./HighlightedThing.singleton.js');
 
 //TODO duplicated, extract this and shadows to style singleton
 const DEFAULT_FONT_SIZE = 8;
@@ -8,7 +9,8 @@ class UICurrentAction {
     constructor(phaserGame) {
         this.phaserGame = phaserGame;
         this._createText();
-        selectedVerb.subscribeToChange(newVerb => this._newVerbSelected(newVerb));
+        selectedVerb.subscribeToChange(newVerb => this._updateText());
+        highlightedThing.subscribeToChange(newThing => this._updateText());
     }
 
     _createText() {
@@ -32,13 +34,35 @@ class UICurrentAction {
         this.text.anchor.setTo(0, 0);
     }
 
-    _newVerbSelected(newVerb) {
-        let newText = '';
-        if (newVerb && newVerb.label) {
-            newText = newVerb.label;
+    _updateText() {
+        let newText = this._getVerbText() + ' ' + this._getThingText();
+        this._setText(newText);
+    }
+
+    _setText(newText) {
+        if(this._oldText !== newText) {
+            this._oldText = newText;
+            this.text.setText(newText);
+            this.shadowText.setText(newText);
         }
-        this.text.setText(newText);
-        this.shadowText.setText(newText);
+    }
+
+    _getVerbText() {
+        let verb = selectedVerb.verb;
+        let text = '';
+        if (verb && verb.label) {
+            text = verb.label;
+        }
+        return text;
+    }
+
+    _getThingText() {
+        let thing = highlightedThing.thing;
+        let text = '';
+        if (thing && thing.name) {
+            text = thing.name;
+        }
+        return text;
     }
 }
 

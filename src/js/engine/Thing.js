@@ -1,5 +1,6 @@
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var actions = require('./Actions.singleton.js');
+var Verbs = require('./Verbs.js');
 
 class Thing {
 
@@ -11,6 +12,33 @@ class Thing {
 
     get name() {
         return this.options.name || 'thing';
+    }
+
+    applyAction(verb, player) {
+
+        switch (verb) {
+
+        case Verbs.GO_TO:
+            player.goToThing(this);
+            break;
+        default:
+            //TODO: depending on the verb, do one thing or another
+            player.say('I cannot do that');
+            break;
+
+        }
+        
+    }
+
+    getPositionToGoTo() {
+        if (this.options.goToPosition) {
+            return this.options.goToPosition();
+        } else {
+            return {
+                x: this.options.x,
+                y: this.options.y
+            };
+        }
     }
 
     _createSprite() {

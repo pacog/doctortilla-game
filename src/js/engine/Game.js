@@ -1,6 +1,8 @@
 var GraphicUI = require('./GraphicUI.js');
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var actions = require('./Actions.singleton.js');
+var selectedVerb = require('./SelectedVerb.singleton.js');
+var currentScene = require('./CurrentScene.singleton.js');
 
 class Game {
 
@@ -14,6 +16,7 @@ class Game {
         this._createUI();
 
         actionDispatcher.subscribeTo(actions.CLICK_STAGE, ev => this._movePlayerTo(ev) );
+        actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._applyActionToThing(thing) );
     }
 
     _createUI() {
@@ -26,7 +29,7 @@ class Game {
         for (let i = 0; i < scenes.length; i++) {
             if (scenes[i] === this.options.firstScene) {
                 let addedScene = new scenes[i](this.phaserGame);
-                this.currentScene = addedScene;
+                currentScene.value = addedScene;
             }
         }
 
@@ -37,7 +40,14 @@ class Game {
     }
 
     _movePlayerTo(ev) {
-        this.player.moveTo(this.currentScene.boundaries.getPositionInside(ev.x, ev.y));
+        this.player.moveTo({
+            x: ev.x,
+            y: ev.y
+        });
+    }
+
+    _applyActionToThing(thing) {
+        thing.applyAction(selectedVerb.verb, this.player);
     }
 }
 

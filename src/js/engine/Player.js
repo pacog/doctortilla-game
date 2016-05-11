@@ -1,4 +1,5 @@
 var Directions = require('./directions.js');
+var currentScene = require('./CurrentScene.singleton.js');
 
 class Player {
 
@@ -24,13 +25,23 @@ class Player {
         this.sprite.anchor.setTo(0.5, 0.99);
     }
 
+    say(text) {
+        console.log(text);
+    }
+
+    goToThing(thing) {
+        this.moveTo(thing.getPositionToGoTo());
+    }
+
     _addSpriteAnimations() {
         this.options.SPRITE_OPTIONS.forEach( (spritePosition, key) => {
             this.sprite.animations.add(key, spritePosition.frames, this.options.ANIMATION_SPEED, true);
         });
     }
 
-    moveTo(pos) {
+    moveTo(nonSafePosition) {
+        let pos = currentScene.value.boundaries.getPositionInside(nonSafePosition.x, nonSafePosition.y);
+
         this._updateDirection(pos);
         this._cancelCurrentTween();
         this._playWalkingAnimation();

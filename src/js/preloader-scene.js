@@ -7,7 +7,10 @@ var PreloaderScene = {
         this.load.setPreloadSprite(this.loadingBar);
 
         this.game.load.image('scene1_BG', 'images/fondo2.png');
-        this.game.load.bitmapFont('font_1', 'images/font.png', 'images/font.fnt');
+        this.game.load.image('UI_BG', 'images/uibg.png');
+        this.game.load.bitmapFont('font_32_orange', 'images/font_32_orange.png', 'images/font_32_orange.fnt');
+        this.game.load.bitmapFont('font_32_black', 'images/font_32_black.png', 'images/font_32_black.fnt');
+        this.game.load.bitmapFont('font_32_white', 'images/font_32_white.png', 'images/font_32_orange.fnt');
 
         this.game.load.spritesheet('buttons_BG', 'images/buttons_bg.png', 100, 30);
         //Last number is optional (number of images in sprite)

@@ -1,4 +1,4 @@
-const LAYOUT_WIDTH = 800;
+const LAYOUT_WIDTH = 1066;
 const LAYOUT_HEIGHT = 600;
 const LAYOUT_ZOOM = 2;
 

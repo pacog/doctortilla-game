@@ -15,22 +15,15 @@ class GraphicUI {
 
     _createBackground() {
         let layoutStartPosition = layout.UI_START_POSITION;
-        let layoutSize = layout.UI_SIZE;
+        // let layoutSize = layout.UI_SIZE;
 
-        this._background = this.phaserGame.add.graphics(
-            layoutStartPosition.x,
-            layoutStartPosition.y
-        );
+        let background = this.phaserGame.add.sprite(
+                    layoutStartPosition.x,
+                    layoutStartPosition.y,
+                    'UI_BG');
+        background.anchor.setTo(0, 0);
 
-        this._background.beginFill(0x000000, 0.5);
-        this._background.drawRect(
-            0,
-            0,
-            layoutSize.width,
-            layoutSize.height
-        );
-        this._background.endFill();
-        this._background.inputEnabled = true;
+        background.inputEnabled = true;
 
     }
 }

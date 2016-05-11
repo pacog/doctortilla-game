@@ -2,7 +2,7 @@ var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
 var actions = require('./Actions.singleton.js');
 
-const DEFAULT_FONT_SIZE = 10;
+const DEFAULT_FONT_SIZE = 8;
 
 class ActionButton {
 
@@ -32,10 +32,19 @@ class ActionButton {
 
     _createText() {
 
+        this.shadowText = this.phaserGame.add.bitmapText(
+            1 + this._position.x + layout.VERB_BUTTON_WIDTH / 2,
+            1 + this._position.y + layout.VERB_BUTTON_HEIGHT / 2,
+            'font_32_black',
+            this.verb.label,
+            DEFAULT_FONT_SIZE
+        );
+        this.shadowText.anchor.setTo(0.5, 0.5);
+
         this.text = this.phaserGame.add.bitmapText(
             this._position.x + layout.VERB_BUTTON_WIDTH / 2,
             this._position.y + layout.VERB_BUTTON_HEIGHT / 2,
-            'font_1',
+            'font_32_white',
             this.verb.label,
             DEFAULT_FONT_SIZE
         );

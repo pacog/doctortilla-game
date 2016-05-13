@@ -130,11 +130,12 @@ module.exports = actionDispatcherInstance;
 
 },{}],4:[function(require,module,exports){
 const actions = {
-    SELECT_VERB: Symbol(),
+    ACTION_APPLIED: Symbol(),
     CLICK_STAGE: Symbol(),
-    SELECT_THING: Symbol(),
+    CURSOR_OUT_THING: Symbol(),
     CURSOR_OVER_THING: Symbol(),
-    CURSOR_OUT_THING: Symbol()
+    SELECT_THING: Symbol(),
+    SELECT_VERB: Symbol()
 };
 module.exports = actions;
 },{}],5:[function(require,module,exports){
@@ -202,6 +203,7 @@ class Game {
 
     _applyActionToThing(thing) {
         thing.applyAction(selectedVerb.verb, this.player);
+        actionDispatcher.execute(actions.ACTION_APPLIED);
     }
 }
 
@@ -239,7 +241,7 @@ class GraphicUI {
 }
 
 module.exports = GraphicUI;
-},{"./LayoutManager.singleton.js":9,"./UICurrentAction.js":14,"./UIVerbs.js":15}],8:[function(require,module,exports){
+},{"./LayoutManager.singleton.js":9,"./UICurrentAction.js":16,"./UIVerbs.js":17}],8:[function(require,module,exports){
 var actions = require('./Actions.singleton.js');
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 
@@ -375,6 +377,7 @@ let layoutManagerInstance = new LayoutManager();
 module.exports = layoutManagerInstance;
 },{}],10:[function(require,module,exports){
 var Directions = require('./directions.js');
+var Text = require('./Text.js');
 var currentScene = require('./CurrentScene.singleton.js');
 
 class Player {
@@ -402,7 +405,11 @@ class Player {
     }
 
     say(text) {
-        console.log(text);
+        new Text(this.phaserGame, {
+            text: text,
+            position: this._getPositionOnTop(),
+            autoDestroy: true
+        });
     }
 
     goToThing(thing) {
@@ -413,6 +420,14 @@ class Player {
         this.options.SPRITE_OPTIONS.forEach( (spritePosition, key) => {
             this.sprite.animations.add(key, spritePosition.frames, this.options.ANIMATION_SPEED, true);
         });
+    }
+
+    _getPositionOnTop() {
+        var result = {
+            x: this.sprite.x,
+            y: Math.round(this.sprite.getBounds().y) - 10
+        };
+        return result;
     }
 
     moveTo(nonSafePosition) {
@@ -500,7 +515,7 @@ class Player {
 }
 
 module.exports = Player;
-},{"./CurrentScene.singleton.js":5,"./directions.js":17}],11:[function(require,module,exports){
+},{"./CurrentScene.singleton.js":5,"./Text.js":14,"./directions.js":19}],11:[function(require,module,exports){
 class SceneBoundaries {
     constructor(options) {
         this.options = options;
@@ -535,6 +550,10 @@ class SelectedVerb {
             actions.SELECT_VERB,
             newVerb => this._selectNewVerb(newVerb)
         );
+        actionDispatcher.subscribeTo(
+            actions.ACTION_APPLIED,
+            () => this.reset()
+        );
     }
 
     reset() {
@@ -567,7 +586,128 @@ class SelectedVerb {
 
 var selectedVerb = new SelectedVerb();
 module.exports = selectedVerb;
-},{"./ActionDispatcher.singleton.js":3,"./Actions.singleton.js":4,"./Verbs.js":16}],13:[function(require,module,exports){
+},{"./ActionDispatcher.singleton.js":3,"./Actions.singleton.js":4,"./Verbs.js":18}],13:[function(require,module,exports){
+const style = Object.freeze({
+    DEFAULT_FONT_SIZE: 8,
+    FONT_SHADOW_X: 1,
+    FONT_SHADOW_Y: 1
+});
+
+module.exports = style;
+},{}],14:[function(require,module,exports){
+var style = require('./Style.singleton.js');
+
+const DEFAULT_TEXT_OPTIONS = Object.freeze({
+    timePerLetter: 50,
+    minDestroyTime: 2000,
+    text: '',
+    position: { x: 100, y: 100},
+    width: 30,
+    autoDestroy: false
+});
+
+class Text {
+
+    constructor(phaserGame, options = {}) {
+        this.phaserGame = phaserGame;
+        this.options = Object.assign({}, DEFAULT_TEXT_OPTIONS, options);
+        this._createText();
+        if(this.options.autoDestroy) {
+            this._autoDestroy();
+        }
+    }
+
+    _createText() {
+
+        let textInLines = this._separateTextIntoLines(this.options.text, this.options.width);
+        let positionX = this._getXPositionForText(textInLines);
+        let positionY = this._getYPositionForText(textInLines);
+
+        this.shadowText = this.phaserGame.add.bitmapText(
+            style.FONT_SHADOW_X + positionX,
+            style.FONT_SHADOW_Y + positionY,
+            'font_32_black',
+            textInLines,
+            style.DEFAULT_FONT_SIZE
+        );
+        this.shadowText.anchor.setTo(0, 0);
+
+        this.text = this.phaserGame.add.bitmapText(
+            positionX,
+            positionY,
+            'font_32_white',
+            textInLines,
+            style.DEFAULT_FONT_SIZE
+        );
+        this.text.anchor.setTo(0, 0);
+    }
+
+    _separateTextIntoLines(text = '', maxLength = 20) {
+
+        let words = text.split(' ');
+        let lines = [''];
+        let currentLine = 0;
+
+        for (let i = 0; i < words.length; i++) {
+            //If a word is too big for this line, add to next
+            if ((lines[currentLine].length + words[i].length) >= maxLength) {
+                lines.push('' + words[i]);
+                currentLine ++;
+            } else {
+                lines[currentLine] += ' ' + words[i];
+            }
+        }
+        return lines.join('\n');
+    }
+
+    _getXPositionForText(text = '') {
+        let longestLine = this._getLongestLine(text);
+        let maxWidth = longestLine * style.DEFAULT_FONT_SIZE;
+
+        return this.options.position.x - (maxWidth / 2);
+    }
+
+    _getYPositionForText(text = '') {
+        let lines = text.split('\n').length;
+        let totalHeight = lines * style.DEFAULT_FONT_SIZE;
+        return this.options.position.y - totalHeight;
+    }
+
+    _getLongestLine(text = '') {
+        let lines = text.split('\n');
+        let maxLength = 0;
+        for (let i = 0; i < lines.length; i++) {
+            maxLength = Math.max(maxLength, lines[i].length);
+        }
+        return maxLength;
+    }
+
+    _autoDestroy() {
+        let timeToDestroy = this._getTimeToDestroyFromText(this.options.text);
+        this._timeoutToDestroy = setTimeout(() => this.destroy(), timeToDestroy);
+    }
+
+    _getTimeToDestroyFromText(text = '') {
+        let timeToDestroy = this.options.timePerLetter * text.length;
+        return Math.max(this.options.minDestroyTime, timeToDestroy);
+    }
+
+    destroy() {
+        if (this.text) {
+            this.text.destroy();
+            this.text = null;
+        }
+        if (this.shadowText) {
+            this.shadowText.destroy();
+            this.shadowText = null;
+        }
+        //TODO: do callback
+    }
+
+}
+
+module.exports = Text;
+},{"./Style.singleton.js":13}],15:[function(require,module,exports){
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var actions = require('./Actions.singleton.js');
 var Verbs = require('./Verbs.js');
@@ -652,7 +792,7 @@ class Thing {
 }
 
 module.exports = Thing;
-},{"./ActionDispatcher.singleton.js":3,"./Actions.singleton.js":4,"./Verbs.js":16}],14:[function(require,module,exports){
+},{"./ActionDispatcher.singleton.js":3,"./Actions.singleton.js":4,"./Verbs.js":18}],16:[function(require,module,exports){
 var selectedVerb = require('./SelectedVerb.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
 var highlightedThing = require('./HighlightedThing.singleton.js');
@@ -669,7 +809,7 @@ class UICurrentAction {
     }
 
     _createText() {
-
+        //TODO: use Text class
         this.shadowText = this.phaserGame.add.bitmapText(
             1 + layout.CURRENT_ACTION_POSITION.x,
             1 + layout.CURRENT_ACTION_POSITION.y,
@@ -722,7 +862,7 @@ class UICurrentAction {
 }
 
 module.exports = UICurrentAction;
-},{"./HighlightedThing.singleton.js":8,"./LayoutManager.singleton.js":9,"./SelectedVerb.singleton.js":12}],15:[function(require,module,exports){
+},{"./HighlightedThing.singleton.js":8,"./LayoutManager.singleton.js":9,"./SelectedVerb.singleton.js":12}],17:[function(require,module,exports){
 var ActionButton = require('./ActionButton.js');
 var Verbs = require('./Verbs.js');
 
@@ -776,7 +916,7 @@ class UIVerbs {
 }
 
 module.exports = UIVerbs;
-},{"./ActionButton.js":2,"./Verbs.js":16}],16:[function(require,module,exports){
+},{"./ActionButton.js":2,"./Verbs.js":18}],18:[function(require,module,exports){
 const Verbs = {
     GO_TO: {
         label: 'Go to'
@@ -810,7 +950,7 @@ const Verbs = {
 
 module.exports = Verbs;
 
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 const LEFT = Symbol();
@@ -847,7 +987,7 @@ let directions = {
 
 module.exports = directions;
 
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var actions = require('./Actions.singleton.js');
 
@@ -897,7 +1037,7 @@ class Scene {
 
 module.exports = Scene;
 
-},{"./ActionDispatcher.singleton.js":3,"./Actions.singleton.js":4}],19:[function(require,module,exports){
+},{"./ActionDispatcher.singleton.js":3,"./Actions.singleton.js":4}],21:[function(require,module,exports){
 var Thing = require('../engine/Thing.js');
 var Verbs = require('../engine/Verbs.js');
 
@@ -970,7 +1110,7 @@ class BackstageDoorToStreet extends Thing {
 }
 
 module.exports = BackstageDoorToStreet;
-},{"../engine/Thing.js":13,"../engine/Verbs.js":16}],20:[function(require,module,exports){
+},{"../engine/Thing.js":15,"../engine/Verbs.js":18}],22:[function(require,module,exports){
 var Scene = require('../engine/scene.js');
 var BackstageSceneBoundaries = require('./BackstageSceneBoundaries.js');
 var BackstageDoorToStreet = require('./BackstageDoorToStreet.js');
@@ -992,7 +1132,7 @@ class BackstageScene extends Scene {
 }
 
 module.exports = BackstageScene;
-},{"../engine/scene.js":18,"./BackstageDoorToStreet.js":19,"./BackstageSceneBoundaries.js":21,"./BackstageVendingMachine.js":22}],21:[function(require,module,exports){
+},{"../engine/scene.js":20,"./BackstageDoorToStreet.js":21,"./BackstageSceneBoundaries.js":23,"./BackstageVendingMachine.js":24}],23:[function(require,module,exports){
 var SceneBoundaries = require('../engine/SceneBoundaries.js');
 
 class BackstageSceneBoundaries extends SceneBoundaries {
@@ -1007,7 +1147,7 @@ class BackstageSceneBoundaries extends SceneBoundaries {
 }
 
 module.exports = BackstageSceneBoundaries;
-},{"../engine/SceneBoundaries.js":11}],22:[function(require,module,exports){
+},{"../engine/SceneBoundaries.js":11}],24:[function(require,module,exports){
 var Thing = require('../engine/Thing.js');
 
 class BackstageVendingMachine extends Thing {
@@ -1027,7 +1167,7 @@ class BackstageVendingMachine extends Thing {
 }
 
 module.exports = BackstageVendingMachine;
-},{"../engine/Thing.js":13}],23:[function(require,module,exports){
+},{"../engine/Thing.js":15}],25:[function(require,module,exports){
 var Game = require('../engine/Game.js');
 var BackstageScene = require('./BackstageScene.js');
 var DoctortillaPlayer = require('./DoctortillaPlayer.js');
@@ -1049,7 +1189,7 @@ class DoctortillaGame extends Game {
 
 module.exports = DoctortillaGame;
 
-},{"../engine/Game.js":6,"./BackstageScene.js":20,"./DoctortillaPlayer.js":24}],24:[function(require,module,exports){
+},{"../engine/Game.js":6,"./BackstageScene.js":22,"./DoctortillaPlayer.js":26}],26:[function(require,module,exports){
 var Player = require('../engine/Player.js');
 
 class DoctortillaPlayer extends Player {
@@ -1082,7 +1222,7 @@ class DoctortillaPlayer extends Player {
 }
 
 module.exports = DoctortillaPlayer;
-},{"../engine/Player.js":10}],25:[function(require,module,exports){
+},{"../engine/Player.js":10}],27:[function(require,module,exports){
 'use strict';
 
 var PlayScene = require('./play-scene.js');
@@ -1100,7 +1240,7 @@ window.onload = function () {
     game.state.start('boot');
 };
 
-},{"./boot-scene.js":1,"./engine/LayoutManager.singleton.js":9,"./play-scene.js":26,"./preloader-scene.js":27}],26:[function(require,module,exports){
+},{"./boot-scene.js":1,"./engine/LayoutManager.singleton.js":9,"./play-scene.js":28,"./preloader-scene.js":29}],28:[function(require,module,exports){
 'use strict';
 
 var DoctortillaGame = require('./game/DoctortillaGame.js');
@@ -1113,7 +1253,7 @@ var PlayScene = {
 
 module.exports = PlayScene;
 
-},{"./game/DoctortillaGame.js":23}],27:[function(require,module,exports){
+},{"./game/DoctortillaGame.js":25}],29:[function(require,module,exports){
 'use strict';
 
 var PreloaderScene = {
@@ -1141,4 +1281,4 @@ var PreloaderScene = {
 };
 
 module.exports = PreloaderScene;
-},{}]},{},[25]);
+},{}]},{},[27]);

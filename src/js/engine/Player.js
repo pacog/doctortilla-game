@@ -1,4 +1,5 @@
 var Directions = require('./directions.js');
+var Text = require('./Text.js');
 var currentScene = require('./CurrentScene.singleton.js');
 
 class Player {
@@ -26,7 +27,11 @@ class Player {
     }
 
     say(text) {
-        console.log(text);
+        new Text(this.phaserGame, {
+            text: text,
+            position: this._getPositionOnTop(),
+            autoDestroy: true
+        });
     }
 
     goToThing(thing) {
@@ -37,6 +42,14 @@ class Player {
         this.options.SPRITE_OPTIONS.forEach( (spritePosition, key) => {
             this.sprite.animations.add(key, spritePosition.frames, this.options.ANIMATION_SPEED, true);
         });
+    }
+
+    _getPositionOnTop() {
+        var result = {
+            x: this.sprite.x,
+            y: Math.round(this.sprite.getBounds().y) - 10
+        };
+        return result;
     }
 
     moveTo(nonSafePosition) {

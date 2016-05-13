@@ -14,7 +14,7 @@ class UICurrentAction {
     }
 
     _createText() {
-
+        //TODO: use Text class
         this.shadowText = this.phaserGame.add.bitmapText(
             1 + layout.CURRENT_ACTION_POSITION.x,
             1 + layout.CURRENT_ACTION_POSITION.y,

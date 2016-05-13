@@ -10,6 +10,10 @@ class SelectedVerb {
             actions.SELECT_VERB,
             newVerb => this._selectNewVerb(newVerb)
         );
+        actionDispatcher.subscribeTo(
+            actions.ACTION_APPLIED,
+            () => this.reset()
+        );
     }
 
     reset() {

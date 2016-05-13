@@ -1,8 +1,9 @@
 const actions = {
-    SELECT_VERB: Symbol(),
+    ACTION_APPLIED: Symbol(),
     CLICK_STAGE: Symbol(),
-    SELECT_THING: Symbol(),
+    CURSOR_OUT_THING: Symbol(),
     CURSOR_OVER_THING: Symbol(),
-    CURSOR_OUT_THING: Symbol()
+    SELECT_THING: Symbol(),
+    SELECT_VERB: Symbol()
 };
 module.exports = actions;

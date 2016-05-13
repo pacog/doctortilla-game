@@ -48,6 +48,7 @@ class Game {
 
     _applyActionToThing(thing) {
         thing.applyAction(selectedVerb.verb, this.player);
+        actionDispatcher.execute(actions.ACTION_APPLIED);
     }
 }
 

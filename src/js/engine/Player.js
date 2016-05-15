@@ -29,7 +29,8 @@ class Player {
     }
 
     say(text) {
-        new Text(this.phaserGame, {
+        this._destroyPrevText();
+        this._textBeingSaid = new Text(this.phaserGame, {
             text: text,
             position: this._getPositionOnTop(),
             autoDestroy: true
@@ -38,6 +39,13 @@ class Player {
 
     goToThing(thing) {
         return this.moveTo(thing.getPositionToGoTo());
+    }
+
+    _destroyPrevText() {
+        if (this._textBeingSaid) {
+            this._textBeingSaid.destroy();
+            this._textBeingSaid = null;
+        }
     }
 
     _addSpriteAnimations() {

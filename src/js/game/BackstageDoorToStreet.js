@@ -33,10 +33,13 @@ class BackstageDoorToStreet extends Thing {
         case Verbs.OPEN:
             player.goToThing(this)
                 .then(() => this._open(player));
-            
             break;
         case Verbs.CLOSE:
-            this._close(player);
+            player.goToThing(this)
+                .then(() => this._close(player));
+            break;
+        case Verbs.LOOK:
+            player.say('That\'s a wonderful door. So woody.');
             break;
         default:
             //TODO: depending on the verb, do one thing or another

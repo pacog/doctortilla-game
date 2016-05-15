@@ -1,8 +1,7 @@
 var actionDispatcher = require('./ActionDispatcher.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
 var actions = require('./Actions.singleton.js');
-
-const DEFAULT_FONT_SIZE = 8;
+var style = require('./Style.singleton.js');
 
 class ActionButton {
 
@@ -37,7 +36,7 @@ class ActionButton {
             1 + this._position.y + layout.VERB_BUTTON_HEIGHT / 2,
             'font_32_black',
             this.verb.label,
-            DEFAULT_FONT_SIZE
+            style.DEFAULT_FONT_SIZE
         );
         this.shadowText.anchor.setTo(0.5, 0.5);
 
@@ -46,7 +45,7 @@ class ActionButton {
             this._position.y + layout.VERB_BUTTON_HEIGHT / 2,
             'font_32_white',
             this.verb.label,
-            DEFAULT_FONT_SIZE
+            style.DEFAULT_FONT_SIZE
         );
         this.text.anchor.setTo(0.5, 0.5);
     }

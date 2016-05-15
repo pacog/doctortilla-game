@@ -6,7 +6,8 @@ const DEFAULT_TEXT_OPTIONS = Object.freeze({
     text: '',
     position: { x: 100, y: 100},
     width: 30,
-    autoDestroy: false
+    autoDestroy: false,
+    anchor: { x: 0, y: 0}
 });
 
 class Text {
@@ -15,13 +16,12 @@ class Text {
         this.phaserGame = phaserGame;
         this.options = Object.assign({}, DEFAULT_TEXT_OPTIONS, options);
         this._createText();
-        if(this.options.autoDestroy) {
+        if (this.options.autoDestroy) {
             this._autoDestroy();
         }
     }
 
     _createText() {
-
         let textInLines = this._separateTextIntoLines(this.options.text, this.options.width);
         let positionX = this._getXPositionForText(textInLines);
         let positionY = this._getYPositionForText(textInLines);
@@ -33,7 +33,8 @@ class Text {
             textInLines,
             style.DEFAULT_FONT_SIZE
         );
-        this.shadowText.anchor.setTo(0, 0);
+        this.shadowText.align = 'center';
+        this.shadowText.anchor.setTo(this.options.anchor.x, this.options.anchor.y);
 
         this.text = this.phaserGame.add.bitmapText(
             positionX,
@@ -42,7 +43,8 @@ class Text {
             textInLines,
             style.DEFAULT_FONT_SIZE
         );
-        this.text.anchor.setTo(0, 0);
+        this.text.align = 'center';
+        this.text.anchor.setTo(this.options.anchor.x, this.options.anchor.y);
     }
 
     _separateTextIntoLines(text = '', maxLength = 20) {

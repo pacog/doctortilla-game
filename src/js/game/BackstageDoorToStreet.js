@@ -31,7 +31,9 @@ class BackstageDoorToStreet extends Thing {
             player.goToThing(this);
             break;
         case Verbs.OPEN:
-            this._open(player);
+            player.goToThing(this)
+                .then(() => this._open(player));
+            
             break;
         case Verbs.CLOSE:
             this._close(player);

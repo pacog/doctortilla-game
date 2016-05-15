@@ -1,3 +1,5 @@
+/* global Promise */
+
 var Directions = require('./directions.js');
 var Text = require('./Text.js');
 var currentScene = require('./CurrentScene.singleton.js');
@@ -35,7 +37,7 @@ class Player {
     }
 
     goToThing(thing) {
-        this.moveTo(thing.getPositionToGoTo());
+        return this.moveTo(thing.getPositionToGoTo());
     }
 
     _addSpriteAnimations() {
@@ -57,13 +59,46 @@ class Player {
 
         this._updateDirection(pos);
         this._cancelCurrentTween();
+        this._cancelCurrentMovePromise();
         this._playWalkingAnimation();
         
         let timeToAnimate = this._getTimeForAnimation(pos);
 
+        this._willMovePromise = this._createMovePromise(timeToAnimate);
+
         this.tween = this.phaserGame.add.tween(this.sprite);
         this.tween.to({ x: pos.x, y: pos.y }, timeToAnimate, 'Linear', true, 0);
         this.tween.onComplete.add(this._stopAnimations, this);
+
+        return this._willMovePromise.promise;
+    }
+
+    _createMovePromise(timeToMove) {
+        var result = {};
+
+        result.timeoutId = window.setTimeout(() => this._resolveMovePromise(result), timeToMove);
+        result.promise = new Promise(function (resolve, reject) {
+            result.resolveCallback = resolve;
+            result.rejectCallback = reject;
+        });
+
+        return result;
+    }
+
+    _resolveMovePromise() {
+        if (this._willMovePromise) {
+            this._willMovePromise.resolveCallback();
+            this._willMovePromise = null;
+        }
+    }
+
+    _cancelCurrentMovePromise() {
+        if (this._willMovePromise) {
+            window.clearTimeout(this._willMovePromise.timeoutId);
+            // We could reject the promise like this, but there is no need
+            // this._willMovePromise.rejectCallback();
+            this._willMovePromise = null;
+        }
     }
 
     _updateDirection(pos) {

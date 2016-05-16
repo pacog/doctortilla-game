@@ -49,6 +49,14 @@ class BackstageDoorToStreet extends Thing {
         }
     }
 
+    getPreferredAction() {
+        if (this.getAttr('OPEN')) {
+            return Verbs.CLOSE;
+        } else {
+            return Verbs.OPEN;
+        }
+    }
+
     _open(player) {
         if (this.getAttr('OPEN')) {
             player.say('It is already open!');

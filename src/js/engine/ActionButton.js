@@ -15,8 +15,16 @@ class ActionButton {
 
     }
 
+    highlight() {
+        this.button.frame = 2;
+    }
+
+    unhighlight() {
+        this.button.frame = 0;
+    }
+
     _createButton() {
-        this.phaserGame.add.button(
+        this.button = this.phaserGame.add.button(
             this._position.x,
             this._position.y,
             'buttons_BG',
@@ -25,7 +33,7 @@ class ActionButton {
             1,
             0,
             2,
-            3
+            1
         );
     }
 

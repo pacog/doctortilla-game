@@ -51,6 +51,10 @@ class Thing {
         return this._state.get(attrName);
     }
 
+    getPreferredAction() {
+        return this.options.preferredAction || Verbs.LOOK;
+    }
+
     _onStateChange() {}
 
     _createSprite() {

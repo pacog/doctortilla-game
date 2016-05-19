@@ -10,7 +10,6 @@ class Scene {
         this._createBackground();
         this._createBoundaries();
         this._createThings();
-
     }
 
     get id() {
@@ -27,6 +26,12 @@ class Scene {
 
     get state() {
         return {};
+    }
+
+    playerArrivesAtDoor(player, doorId) {
+        let door = this._findDoor(doorId);
+        door.forceOpen();
+        player.teletransportTo(door);
     }
 
     _createBackground() {
@@ -54,6 +59,15 @@ class Scene {
         for (let i = 0; i < things.length; i++) {
             this._things.add(new things[i](this.phaserGame));
         }
+    }
+
+    _findDoor(doorId) {
+        for (let thing of this._things) {
+            if (thing.id === doorId) {
+                return thing;
+            }
+        }
+        throw 'ERROR: could not find the related door.';
     }
 
     destroy() {

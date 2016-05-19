@@ -90,7 +90,7 @@ class Game {
     _goToScene(options) {
         this._destroyOldScene();
         this._createSceneWithId(options.scene);
-        //TODO position player in connected door (need to send door in action)
+        currentScene.value.playerArrivesAtDoor(this.player, options.relatedDoor);
         this._updateWorldBounds();
         this.player.bringToTop();
     }

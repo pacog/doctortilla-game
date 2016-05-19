@@ -1,9 +1,11 @@
 var Door = require('../engine/Door.js');
 var scenes = require('./Scenes.js');
+var doors = require('./Doors.store.js');
 
 class BackstageDoorToStreet extends Door {
     constructor(phaserGame) {
         let options = {
+            id: doors.BACKSTAGE_TO_BACKYARD,
             x: 150,
             y: 95,
             spriteId: 'door_sprite',
@@ -11,7 +13,8 @@ class BackstageDoorToStreet extends Door {
                 x: 175,
                 y: 165
             },
-            destination: scenes.BACKYARD
+            destination: scenes.BACKYARD,
+            relatedDoor: doors.BACKYARD_TO_BACKSTAGE
         };
         super(phaserGame, options);
     }

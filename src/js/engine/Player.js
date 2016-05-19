@@ -49,6 +49,10 @@ class Player {
         return this.moveTo(thing.getPositionToGoTo());
     }
 
+    teletransportTo(thing) {
+        return this.moveToWithoutAnimation(thing.getPositionToGoTo());
+    }
+
     _destroyPrevText() {
         if (this._textBeingSaid) {
             this._textBeingSaid.destroy();
@@ -87,6 +91,16 @@ class Player {
         this.tween.onComplete.add(this._stopAnimations, this);
 
         return this._willMovePromise.promise;
+    }
+
+    moveToWithoutAnimation(nonSafePosition) {
+        let pos = currentScene.value.boundaries.getPositionInside(nonSafePosition.x, nonSafePosition.y);
+        this._updateDirection(pos);
+        this._cancelCurrentTween();
+        this._cancelCurrentMovePromise();
+        this._playStandAnimation();
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
     }
 
     _createMovePromise(timeToMove) {

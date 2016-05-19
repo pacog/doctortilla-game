@@ -41,6 +41,10 @@ class Door extends Thing {
         }
     }
 
+    forceOpen() {
+        this.changeAttr('OPEN', true);
+    }
+
     _open(player) {
         if (this.getAttr('OPEN')) {
             player.say('It is already open!');
@@ -69,7 +73,8 @@ class Door extends Thing {
         player.goToThing(this).then(() => {
             if (this.getAttr('OPEN')) {
                 actionDispatcher.execute(actions.GO_TO_SCENE, {
-                        scene: this.options.destination
+                        scene: this.options.destination,
+                        relatedDoor: this.options.relatedDoor
                     }
                 );
             }

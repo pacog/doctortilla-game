@@ -11,6 +11,10 @@ class Thing {
         this._state = new Map();
     }
 
+    get id() {
+        return this.options.id;
+    }
+
     get name() {
         return this.options.name || 'thing';
     }

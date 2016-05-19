@@ -20,7 +20,7 @@ class Game {
 
         actionDispatcher.subscribeTo(actions.CLICK_STAGE, ev => this._movePlayerTo(ev) );
         actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._applyActionToThing(thing) );
-        actionDispatcher.subscribeTo(actions.GO_TO_SCENE, sceneId => this._goToScene(sceneId) );
+        actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
     }
 
     update() {
@@ -87,9 +87,9 @@ class Game {
         });
     }
 
-    _goToScene(sceneId) {
+    _goToScene(options) {
         this._destroyOldScene();
-        this._createSceneWithId(sceneId);
+        this._createSceneWithId(options.scene);
         //TODO position player in connected door (need to send door in action)
         this._updateWorldBounds();
         this.player.bringToTop();

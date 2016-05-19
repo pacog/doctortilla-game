@@ -1,19 +1,17 @@
-var Thing = require('../engine/Thing.js');
-var Verbs = require('../engine/Verbs.js');
-var actionDispatcher = require('../engine/ActionDispatcher.singleton.js');
-var actions = require('../engine/Actions.singleton.js');
+var Door = require('../engine/Door.js');
 var scenes = require('./Scenes.js');
 
-class BackyardDoorToBackstage extends Thing {
+class BackyardDoorToBackstage extends Door {
     constructor(phaserGame) {
         let options = {
-            x: 150,
+            x: 200,
             y: 95,
             spriteId: 'door_sprite',
             goToPosition: {
                 x: 175,
                 y: 165
-            }
+            },
+            destination: scenes.BACKSTAGE
         };
         super(phaserGame, options);
     }
@@ -24,73 +22,6 @@ class BackyardDoorToBackstage extends Thing {
         } else {
             return 'door to backstage';
         }
-    }
-
-    applyAction(verb, player) {
-
-        switch (verb) {
-
-        case Verbs.GO_TO:
-            this._goToStreetIfOpen(player);
-            break;
-        case Verbs.OPEN:
-            player.goToThing(this)
-                .then(() => this._open(player));
-            break;
-        case Verbs.CLOSE:
-            player.goToThing(this)
-                .then(() => this._close(player));
-            break;
-        case Verbs.LOOK:
-            player.say('That\'s a wonderful door. So woody.');
-            break;
-        default:
-            //TODO: depending on the verb, do one thing or another
-            //TODO this should call super to handle default actions if not handled here
-            player.say('I cannot do that');
-            break;
-
-        }
-    }
-
-    getPreferredAction() {
-        if (this.getAttr('OPEN')) {
-            return Verbs.CLOSE;
-        } else {
-            return Verbs.OPEN;
-        }
-    }
-
-    _open(player) {
-        if (this.getAttr('OPEN')) {
-            player.say('It is already open!');
-        } else {
-            this.changeAttr('OPEN', true);
-        }
-    }
-
-    _close(player) {
-        if (!this.getAttr('OPEN')) {
-            player.say('It is already closed!');
-        } else {
-            this.changeAttr('OPEN', false);
-        }
-    }
-
-    _onStateChange() {
-        if (this.getAttr('OPEN')) {
-            this.sprite.frame = 1;
-        } else {
-            this.sprite.frame = 0;
-        }
-    }
-
-    _goToStreetIfOpen(player) {
-        player.goToThing(this).then(() => {
-            if (this.getAttr('OPEN')) {
-                actionDispatcher.execute(actions.GO_TO_SCENE, scenes.BACKSTAGE);
-            }
-        });
     }
 }
 

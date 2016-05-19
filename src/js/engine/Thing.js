@@ -83,6 +83,10 @@ class Thing {
     _onInputOut() {
         actionDispatcher.execute(actions.CURSOR_OUT_THING, this);
     }
+
+    destroy() {
+        this.sprite.destroy();
+    }
 }
 
 module.exports = Thing;

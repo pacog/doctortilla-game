@@ -13,15 +13,14 @@ class Game {
         this.phaserGame = phaserGame;
 
         this._createScenes();
-        this._createWorld();
+        this._updateWorldBounds();
         this._createPlayer();
         this._createCamera();
         this._createUI();
 
-        
-
         actionDispatcher.subscribeTo(actions.CLICK_STAGE, ev => this._movePlayerTo(ev) );
         actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._applyActionToThing(thing) );
+        actionDispatcher.subscribeTo(actions.GO_TO_SCENE, sceneId => this._goToScene(sceneId) );
     }
 
     update() {
@@ -33,18 +32,23 @@ class Game {
     }
 
     _createScenes() {
-        var scenes = this.options.scenes || [];
+        this.scenes = this.options.scenes || [];
+        this.scenesState = new Map();
 
-        for (let i = 0; i < scenes.length; i++) {
-            if (scenes[i] === this.options.firstScene) {
-                let addedScene = new scenes[i](this.phaserGame);
-                currentScene.value = addedScene;
-            }
-        }
+        this._createSceneWithId(this.options.firstScene.id);
 
     }
 
-    _createWorld() {
+    _findSceneById(id) {
+        for (let i = 0; i < this.scenes.length; i++) {
+            if (this.scenes[i].id === id) {
+                return this.scenes[i];
+            }
+        }
+        throw 'ERROR: could not find scene with that ID ' + id;
+    }
+
+    _updateWorldBounds() {
         let bounds = currentScene.value.sceneBounds;
         this.phaserGame.world.setBounds(
             bounds.x,
@@ -81,6 +85,25 @@ class Game {
             x: ev.x,
             y: ev.y
         });
+    }
+
+    _goToScene(sceneId) {
+        this._destroyOldScene();
+        this._createSceneWithId(sceneId);
+        //TODO position player in connected door (need to send door in action)
+        this._updateWorldBounds();
+    }
+
+    _createSceneWithId(id) {
+        let SceneClass = this._findSceneById(id);
+        let addedScene = new SceneClass(this.phaserGame);
+        currentScene.value = addedScene;
+    }
+
+    _destroyOldScene() {
+        let oldScene = currentScene.value;
+        this.scenesState.set(oldScene.id, oldScene.state);
+        oldScene.destroy();
     }
 
     _applyActionToThing(thing) {

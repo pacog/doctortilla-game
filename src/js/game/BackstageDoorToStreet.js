@@ -1,5 +1,8 @@
 var Thing = require('../engine/Thing.js');
 var Verbs = require('../engine/Verbs.js');
+var actionDispatcher = require('../engine/ActionDispatcher.singleton.js');
+var actions = require('../engine/Actions.singleton.js');
+var scenes = require('./Scenes.js');
 
 class BackstageDoorToStreet extends Thing {
     constructor(phaserGame) {
@@ -28,7 +31,7 @@ class BackstageDoorToStreet extends Thing {
         switch (verb) {
 
         case Verbs.GO_TO:
-            player.goToThing(this);
+            this._goToStreetIfOpen(player);
             break;
         case Verbs.OPEN:
             player.goToThing(this)
@@ -43,6 +46,7 @@ class BackstageDoorToStreet extends Thing {
             break;
         default:
             //TODO: depending on the verb, do one thing or another
+            //TODO this should call super to handle default actions if not handled here
             player.say('I cannot do that');
             break;
 
@@ -79,6 +83,14 @@ class BackstageDoorToStreet extends Thing {
         } else {
             this.sprite.frame = 0;
         }
+    }
+
+    _goToStreetIfOpen(player) {
+        player.goToThing(this).then(() => {
+            if (this.getAttr('OPEN')) {
+                actionDispatcher.execute(actions.GO_TO_SCENE, scenes.BACKYARD);
+            }
+        });
     }
 }
 

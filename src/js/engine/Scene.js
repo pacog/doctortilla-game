@@ -13,12 +13,20 @@ class Scene {
 
     }
 
+    get id() {
+        return this.options.id;
+    }
+
     get boundaries() {
         return this._boundaries;
     }
 
     get sceneBounds() {
         return this.background.getBounds();
+    }
+
+    get state() {
+        return {};
     }
 
     _createBackground() {
@@ -33,7 +41,7 @@ class Scene {
         this.background.events.onInputDown.add( (dest, ev) => {
             actionDispatcher.execute(actions.CLICK_STAGE, ev);
         });
-
+        this.background.sendToBack();
     }
 
     _createBoundaries() {
@@ -46,6 +54,11 @@ class Scene {
         for (let i = 0; i < things.length; i++) {
             this._things.add(new things[i](this.phaserGame));
         }
+    }
+
+    destroy() {
+        this.background.destroy();
+        this._things.forEach(thing => thing.destroy());
     }
 }
 

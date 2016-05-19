@@ -5,6 +5,7 @@ const actions = {
     CURSOR_OVER_THING: Symbol(),
     GO_TO_SCENE: Symbol(),
     SELECT_THING: Symbol(),
-    SELECT_VERB: Symbol()
+    SELECT_VERB: Symbol(),
+    TAKE_OBJECT: Symbol()
 };
 module.exports = actions;

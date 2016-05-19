@@ -21,6 +21,7 @@ class Game {
         actionDispatcher.subscribeTo(actions.CLICK_STAGE, ev => this._movePlayerTo(ev) );
         actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._applyActionToThing(thing) );
         actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
+        actionDispatcher.subscribeTo(actions.TAKE_OBJECT, thing => this._takeObject(thing) );
     }
 
     update() {
@@ -110,6 +111,11 @@ class Game {
     _applyActionToThing(thing) {
         thing.applyAction(selectedVerb.verb, this.player);
         actionDispatcher.execute(actions.ACTION_APPLIED);
+    }
+
+    _takeObject(thing) {
+        currentScene.value.removeObject(thing);
+        this.player.addObjectToInventory(thing);
     }
 }
 

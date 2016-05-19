@@ -26,6 +26,9 @@ class Thing {
         case Verbs.GO_TO:
             player.goToThing(this);
             break;
+        case Verbs.TAKE:
+            this.beTakenByPlayer(player);
+            break;
         default:
             //TODO: depending on the verb, do one thing or another
             player.say('I cannot do that');
@@ -57,6 +60,10 @@ class Thing {
 
     getPreferredAction() {
         return this.options.preferredAction || Verbs.LOOK;
+    }
+
+    beTakenByPlayer(player) {
+        player.say('I cannot pick that up');
     }
 
     _onStateChange() {}

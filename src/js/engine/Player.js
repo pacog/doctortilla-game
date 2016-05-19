@@ -53,6 +53,11 @@ class Player {
         return this.moveToWithoutAnimation(thing.getPositionToGoTo());
     }
 
+    addObjectToInventory(thing) {
+        console.log('addingToInventory!');
+        console.log(thing);
+    }
+
     _destroyPrevText() {
         if (this._textBeingSaid) {
             this._textBeingSaid.destroy();

@@ -34,6 +34,11 @@ class Scene {
         player.teletransportTo(door);
     }
 
+    removeObject(thing) {
+        this._things.delete(thing);
+        thing.destroy();
+    }
+
     _createBackground() {
         this.background = this.phaserGame.add.sprite(
                     0,

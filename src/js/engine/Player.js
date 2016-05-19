@@ -21,6 +21,10 @@ class Player {
         return this.sprite;
     }
 
+    bringToTop() {
+        this.sprite.bringToTop();
+    }
+
     createSprite() {
         this.sprite = this.phaserGame.add.sprite(
                         this.options.INITIAL_X,

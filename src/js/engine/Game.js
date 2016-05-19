@@ -92,6 +92,7 @@ class Game {
         this._createSceneWithId(sceneId);
         //TODO position player in connected door (need to send door in action)
         this._updateWorldBounds();
+        this.player.bringToTop();
     }
 
     _createSceneWithId(id) {

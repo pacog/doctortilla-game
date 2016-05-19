@@ -22,6 +22,7 @@ class GraphicUI {
                     layoutStartPosition.y,
                     'UI_BG');
         background.anchor.setTo(0, 0);
+        background.fixedToCamera = true;
 
         background.inputEnabled = true;
 

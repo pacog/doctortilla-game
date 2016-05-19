@@ -23,6 +23,7 @@ class UICurrentAction {
             DEFAULT_FONT_SIZE
         );
         this.shadowText.anchor.setTo(0, 0);
+        this.shadowText.fixedToCamera = true;
 
         this.text = this.phaserGame.add.bitmapText(
             layout.CURRENT_ACTION_POSITION.x,
@@ -32,6 +33,7 @@ class UICurrentAction {
             DEFAULT_FONT_SIZE
         );
         this.text.anchor.setTo(0, 0);
+        this.text.fixedToCamera = true;
     }
 
     _updateText() {

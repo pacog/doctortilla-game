@@ -35,6 +35,7 @@ class ActionButton {
             2,
             1
         );
+        this.button.fixedToCamera = true;
     }
 
     _createText() {
@@ -47,6 +48,7 @@ class ActionButton {
             style.DEFAULT_FONT_SIZE
         );
         this.shadowText.anchor.setTo(0.5, 0.5);
+        this.shadowText.fixedToCamera = true;
 
         this.text = this.phaserGame.add.bitmapText(
             this._position.x + layout.VERB_BUTTON_WIDTH / 2,
@@ -56,6 +58,7 @@ class ActionButton {
             style.DEFAULT_FONT_SIZE
         );
         this.text.anchor.setTo(0.5, 0.5);
+        this.text.fixedToCamera = true;
     }
 
     _onClick() {

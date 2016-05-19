@@ -17,16 +17,20 @@ class Scene {
         return this._boundaries;
     }
 
+    get sceneBounds() {
+        return this.background.getBounds();
+    }
+
     _createBackground() {
-        let background = this.phaserGame.add.sprite(
+        this.background = this.phaserGame.add.sprite(
                     0,
                     0,
                     this.options.BG);
-        background.anchor.setTo(0, 0);
+        this.background.anchor.setTo(0, 0);
 
-        background.inputEnabled = true;
-        background.pixelPerfectClick = true;
-        background.events.onInputDown.add( (dest, ev) => {
+        this.background.inputEnabled = true;
+        this.background.pixelPerfectClick = true;
+        this.background.events.onInputDown.add( (dest, ev) => {
             actionDispatcher.execute(actions.CLICK_STAGE, ev);
         });
 

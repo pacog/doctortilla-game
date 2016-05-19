@@ -17,6 +17,10 @@ class Player {
         this.sprite.animations.stop();
     }
 
+    getPhaserObject() {
+        return this.sprite;
+    }
+
     createSprite() {
         this.sprite = this.phaserGame.add.sprite(
                         this.options.INITIAL_X,

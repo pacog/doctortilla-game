@@ -5,7 +5,6 @@ class ActionDispatcher {
     }
 
     execute(action, params) {
-        //TODO: check if action exists
         this._notifyAction(action, params);
     }
 

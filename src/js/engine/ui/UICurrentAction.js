@@ -1,9 +1,7 @@
 var selectedVerb = require('../state/SelectedVerb.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
 var highlightedThing = require('../state/HighlightedThing.singleton.js');
-
-//TODO duplicated, extract this and shadows to style singleton
-const DEFAULT_FONT_SIZE = 8;
+var style = require('./Style.singleton.js');
 
 class UICurrentAction {
     constructor(phaserGame) {
@@ -14,13 +12,12 @@ class UICurrentAction {
     }
 
     _createText() {
-        //TODO: use Text class
         this.shadowText = this.phaserGame.add.bitmapText(
             1 + layout.CURRENT_ACTION_POSITION.x,
             1 + layout.CURRENT_ACTION_POSITION.y,
             'font_32_black',
             '',
-            DEFAULT_FONT_SIZE
+            style.DEFAULT_FONT_SIZE
         );
         this.shadowText.anchor.setTo(0, 0);
         this.shadowText.fixedToCamera = true;
@@ -30,7 +27,7 @@ class UICurrentAction {
             layout.CURRENT_ACTION_POSITION.y,
             'font_32_white',
             '',
-            DEFAULT_FONT_SIZE
+            style.DEFAULT_FONT_SIZE
         );
         this.text.anchor.setTo(0, 0);
         this.text.fixedToCamera = true;

@@ -1,4 +1,4 @@
-const actions = {
+const actions = Object.freeze({
     ACTION_APPLIED: Symbol(),
     CLICK_STAGE: Symbol(),
     CURSOR_OUT_THING: Symbol(),
@@ -8,5 +8,5 @@ const actions = {
     SELECT_VERB: Symbol(),
     TAKE_OBJECT: Symbol(),
     UPDATE_INVENTORY: Symbol()
-};
+});
 module.exports = actions;

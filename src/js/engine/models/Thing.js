@@ -1,6 +1,6 @@
-var actionDispatcher = require('./ActionDispatcher.singleton.js');
-var actions = require('./Actions.singleton.js');
-var Verbs = require('./Verbs.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
+var actions = require('../stores/Actions.store.js');
+var Verbs = require('../stores/Verbs.store.js');
 
 class Thing {
 

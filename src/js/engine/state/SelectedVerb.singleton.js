@@ -1,6 +1,6 @@
-var verbs = require('./Verbs.js');
-var actions = require('./Actions.singleton.js');
-var actionDispatcher = require('./ActionDispatcher.singleton.js');
+var verbs = require('../stores/Verbs.store.js');
+var actions = require('../stores/Actions.store.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
 
 class SelectedVerb {
     constructor() {

@@ -3,7 +3,7 @@
 var PlayScene = require('./play-scene.js');
 var PreloaderScene = require('./preloader-scene.js');
 var BootScene = require('./boot-scene.js');
-var layout = require('./engine/LayoutManager.singleton.js');
+var layout = require('./engine/ui/LayoutManager.singleton.js');
 
 window.onload = function () {
     var game = new Phaser.Game(layout.WIDTH, layout.HEIGHT, Phaser.AUTO, 'game');

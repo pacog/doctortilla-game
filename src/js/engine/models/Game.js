@@ -1,9 +1,9 @@
-var GraphicUI = require('./GraphicUI.js');
-var actionDispatcher = require('./ActionDispatcher.singleton.js');
-var actions = require('./Actions.singleton.js');
-var selectedVerb = require('./SelectedVerb.singleton.js');
-var currentScene = require('./CurrentScene.singleton.js');
-var style = require('./Style.singleton.js');
+var GraphicUI = require('../ui/GraphicUI.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
+var actions = require('../stores/Actions.store.js');
+var selectedVerb = require('../state/SelectedVerb.singleton.js');
+var currentScene = require('../state/CurrentScene.singleton.js');
+var style = require('../ui/Style.singleton.js');
 
 class Game {
 

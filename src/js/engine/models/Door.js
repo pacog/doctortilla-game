@@ -1,7 +1,7 @@
-var Thing = require('../engine/Thing.js');
-var Verbs = require('../engine/Verbs.js');
-var actionDispatcher = require('../engine/ActionDispatcher.singleton.js');
-var actions = require('../engine/Actions.singleton.js');
+var Thing = require('./Thing.js');
+var Verbs = require('../stores/Verbs.store.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
+var actions = require('../stores/Actions.store.js');
 
 class Door extends Thing {
 

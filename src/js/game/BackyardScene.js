@@ -1,7 +1,7 @@
-var Scene = require('../engine/scene.js');
+var Scene = require('../engine/models/Scene.js');
 var BackyardSceneBoundaries = require('./BackyardSceneBoundaries.js');
 var BackyardDoorToBackstage = require('./BackyardDoorToBackstage.js');
-var scenes = require('./Scenes.js');
+var scenes = require('./Scenes.store.js');
 
 class BackyardScene extends Scene {
 

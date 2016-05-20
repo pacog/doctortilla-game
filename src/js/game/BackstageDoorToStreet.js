@@ -1,5 +1,5 @@
-var Door = require('../engine/Door.js');
-var scenes = require('./Scenes.js');
+var Door = require('../engine/models/Door.js');
+var scenes = require('./Scenes.store.js');
 var doors = require('./Doors.store.js');
 
 class BackstageDoorToStreet extends Door {

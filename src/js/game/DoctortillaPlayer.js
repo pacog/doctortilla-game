@@ -1,4 +1,4 @@
-var Player = require('../engine/Player.js');
+var Player = require('../engine/models/Player.js');
 
 class DoctortillaPlayer extends Player {
 

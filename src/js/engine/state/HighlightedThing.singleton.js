@@ -1,5 +1,5 @@
-var actions = require('./Actions.singleton.js');
-var actionDispatcher = require('./ActionDispatcher.singleton.js');
+var actions = require('../stores/Actions.store.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
 
 class HighlightedThing {
     constructor() {

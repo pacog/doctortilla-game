@@ -1,4 +1,4 @@
-const Verbs = {
+const Verbs = Object.freeze({
     GO_TO: {
         label: 'Go to'
     },
@@ -27,6 +27,6 @@ const Verbs = {
         label: 'Open'
     }
 
-};
+});
 
 module.exports = Verbs;

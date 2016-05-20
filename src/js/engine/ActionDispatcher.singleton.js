@@ -1,5 +1,3 @@
-// var actions = require('./Actions.singleton.js');
-
 class ActionDispatcher {
 
     constructor() {

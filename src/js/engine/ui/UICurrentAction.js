@@ -1,6 +1,6 @@
-var selectedVerb = require('./SelectedVerb.singleton.js');
+var selectedVerb = require('../state/SelectedVerb.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
-var highlightedThing = require('./HighlightedThing.singleton.js');
+var highlightedThing = require('../state/HighlightedThing.singleton.js');
 
 //TODO duplicated, extract this and shadows to style singleton
 const DEFAULT_FONT_SIZE = 8;

@@ -1,6 +1,6 @@
-var actionDispatcher = require('./ActionDispatcher.singleton.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
-var actions = require('./Actions.singleton.js');
+var actions = require('../stores/Actions.store.js');
 var style = require('./Style.singleton.js');
 
 class ActionButton {

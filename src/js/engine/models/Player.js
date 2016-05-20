@@ -1,8 +1,8 @@
 /* global Promise */
 
-var Directions = require('./directions.js');
-var Text = require('./Text.js');
-var currentScene = require('./CurrentScene.singleton.js');
+var Directions = require('../stores/Directions.store.js');
+var Text = require('../ui/Text.js');
+var currentScene = require('../state/CurrentScene.singleton.js');
 
 class Player {
 

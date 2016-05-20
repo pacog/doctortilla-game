@@ -1,7 +1,7 @@
 var ActionButton = require('./ActionButton.js');
-var Verbs = require('./Verbs.js');
-var actions = require('./Actions.singleton.js');
-var actionDispatcher = require('./ActionDispatcher.singleton.js');
+var Verbs = require('../stores/Verbs.store.js');
+var actions = require('../stores/Actions.store.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
 
 class UIVerbs {
 

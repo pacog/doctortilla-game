@@ -1,4 +1,4 @@
-var Game = require('../engine/Game.js');
+var Game = require('../engine/models/Game.js');
 var BackstageScene = require('./BackstageScene.js');
 var BackyardScene = require('./BackyardScene.js');
 var DoctortillaPlayer = require('./DoctortillaPlayer.js');

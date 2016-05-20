@@ -1,4 +1,4 @@
-var Thing = require('../engine/Thing.js');
+var Thing = require('../engine/models/Thing.js');
 
 class BackstageVendingMachine extends Thing {
     constructor(phaserGame) {

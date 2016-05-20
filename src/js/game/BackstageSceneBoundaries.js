@@ -1,4 +1,4 @@
-var SceneBoundaries = require('../engine/SceneBoundaries.js');
+var SceneBoundaries = require('../engine/models/SceneBoundaries.js');
 
 class BackstageSceneBoundaries extends SceneBoundaries {
     constructor() {

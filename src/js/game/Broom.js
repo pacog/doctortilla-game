@@ -1,6 +1,6 @@
-var Thing = require('../engine/Thing.js');
+var Thing = require('../engine/models/Thing.js');
 var actionDispatcher = require('../engine/ActionDispatcher.singleton.js');
-var actions = require('../engine/Actions.singleton.js');
+var actions = require('../engine/stores/Actions.store.js');
 
 class Broom extends Thing {
     constructor(phaserGame) {

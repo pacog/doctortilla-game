@@ -6,6 +6,7 @@ const actions = {
     GO_TO_SCENE: Symbol(),
     SELECT_THING: Symbol(),
     SELECT_VERB: Symbol(),
-    TAKE_OBJECT: Symbol()
+    TAKE_OBJECT: Symbol(),
+    UPDATE_INVENTORY: Symbol()
 };
 module.exports = actions;

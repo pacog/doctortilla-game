@@ -11,6 +11,7 @@ class Player {
 
         this.phaserGame = phaserGame;
         this.createSprite();
+        this.inventory = new Set();
 
         this.direction = Directions.RIGHT;
         this._playStandAnimation();
@@ -54,8 +55,7 @@ class Player {
     }
 
     addObjectToInventory(thing) {
-        console.log('addingToInventory!');
-        console.log(thing);
+        this.inventory.add(thing);
     }
 
     _destroyPrevText() {

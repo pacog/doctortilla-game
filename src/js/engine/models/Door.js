@@ -5,30 +5,6 @@ var actions = require('../stores/Actions.store.js');
 
 class Door extends Thing {
 
-    applyAction(verb, player) {
-
-        switch (verb) {
-
-        case Verbs.GO_TO:
-            this._goToDestinationIfOpen(player);
-            break;
-        case Verbs.OPEN:
-            player.goToThing(this)
-                .then(() => this._open(player));
-            break;
-        case Verbs.CLOSE:
-            player.goToThing(this)
-                .then(() => this._close(player));
-            break;
-        case Verbs.LOOK:
-            player.say('That\'s a wonderful door. So woody.');
-            break;
-        default:
-            player.say('I cannot do that.');
-            break;
-        }
-    }
-
     get name() {
         return this.options.name || 'door';
     }
@@ -43,6 +19,24 @@ class Door extends Thing {
 
     forceOpen() {
         this.changeAttr('OPEN', true);
+    }
+
+    goToAction(player) {
+        this._goToDestinationIfOpen(player);
+    }
+
+    openAction(player) {
+        player.goToThing(this)
+            .then(() => this._open(player));
+    }
+
+    closeAction(player) {
+        player.goToThing(this)
+            .then(() => this._close(player));
+    }
+
+    lookAction(player) {
+        player.say('That\'s a wonderful door. So woody.');
     }
 
     _open(player) {

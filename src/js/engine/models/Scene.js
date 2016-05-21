@@ -3,8 +3,9 @@ var actions = require('../stores/Actions.store.js');
 
 class Scene {
 
-    constructor(phaserGame, options) {
+    constructor(phaserGame, options, state) {
         this.options = options;
+        this.options.state = state;
 
         this.phaserGame = phaserGame;
         this._createBackground();
@@ -25,7 +26,22 @@ class Scene {
     }
 
     get state() {
+        return {
+            scene: this._getSelfState(),
+            objects: this._getObjectsState()
+        };
+    }
+
+    _getSelfState() {
         return {};
+    }
+
+    _getObjectsState() {
+        let result = new Map();
+        this._things.forEach((thing) => {
+            result.set(thing.constructor.name, thing.state);
+        });
+        return result;
     }
 
     playerArrivesAtDoor(player, doorId) {
@@ -62,8 +78,29 @@ class Scene {
         this._things = new Set();
         var things = this.options.things || [];
         for (let i = 0; i < things.length; i++) {
-            this._things.add(new things[i](this.phaserGame));
+            if (this._shouldCreateThing(things[i])) {
+                this._things.add(
+                    new things[i](this.phaserGame, this._getObjectState(things[i]))
+                );
+            }
         }
+    }
+
+    _shouldCreateThing(thingClass) {
+        if (!this.options.state) {
+            return true;
+        }
+        if (this._getObjectState(thingClass)) {
+            return true;
+        }
+        return false;
+    }
+
+    _getObjectState(thingClass) {
+        if (!this.options.state) {
+            return undefined;
+        }
+        return this.options.state.objects.get(thingClass.name);
     }
 
     _findDoor(doorId) {

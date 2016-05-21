@@ -3,7 +3,7 @@ var actionDispatcher = require('../engine/ActionDispatcher.singleton.js');
 var actions = require('../engine/stores/Actions.store.js');
 
 class Broom extends Thing {
-    constructor(phaserGame) {
+    constructor(phaserGame, state) {
         let options = {
             x: 254,
             y: 101,
@@ -14,10 +14,10 @@ class Broom extends Thing {
                 y: 175
             }
         };
-        super(phaserGame, options);
+        super(phaserGame, options, state);
     }
 
-    beTakenByPlayer(player) {
+    takeAction(player) {
         player.say('a broom!');
         player.goToThing(this)
             .then(() => {

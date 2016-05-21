@@ -4,11 +4,12 @@ var Verbs = require('../stores/Verbs.store.js');
 
 class Thing {
 
-    constructor(phaserGame, options) {
+    constructor(phaserGame, options, state) {
         this.options = options;
         this.phaserGame = phaserGame;
         this._createSprite();
-        this._state = new Map();
+        this._state = state || new Map();
+        this._onStateChange();
     }
 
     get id() {
@@ -24,18 +25,75 @@ class Thing {
         switch (verb) {
 
         case Verbs.GO_TO:
-            player.goToThing(this);
+            this.goToAction(player);
             break;
         case Verbs.TAKE:
-            this.beTakenByPlayer(player);
+            this.takeAction(player);
+            break;
+        case Verbs.LOOK:
+            this.lookAction(player);
+            break;
+        case Verbs.OPEN:
+            this.openAction(player);
+            break;
+        case Verbs.CLOSE:
+            this.closeAction(player);
+            break;
+        case Verbs.PUSH:
+            this.pushAction(player);
+            break;
+        case Verbs.USE:
+            //Implement use action (two objects)
+            this.useAction(player);
+            break;
+        case Verbs.SPEAK:
+            this.speakAction(player);
+            break;
+        case Verbs.GIVE:
+            this.giveAction(player);
             break;
         default:
-            //TODO: depending on the verb, do one thing or another
-            player.say('I cannot do that');
-            break;
-
+            throw 'ERROR, unknown action ' + verb;
         }
-        
+    }
+
+    //Default actions, can be overwritten by child classes
+
+    goToAction(player) {
+        player.goToThing(this);
+    }
+
+    takeAction(player) {
+        player.say('I cannot pick that up');
+    }
+
+    lookAction(player) {
+        //TODO: check if there are look options
+        player.say('That is pretty neat');
+    }
+
+    openAction(player) {
+        player.say('That cannot be opened');
+    }
+
+    closeAction(player) {
+        player.say('That cannot be closed');
+    }
+
+    pushAction(player) {
+        player.say('I cannot move that');
+    }
+
+    useAction(player) {
+        player.say('I do not know how to use that');
+    }
+
+    speakAction(player) {
+        player.say('I wouldn\'t know what to say');
+    }
+
+    giveAction(player) {
+        player.say('I cannot do that');
     }
 
     getPositionToGoTo() {
@@ -49,6 +107,10 @@ class Thing {
         }
     }
 
+    get state() {
+        return this._state;
+    }
+
     changeAttr(attrName, value) {
         this._state.set(attrName, value);
         this._onStateChange();
@@ -60,10 +122,6 @@ class Thing {
 
     getPreferredAction() {
         return this.options.preferredAction || Verbs.LOOK;
-    }
-
-    beTakenByPlayer(player) {
-        player.say('I cannot pick that up');
     }
 
     _onStateChange() {}

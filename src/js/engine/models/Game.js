@@ -98,13 +98,15 @@ class Game {
 
     _createSceneWithId(id) {
         let SceneClass = this._findSceneById(id);
-        let addedScene = new SceneClass(this.phaserGame);
+
+        let addedScene = new SceneClass(this.phaserGame, this.scenesState.get(SceneClass.id));
+
         currentScene.value = addedScene;
     }
 
     _destroyOldScene() {
         let oldScene = currentScene.value;
-        this.scenesState.set(oldScene.id, oldScene.state);
+        this.scenesState.set(oldScene.constructor.id, oldScene.state);
         oldScene.destroy();
     }
 

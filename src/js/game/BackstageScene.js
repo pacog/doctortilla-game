@@ -7,14 +7,14 @@ var scenes = require('./Scenes.store.js');
 
 class BackstageScene extends Scene {
 
-    constructor(phaserGame) {
+    constructor(phaserGame, state) {
         let options = {
             BG: 'backstage_BG',
             boundaries: BackstageSceneBoundaries,
             things: [BackstageDoorToStreet, BackstageVendingMachine, Broom]
         };
 
-        super(phaserGame, options);
+        super(phaserGame, options, state);
 
     }
 

@@ -4,11 +4,11 @@ var Verbs = require('../stores/Verbs.store.js');
 
 class Thing {
 
-    constructor(phaserGame, options, state) {
+    constructor(phaserGame, options) {
         this.options = options;
         this.phaserGame = phaserGame;
         this._createSprite();
-        this._state = state || new Map();
+        this._state = new Map();
         this._onStateChange();
     }
 
@@ -109,6 +109,13 @@ class Thing {
 
     get state() {
         return this._state;
+    }
+
+    set state(newState) {
+        if (newState) {
+            this._state = newState;
+            this._onStateChange();
+        }
     }
 
     changeAttr(attrName, value) {

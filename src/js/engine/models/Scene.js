@@ -79,9 +79,9 @@ class Scene {
         var things = this.options.things || [];
         for (let i = 0; i < things.length; i++) {
             if (this._shouldCreateThing(things[i])) {
-                this._things.add(
-                    new things[i](this.phaserGame, this._getObjectState(things[i]))
-                );
+                let thingToAdd = new things[i](this.phaserGame);
+                thingToAdd.state = this._getObjectState(things[i]);
+                this._things.add(thingToAdd);
             }
         }
     }

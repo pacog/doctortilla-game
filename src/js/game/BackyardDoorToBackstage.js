@@ -3,7 +3,7 @@ var scenes = require('./Scenes.store.js');
 var doors = require('./Doors.store.js');
 
 class BackyardDoorToBackstage extends Door {
-    constructor(phaserGame, state) {
+    constructor(phaserGame) {
         let options = {
             id: doors.BACKYARD_TO_BACKSTAGE,
             x: 200,
@@ -16,7 +16,7 @@ class BackyardDoorToBackstage extends Door {
             destination: scenes.BACKSTAGE,
             relatedDoor: doors.BACKSTAGE_TO_BACKYARD
         };
-        super(phaserGame, options, state);
+        super(phaserGame, options);
     }
 
     get name() {

@@ -1,7 +1,7 @@
 var Thing = require('../engine/models/Thing.js');
 
 class BackstageVendingMachine extends Thing {
-    constructor(phaserGame, state) {
+    constructor(phaserGame) {
         let options = {
             x: 54,
             y: 131,
@@ -12,7 +12,7 @@ class BackstageVendingMachine extends Thing {
                 y: 185
             }
         };
-        super(phaserGame, options, state);
+        super(phaserGame, options);
     }
 
     pushAction(player) {

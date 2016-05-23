@@ -4,6 +4,7 @@ const actions = Object.freeze({
     CURSOR_OUT_THING: Symbol(),
     CURSOR_OVER_THING: Symbol(),
     GO_TO_SCENE: Symbol(),
+    REFLECT: Symbol(),
     SELECT_THING: Symbol(),
     SELECT_VERB: Symbol(),
     TAKE_OBJECT: Symbol(),

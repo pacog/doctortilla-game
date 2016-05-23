@@ -22,6 +22,7 @@ class Game {
         actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._applyActionToThing(thing) );
         actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
         actionDispatcher.subscribeTo(actions.TAKE_OBJECT, thing => this._takeObject(thing) );
+        actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
     }
 
     update() {
@@ -119,6 +120,10 @@ class Game {
         currentScene.value.removeObject(thing);
         this.player.addObjectToInventory(thing);
         actionDispatcher.execute(actions.UPDATE_INVENTORY);
+    }
+
+    _reflect() {
+        this.player.reflect(this);
     }
 }
 

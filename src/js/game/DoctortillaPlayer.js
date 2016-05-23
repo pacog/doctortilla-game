@@ -27,6 +27,11 @@ class DoctortillaPlayer extends Player {
         super(phaserGame, options);
     }
 
+    reflect(gameState) {
+        console.log(gameState);
+        this.say('Now I should say something smart that helps');
+    }
+
 }
 
 module.exports = DoctortillaPlayer;

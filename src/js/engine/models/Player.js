@@ -46,6 +46,10 @@ class Player {
         });
     }
 
+    reflect() {
+        this.say('Now I should say something smart');
+    }
+
     goToThing(thing) {
         return this.moveTo(thing.getPositionToGoTo());
     }

@@ -3,6 +3,7 @@ var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var actions = require('../stores/Actions.store.js');
 var selectedVerb = require('../state/SelectedVerb.singleton.js');
 var currentScene = require('../state/CurrentScene.singleton.js');
+var activeInventory = require('../state/ActiveInventory.singleton.js');
 var style = require('../ui/Style.singleton.js');
 
 class Game {
@@ -61,6 +62,7 @@ class Game {
 
     _createPlayer() {
         this.player = new this.options.player(this.phaserGame);
+        activeInventory.setActiveInventory(this.player.inventory);
     }
 
     _createCamera() {

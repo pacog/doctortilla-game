@@ -3,6 +3,7 @@
 var Directions = require('../stores/Directions.store.js');
 var Text = require('../ui/Text.js');
 var currentScene = require('../state/CurrentScene.singleton.js');
+var Inventory = require('./Inventory.js');
 
 class Player {
 
@@ -11,7 +12,7 @@ class Player {
 
         this.phaserGame = phaserGame;
         this.createSprite();
-        this.inventory = new Set();
+        this.inventory = new Inventory();
 
         this.direction = Directions.RIGHT;
         this._playStandAnimation();

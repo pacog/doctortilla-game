@@ -1,5 +1,6 @@
 var UIVerbs = require('./UIVerbs.js');
 var UICurrentAction = require('./UICurrentAction.js');
+var UIInventory = require('./UIInventory.js');
 var UIReflectButton = require('./UIReflectButton.js');
 var layout = require('./LayoutManager.singleton.js');
 
@@ -11,6 +12,7 @@ class GraphicUI {
         this._createBackground();
         this.UIVerbs = new UIVerbs(phaserGame);
         this.UICurrentAction = new UICurrentAction(phaserGame);
+        this.UIInventory = new UIInventory(phaserGame);
         this.UIReflectButton = new UIReflectButton(phaserGame);
 
     }

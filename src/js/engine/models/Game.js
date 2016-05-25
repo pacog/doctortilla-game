@@ -121,6 +121,7 @@ class Game {
     _takeObject(thing) {
         currentScene.value.removeObject(thing);
         this.player.addObjectToInventory(thing);
+        thing.state.set('IS_IN_INVENTORY', true);
         actionDispatcher.execute(actions.UPDATE_INVENTORY);
     }
 

@@ -25,10 +25,14 @@ class Thing {
         switch (verb) {
 
         case Verbs.GO_TO:
-            this.goToAction(player);
+            if (!this.isInInventory()) {
+                this.goToAction(player);
+            }
             break;
         case Verbs.TAKE:
-            this.takeAction(player);
+            if (!this.isInInventory()) {
+                this.takeAction(player);
+            }
             break;
         case Verbs.LOOK:
             this.lookAction(player);
@@ -129,6 +133,14 @@ class Thing {
 
     getPreferredAction() {
         return this.options.preferredAction || Verbs.LOOK;
+    }
+
+    get inventoryImage() {
+        return this.options.inventoryImageId || this.options.spriteId;
+    }
+
+    isInInventory() {
+        return this.state && this.state.get('IS_IN_INVENTORY');
     }
 
     _onStateChange() {}

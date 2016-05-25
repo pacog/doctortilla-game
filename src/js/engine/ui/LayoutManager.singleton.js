@@ -8,12 +8,19 @@ const VERB_BUTTON_HEIGHT = 36;
 const VERB_BUTTON_WIDTH = 150;
 const VERB_BUTTON_MARGIN = LAYOUT_DEFAULT_MARGIN;
 const VERBS_ROWS = 3;
+const VERB_COLUMNS = 3;
 
 const REFLECT_BUTTON_WIDTH = VERB_BUTTON_WIDTH;
 
 const CURRENT_ACTION_INFO_HEIGHT = 40;
 const CURRENT_ACTION_INFO_PADDING_X = 5;
 const CURRENT_ACTION_INFO_PADDING_Y = 7;
+
+const INV_ROWS = 2;
+const INV_COLUMNS = 3;
+const INV_ITEM_WIDTH = 136;
+const INV_ITEM_HEIGHT = 52;
+
 
 class LayoutManager {
 
@@ -31,6 +38,14 @@ class LayoutManager {
 
     get VERB_BUTTON_WIDTH() {
         return VERB_BUTTON_WIDTH / LAYOUT_ZOOM;
+    }
+
+    get INV_ITEM_WIDTH() {
+        return INV_ITEM_WIDTH / LAYOUT_ZOOM;
+    }
+
+    get INV_ITEM_HEIGHT() {
+        return INV_ITEM_HEIGHT / LAYOUT_ZOOM;
     }
 
     get VERBS_HEIGHT() {
@@ -65,6 +80,13 @@ class LayoutManager {
         };
     }
 
+    get INVENTORY_START_POSITION() {
+        return this.getVerbButtonPosition({
+            x: VERB_COLUMNS,
+            y: 0
+        });
+    }
+
     get CURRENT_ACTION_POSITION() {
         return {
             x: CURRENT_ACTION_INFO_PADDING_X,
@@ -83,6 +105,32 @@ class LayoutManager {
         return {
             x: marginX + positionX,
             y: this.VERBS_Y_START + marginY + positionY
+        };
+    }
+
+    getPositionForUIItem(index) {
+        let {column, row} = this._getInventoryItemPosition(index);
+
+        let initialPosition = this.INVENTORY_START_POSITION;
+
+        let marginX = (column + 1) * VERB_BUTTON_MARGIN;
+        let positionX = column * this.INV_ITEM_WIDTH;
+
+        let marginY = (row + 1) * VERB_BUTTON_MARGIN;
+        let positionY = row * this.INV_ITEM_HEIGHT;
+
+        return {
+            x: marginX + positionX + initialPosition.x,
+            y: marginY + positionY + initialPosition.y
+        };
+    }
+
+    _getInventoryItemPosition(index) {
+        let column = index % INV_COLUMNS;
+        let row = Math.floor(index / INV_COLUMNS);
+        return {
+            column: column,
+            row: row
         };
     }
 

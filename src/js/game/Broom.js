@@ -8,6 +8,7 @@ class Broom extends Thing {
             x: 254,
             y: 101,
             spriteId: 'broom',
+            inventoryImageId: 'broom_inv',
             name: 'broom',
             goToPosition: {
                 x: 250,
@@ -24,6 +25,15 @@ class Broom extends Thing {
                 actionDispatcher.execute(actions.TAKE_OBJECT, this);
             });
         
+    }
+
+    
+    lookAction(player) {
+        if (this.isInInventory()) {
+            player.say('Awesome, now I have a broom');
+        } else {
+            player.say('Si yo tuviera una escoba...');
+        }
     }
 
 }

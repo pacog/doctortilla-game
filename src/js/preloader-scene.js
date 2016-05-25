@@ -19,9 +19,13 @@ var PreloaderScene = {
         //Last number is optional (number of images in sprite)
         this.game.load.spritesheet('vaca_sprite', 'images/vaca_sprite10.png', 44, 61, 21);
         this.game.load.spritesheet('vending', 'images/vending.png', 26, 50, 1);
-        this.game.load.spritesheet('broom', 'images/broom.png', 25, 65, 1);
-        this.game.load.spritesheet('broom_inv', 'images/broom_inv.png', 68, 26, 1);
+        this.game.load.image('broom', 'images/broom.png');
+        this.game.load.image('broom_inv', 'images/broom_inv.png');
         this.game.load.spritesheet('door_sprite', 'images/puerta_1.png', 40, 60, 2);
+
+        this.game.load.image('bocadillo', 'images/bocadillo1.png');
+        this.game.load.image('panceta', 'images/panceta.png');
+        this.game.load.image('pan', 'images/bread.png');
     },
 
     create: function () {

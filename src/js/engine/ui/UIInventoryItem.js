@@ -38,5 +38,9 @@ class UIInventoryItem {
         actionDispatcher.execute(actions.CURSOR_OUT_THING, this.thing);
     }
 
+    destroy() {
+        this.sprite.destroy();
+    }
+
 }
 module.exports = UIInventoryItem;

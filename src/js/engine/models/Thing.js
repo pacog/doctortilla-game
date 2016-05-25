@@ -1,14 +1,19 @@
 var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var actions = require('../stores/Actions.store.js');
 var Verbs = require('../stores/Verbs.store.js');
+var activeInventory = require('../state/ActiveInventory.singleton.js');
 
 class Thing {
 
     constructor(phaserGame, options) {
         this.options = options;
         this.phaserGame = phaserGame;
-        this._createSprite();
         this._state = new Map();
+        if(this.options.directlyInInventory) {
+            this._addToInventory();
+        } else {
+            this._createSprite();
+        }
         this._onStateChange();
     }
 
@@ -143,6 +148,10 @@ class Thing {
         return this.state && this.state.get('IS_IN_INVENTORY');
     }
 
+    _addToInventory() {
+        activeInventory.getActiveInventory().add(this);
+    }
+
     _onStateChange() {}
 
     _createSprite() {
@@ -173,7 +182,11 @@ class Thing {
     }
 
     destroy() {
-        this.sprite.destroy();
+        if (this.isInInventory()) {
+            activeInventory.getActiveInventory().remove(this);
+        } else {
+            this.sprite.destroy();
+        }
     }
 }
 

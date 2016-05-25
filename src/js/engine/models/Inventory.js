@@ -6,6 +6,7 @@ class Inventory {
     }
 
     add(item) {
+        item.state.set('IS_IN_INVENTORY', true);
         this.items.add(item);
         this._notifySubscribers();
     }

@@ -1,6 +1,7 @@
 var selectedVerb = require('../state/SelectedVerb.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
 var highlightedThing = require('../state/HighlightedThing.singleton.js');
+var selectedThing = require('../state/SelectedThing.singleton.js');
 var style = require('./Style.singleton.js');
 
 class UICurrentAction {
@@ -9,6 +10,7 @@ class UICurrentAction {
         this._createText();
         selectedVerb.subscribeToChange(newVerb => this._updateText());
         highlightedThing.subscribeToChange(newThing => this._updateText());
+        selectedThing.subscribeToChange(newThing => this._updateText());
     }
 
     _createText() {
@@ -34,12 +36,12 @@ class UICurrentAction {
     }
 
     _updateText() {
-        let newText = this._getVerbText() + ' ' + this._getThingText();
+        let newText = this._getVerbText() + this._getSelectedThingText() + ' ' + this._getThingText();
         this._setText(newText);
     }
 
     _setText(newText) {
-        if(this._oldText !== newText) {
+        if (this._oldText !== newText) {
             this._oldText = newText;
             this.text.setText(newText);
             this.shadowText.setText(newText);
@@ -62,6 +64,15 @@ class UICurrentAction {
             text = thing.name;
         }
         return text;
+    }
+
+    _getSelectedThingText() {
+        let verb = selectedVerb.verb;
+        if (!verb.singleObject && selectedThing.thing) {
+            return ' ' + selectedThing.thing.name + ' ' + verb.conjuction;
+        } else {
+            return '';
+        }
     }
 }
 

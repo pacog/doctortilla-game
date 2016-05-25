@@ -2,6 +2,7 @@ var GraphicUI = require('../ui/GraphicUI.js');
 var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var actions = require('../stores/Actions.store.js');
 var selectedVerb = require('../state/SelectedVerb.singleton.js');
+var selectedThing = require('../state/SelectedThing.singleton.js');
 var currentScene = require('../state/CurrentScene.singleton.js');
 var activeInventory = require('../state/ActiveInventory.singleton.js');
 var style = require('../ui/Style.singleton.js');
@@ -20,7 +21,7 @@ class Game {
         this._createUI();
 
         actionDispatcher.subscribeTo(actions.CLICK_STAGE, ev => this._movePlayerTo(ev) );
-        actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._applyActionToThing(thing) );
+        actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._selectThing(thing) );
         actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
         actionDispatcher.subscribeTo(actions.TAKE_OBJECT, thing => this._takeObject(thing) );
         actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
@@ -113,15 +114,29 @@ class Game {
         oldScene.destroy();
     }
 
-    _applyActionToThing(thing) {
-        thing.applyAction(selectedVerb.verb, this.player);
-        actionDispatcher.execute(actions.ACTION_APPLIED);
+    _selectThing(thing) {
+        if (selectedVerb.verb.singleObject) {
+            thing.applyAction(selectedVerb.verb, this.player);
+            actionDispatcher.execute(actions.ACTION_APPLIED);
+        } else {
+            this._selectThingForMultipleObjectVerb(thing);
+        }
+    }
+
+    _selectThingForMultipleObjectVerb(thing) {
+        if (selectedThing.thing) {
+            thing.applyAction(selectedVerb.verb, this.player);
+            actionDispatcher.execute(actions.ACTION_APPLIED);
+        } else {
+            if (thing.isInInventory()) {
+                selectedThing.thing = thing;
+            }
+        }
     }
 
     _takeObject(thing) {
         currentScene.value.removeObject(thing);
         this.player.addObjectToInventory(thing);
-        thing.state.set('IS_IN_INVENTORY', true);
         actionDispatcher.execute(actions.UPDATE_INVENTORY);
     }
 

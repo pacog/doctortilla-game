@@ -1,6 +1,7 @@
 var Thing = require('../engine/models/Thing.js');
 var ConversationWithBili = require('./ConversationWithBili.js');
-
+var TalkerModifier = require('../engine/models/TalkerModifier.js');
+var compositionFactory = require('../engine/models/CompositionFactory.js');
 
 class Bili extends Thing {
     constructor(phaserGame) {
@@ -26,6 +27,8 @@ class Bili extends Thing {
             () => new ConversationWithBili(this.phaserGame, player, this)
         );
     }
-
 }
+
+compositionFactory.applyModifier(TalkerModifier, Bili);
+
 module.exports = Bili;

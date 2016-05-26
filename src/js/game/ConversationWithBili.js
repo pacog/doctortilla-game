@@ -9,7 +9,7 @@ const script = {
             },
             'initial',
             (player, bili) => {
-                return player.say('nanan asdkjfh asdfkjh asdfkjh asfkjh asdkjhs dfkjh asdfkjh asdfkjh');
+                return bili.say('Pues aquí estamos');
             }
         ),
         new ConversationLine('Adiós!', 'end')

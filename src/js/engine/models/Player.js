@@ -1,9 +1,10 @@
 /* global Promise */
 
 var Directions = require('../stores/Directions.store.js');
-var Text = require('../ui/Text.js');
 var currentScene = require('../state/CurrentScene.singleton.js');
 var Inventory = require('./Inventory.js');
+var TalkerModifier = require('./TalkerModifier.js');
+var compositionFactory = require('./CompositionFactory.js');
 
 class Player {
 
@@ -38,16 +39,6 @@ class Player {
         this.sprite.anchor.setTo(0.5, 0.99);
     }
 
-    say(text) {
-        this._destroyPrevText();
-        this._textBeingSaid = new Text(this.phaserGame, {
-            text: text,
-            position: this._getPositionOnTop(),
-            autoDestroy: true
-        });
-        return this._textBeingSaid.promise;
-    }
-
     reflect() {
         this.say('Now I should say something smart');
     }
@@ -64,25 +55,10 @@ class Player {
         this.inventory.add(thing);
     }
 
-    _destroyPrevText() {
-        if (this._textBeingSaid) {
-            this._textBeingSaid.destroy();
-            this._textBeingSaid = null;
-        }
-    }
-
     _addSpriteAnimations() {
         this.options.SPRITE_OPTIONS.forEach( (spritePosition, key) => {
             this.sprite.animations.add(key, spritePosition.frames, this.options.ANIMATION_SPEED, true);
         });
-    }
-
-    _getPositionOnTop() {
-        var result = {
-            x: this.sprite.x,
-            y: Math.round(this.sprite.getBounds().y) - 10
-        };
-        return result;
     }
 
     moveTo(nonSafePosition) {
@@ -211,5 +187,7 @@ class Player {
     }
 
 }
+
+compositionFactory.applyModifier(TalkerModifier, Player);
 
 module.exports = Player;

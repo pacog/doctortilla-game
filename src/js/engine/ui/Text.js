@@ -1,3 +1,4 @@
+/* global Promise */
 var style = require('./Style.singleton.js');
 
 const DEFAULT_TEXT_OPTIONS = Object.freeze({
@@ -17,7 +18,7 @@ class Text {
         this.options = Object.assign({}, DEFAULT_TEXT_OPTIONS, options);
         this._createText();
         if (this.options.autoDestroy) {
-            this._autoDestroy();
+            this.promise = this._autoDestroy();
         }
     }
 
@@ -88,8 +89,12 @@ class Text {
     }
 
     _autoDestroy() {
+        let deferred = new Promise((resolveCallback) => {
+            this.resolveCallback = resolveCallback;
+        });
         let timeToDestroy = this._getTimeToDestroyFromText(this.options.text);
         this._timeoutToDestroy = setTimeout(() => this.destroy(), timeToDestroy);
+        return deferred;
     }
 
     _getTimeToDestroyFromText(text = '') {
@@ -106,7 +111,10 @@ class Text {
             this.shadowText.destroy();
             this.shadowText = null;
         }
-        //TODO: do callback
+        if (this.resolveCallback) {
+            this.resolveCallback();
+            this.resolveCallback = null;
+        }
     }
 
 }

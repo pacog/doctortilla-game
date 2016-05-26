@@ -45,6 +45,7 @@ class Player {
             position: this._getPositionOnTop(),
             autoDestroy: true
         });
+        return this._textBeingSaid.promise;
     }
 
     reflect() {

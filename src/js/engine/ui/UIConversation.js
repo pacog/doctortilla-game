@@ -31,17 +31,22 @@ class UIConversation {
 
     _createNewLines() {
         let newLines = this.conversation.getLines();
-        newLines.forEach((newLine, index) => {
-            let newUILine = new UIConversationLine(this.phaserGame, newLine, index);
-            newUILine.subscribeToClick(lineClicked => this._lineClicked(lineClicked));
-            this.lines.push(newUILine);
-        });
+        newLines.forEach((newLine, index) => this._createLine(newLine, index));
+    }
+
+    _createLine(line, index) {
+        let newUILine = new UIConversationLine(
+            this.phaserGame,
+            line,
+            this.conversation.getTextForLine(line),
+            index);
+        newUILine.subscribeToClick(lineClicked => this._lineClicked(lineClicked));
+        this.lines.push(newUILine);
     }
 
     _lineClicked(line) {
         this._destroyOldLines();
-        line.afterCallback();
-        this.conversation.state = line.nextState;
+        this.conversation.applyLine(line);
     }
 
     _destroyOldLines() {

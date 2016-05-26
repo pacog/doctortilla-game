@@ -5,10 +5,10 @@ class Conversation {
     constructor(phaserGame, player, otherPerson) {
         this.phaserGame = phaserGame;
         this.player = player;
+        this.otherPerson = otherPerson;
         this._loadScript();
         this._stateChangeSubscribers = new Set();
         this._initState();
-        this.otherPerson = otherPerson;
         this._createConversationUI();
     }
 
@@ -36,12 +36,23 @@ class Conversation {
     }
 
     set state(newState) {
-        if(newState === 'end') {
+        if (newState === 'end') {
             this.ui.destroy();
         } else {
             this._stateId = newState;
             this._notifyStateChange();
         }
+    }
+
+    applyLine(line) {
+        line.afterCallback(this.player, this.otherPerson)
+            .then(() => {
+                this.state = line.nextState;
+            });
+    }
+
+    getTextForLine(line) {
+        return line.text();
     }
 
     _loadScript() {

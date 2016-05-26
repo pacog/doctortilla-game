@@ -2,12 +2,15 @@ var layout = require('./LayoutManager.singleton.js');
 var style = require('./Style.singleton.js');
 
 class UIConversationLine {
-    constructor(phaserGame, conversationLine, index) {
+    constructor(phaserGame, conversationLine, text, index) {
         if (!phaserGame) {
             throw 'ERROR: conversation line UI, no phaserGame provided';
         }
         if (!conversationLine) {
             throw 'ERROR: conversation line UI, no conversationLine provided';
+        }
+        if (!text) {
+            throw 'ERROR: conversation line UI, no text provided';
         }
         if (typeof index !== 'number') {
             throw 'ERROR: conversation line UI, no index provided';
@@ -15,6 +18,7 @@ class UIConversationLine {
         this.phaserGame = phaserGame;
         this.conversationLine = conversationLine;
         this.index = index;
+        this._lineText = text;
         this._onClickSubscribers = new Set();
         this._position = layout.getPositionForConversationLine(this.index);
         this._createButton();
@@ -38,12 +42,11 @@ class UIConversationLine {
     }
 
     _createText() {
-        let text = this.conversationLine.text();
         this.shadowText = this.phaserGame.add.bitmapText(
             1 + this._position.x + layout.CONVERSATION_LINE_PADDING_X,
             1 + this._position.y + layout.CONVERSATION_LINE_PADDING_Y,
             'font_32_black',
-            text,
+            this._lineText,
             style.DEFAULT_FONT_SIZE
         );
         this.shadowText.anchor.setTo(0, 0);
@@ -53,7 +56,7 @@ class UIConversationLine {
             this._position.x + layout.CONVERSATION_LINE_PADDING_X,
             this._position.y + layout.CONVERSATION_LINE_PADDING_Y,
             'font_32_white',
-            text,
+            this._lineText,
             style.DEFAULT_FONT_SIZE
         );
         this.text.anchor.setTo(0, 0);

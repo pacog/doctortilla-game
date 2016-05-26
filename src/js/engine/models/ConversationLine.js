@@ -1,3 +1,16 @@
+/* global Promise */
+const emptyFunctionWithPromise = function () {
+    'use strict';
+
+    var result = {};
+    let deferred = new Promise(function (resolve) {
+        result.resolveCallback = resolve;
+    });
+    result.resolveCallback();
+
+    return deferred;
+};
+
 class ConversationLine {
     constructor(text, nextState, afterCallback) {
         if (!text) {
@@ -24,7 +37,7 @@ class ConversationLine {
         if (this._afterCallback) {
             return this._afterCallback;
         } else {
-            return function () {};
+            return emptyFunctionWithPromise;
         }
     }
 

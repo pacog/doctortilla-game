@@ -4,6 +4,7 @@ var BackstageDoorToStreet = require('./BackstageDoorToStreet.js');
 var BackstageVendingMachine = require('./BackstageVendingMachine.js');
 var Broom = require('./Broom.js');
 var Bocadillo = require('./Bocadillo.js');
+var Bili = require('./Bili.js');
 var scenes = require('./Scenes.store.js');
 
 class BackstageScene extends Scene {
@@ -12,7 +13,7 @@ class BackstageScene extends Scene {
         let options = {
             BG: 'backstage_BG',
             boundaries: BackstageSceneBoundaries,
-            things: [BackstageDoorToStreet, BackstageVendingMachine, Broom, Bocadillo]
+            things: [BackstageDoorToStreet, BackstageVendingMachine, Broom, Bocadillo, Bili]
         };
 
         super(phaserGame, options, state);

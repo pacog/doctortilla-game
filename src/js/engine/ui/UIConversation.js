@@ -1,11 +1,13 @@
 var layout = require('./LayoutManager.singleton.js');
 var UIConversationLine = require('./UIConversationLine.js');
+var uiBlocker = require('./UIBlocker.singleton.js');
 
 class UIConversation {
 
     constructor(phaserGame, conversation) {
         this.phaserGame = phaserGame;
-        this.conversation = conversation;
+        this.conversation = conversation
+        uiBlocker.block(this.phaserGame);
         this._createBackground();
         this.conversation.onStateChange((newState) => this._update(newState));
     }
@@ -59,6 +61,7 @@ class UIConversation {
     destroy() {
         this._destroyOldLines();
         this.background.destroy();
+        uiBlocker.unblock();
     }
 
 }

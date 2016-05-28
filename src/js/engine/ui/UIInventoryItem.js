@@ -11,7 +11,7 @@ class UIInventoryItem {
     }
 
     _createSprite() {
-        this._position = layout.getPositionForUIItem(this.index);
+        this._position = layout.getPositionForUIInventoryItem(this.index);
         this.sprite = this.phaserGame.add.sprite(
             this._position.x,
             this._position.y,

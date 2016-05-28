@@ -123,7 +123,7 @@ class LayoutManager {
         };
     }
 
-    getPositionForUIItem(index) {
+    getPositionForUIInventoryItem(index) {
         let {column, row} = this._getInventoryItemPosition(index);
 
         let initialPosition = this.INVENTORY_START_POSITION;

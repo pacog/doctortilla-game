@@ -87,8 +87,8 @@ class Game {
 
     _movePlayerTo(ev) {
         this.player.moveTo({
-            x: ev.x,
-            y: ev.y
+            x: ev.worldX,
+            y: ev.worldY
         });
     }
 

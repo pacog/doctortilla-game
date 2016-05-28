@@ -64,18 +64,19 @@ class Player {
     moveTo(nonSafePosition) {
         let pos = currentScene.value.boundaries.getPositionInside(nonSafePosition.x, nonSafePosition.y);
 
-        this._updateDirection(pos);
         this._cancelCurrentTween();
         this._cancelCurrentMovePromise();
-        this._playWalkingAnimation();
-        
         let timeToAnimate = this._getTimeForAnimation(pos);
 
-        this._willMovePromise = this._createMovePromise(timeToAnimate);
+        if (timeToAnimate) {
+            this._updateDirection(pos);
+            this._playWalkingAnimation();
+            this.tween = this.phaserGame.add.tween(this.sprite);
+            this.tween.to({ x: pos.x, y: pos.y }, timeToAnimate, 'Linear', true, 0);
+            this.tween.onComplete.add(this._stopAnimations, this);
+        }
 
-        this.tween = this.phaserGame.add.tween(this.sprite);
-        this.tween.to({ x: pos.x, y: pos.y }, timeToAnimate, 'Linear', true, 0);
-        this.tween.onComplete.add(this._stopAnimations, this);
+        this._willMovePromise = this._createMovePromise(timeToAnimate);
 
         return this._willMovePromise.promise;
     }

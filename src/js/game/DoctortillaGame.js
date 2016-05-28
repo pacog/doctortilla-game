@@ -1,4 +1,5 @@
 var Game = require('../engine/models/Game.js');
+var Labels = require('./Labels.store.js');
 var BackstageScene = require('./BackstageScene.js');
 var BackyardScene = require('./BackyardScene.js');
 var DoctortillaPlayer = require('./DoctortillaPlayer.js');
@@ -10,7 +11,8 @@ class DoctortillaGame extends Game {
         let options = {
             player: DoctortillaPlayer,
             scenes: [BackstageScene, BackyardScene],
-            firstScene: BackstageScene
+            firstScene: BackstageScene,
+            labels: Labels
         };
         super(phaserGame, options);
 

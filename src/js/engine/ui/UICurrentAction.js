@@ -3,6 +3,7 @@ var layout = require('./LayoutManager.singleton.js');
 var highlightedThing = require('../state/HighlightedThing.singleton.js');
 var selectedThing = require('../state/SelectedThing.singleton.js');
 var style = require('./Style.singleton.js');
+var labels = require('../Labels.singleton.js');
 
 class UICurrentAction {
     constructor(phaserGame) {
@@ -52,7 +53,7 @@ class UICurrentAction {
         let verb = selectedVerb.verb;
         let text = '';
         if (verb && verb.label) {
-            text = verb.label;
+            text = labels.l(verb.label);
         }
         return text;
     }
@@ -61,7 +62,7 @@ class UICurrentAction {
         let thing = highlightedThing.thing;
         let text = '';
         if (thing && thing.name) {
-            text = thing.name;
+            text = labels.l(thing.name);
         }
         return text;
     }
@@ -69,7 +70,7 @@ class UICurrentAction {
     _getSelectedThingText() {
         let verb = selectedVerb.verb;
         if (!verb.singleObject && selectedThing.thing) {
-            return ' ' + selectedThing.thing.name + ' ' + verb.conjuction;
+            return ' ' + labels.l(selectedThing.thing.name) + ' ' + labels.l(verb.conjuction);
         } else {
             return '';
         }

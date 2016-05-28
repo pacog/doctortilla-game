@@ -1,4 +1,5 @@
 var GraphicUI = require('../ui/GraphicUI.js');
+var labels = require('../Labels.singleton.js');
 var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var actions = require('../stores/Actions.store.js');
 var selectedVerb = require('../state/SelectedVerb.singleton.js');
@@ -13,7 +14,7 @@ class Game {
 
         this.options = options;
         this.phaserGame = phaserGame;
-
+        labels.setLabels(this.options.labels);
         this._createScenes();
         this._updateWorldBounds();
         this._createPlayer();

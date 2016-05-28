@@ -2,8 +2,7 @@ var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var layout = require('./LayoutManager.singleton.js');
 var actions = require('../stores/Actions.store.js');
 var style = require('./Style.singleton.js');
-
-const REFLECT_LABEL = 'Reflect';
+var labels = require('../Labels.singleton.js');
 
 class UIReflectButton {
 
@@ -38,7 +37,7 @@ class UIReflectButton {
             1 + this._position.x + layout.getReflectButtonSize().width / 2,
             1 + this._position.y + layout.getReflectButtonSize().height / 2,
             'font_32_black',
-            REFLECT_LABEL,
+            labels.l('Reflect'),
             style.DEFAULT_FONT_SIZE
         );
         this.shadowText.anchor.setTo(0.5, 0.5);
@@ -48,7 +47,7 @@ class UIReflectButton {
             this._position.x + layout.getReflectButtonSize().width / 2,
             this._position.y + layout.getReflectButtonSize().height / 2,
             'font_32_white',
-            REFLECT_LABEL,
+            labels.l('Reflect'),
             style.DEFAULT_FONT_SIZE
         );
         this.text.anchor.setTo(0.5, 0.5);

@@ -1,4 +1,5 @@
 var Player = require('../engine/models/Player.js');
+var randomText = require('../engine/models/RandomText.singleton.js');
 
 class DoctortillaPlayer extends Player {
 
@@ -29,7 +30,11 @@ class DoctortillaPlayer extends Player {
 
     reflect(gameState) {
         console.log(gameState);
-        this.say('Now I should say something smart that helps');
+        this.say(randomText.r(
+            'Now I should say something smart that helps',
+            'This is a pretty nice room',
+            'Man, I really want to play that concert'
+        ));
     }
 
 }

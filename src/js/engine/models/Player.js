@@ -40,7 +40,7 @@ class Player {
     }
 
     reflect() {
-        this.say('Now I should say something smart');
+        throw 'ERROR: method reflect should be implemented';
     }
 
     goToThing(thing) {

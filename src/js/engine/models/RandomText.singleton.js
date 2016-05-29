@@ -9,13 +9,21 @@ class RandomText {
     }
 
     getRandomText() {
-        let randomIndex = Math.floor(this.phrases.length * Math.random());
-
-        let result = this.phrases[randomIndex];
-        this.phrases.splice(randomIndex, 1);
-        if (this.phrases.length === 0) {
+        let result;
+        if (this.phrases.length === 1) {
+            result = this.phrases[0];
+            this._lastText = result;
             this._createSet();
+        } else {
+            let randomIndex = Math.floor(this.phrases.length * Math.random());
+            if (this.phrases[randomIndex] === this._lastText) {
+                randomIndex = (randomIndex + 1) % this.phrases.length;
+            }
+            result = this.phrases[randomIndex];
+            this.phrases.splice(randomIndex, 1);
+            this._lastText = result;
         }
+
         return result;
     }
 }

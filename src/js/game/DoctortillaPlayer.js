@@ -33,7 +33,8 @@ class DoctortillaPlayer extends Player {
         this.say(randomText.r(
             'Now I should say something smart that helps',
             'This is a pretty nice room',
-            'Man, I really want to play that concert'
+            'Man, I really want to play that concert',
+            'Probably I should find the rest of the band...'
         ));
     }
 

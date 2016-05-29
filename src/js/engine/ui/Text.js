@@ -1,5 +1,6 @@
 /* global Promise */
 var style = require('./Style.singleton.js');
+var currentScene = require('../state/CurrentScene.singleton.js');
 
 const DEFAULT_TEXT_OPTIONS = Object.freeze({
     timePerLetter: 50,
@@ -8,7 +9,8 @@ const DEFAULT_TEXT_OPTIONS = Object.freeze({
     position: { x: 100, y: 100},
     width: 30,
     autoDestroy: false,
-    anchor: { x: 0, y: 0}
+    anchor: { x: 0, y: 0},
+    paddingInScreen: 5
 });
 
 class Text {
@@ -69,9 +71,19 @@ class Text {
     _getXPositionForText(text = '') {
         let longestLine = this._getLongestLine(text);
         let maxWidth = longestLine * style.DEFAULT_FONT_SIZE;
+        let result = this.options.position.x - (maxWidth / 2);
 
-        return this.options.position.x - (maxWidth / 2);
+        result = Math.max(result, this.options.paddingInScreen);
+        result = Math.min(result, this._getMaxXForText(maxWidth));
+
+        return result;
     }
+
+    _getMaxXForText(textWidth = 0) {
+        let sceneWidth = currentScene.value.sceneBounds.width;
+        return sceneWidth - this.options.paddingInScreen - textWidth;
+    }
+
 
     _getYPositionForText(text = '') {
         let lines = text.split('\n').length;

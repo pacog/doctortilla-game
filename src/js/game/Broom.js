@@ -1,6 +1,7 @@
 var Thing = require('../engine/models/Thing.js');
-var actionDispatcher = require('../engine/ActionDispatcher.singleton.js');
-var actions = require('../engine/stores/Actions.store.js');
+var PickableModifier = require('../engine/models/PickableModifier.js');
+var compositionFactory = require('../engine/models/CompositionFactory.js');
+
 
 class Broom extends Thing {
     constructor(phaserGame) {
@@ -20,11 +21,7 @@ class Broom extends Thing {
 
     takeAction(player) {
         player.say('a broom!');
-        player.goToThing(this)
-            .then(() => {
-                actionDispatcher.execute(actions.TAKE_OBJECT, this);
-            });
-        
+        this._getTakenBy(player);
     }
 
     
@@ -37,5 +34,7 @@ class Broom extends Thing {
     }
 
 }
+
+compositionFactory.applyModifier(PickableModifier, Broom);
 
 module.exports = Broom;

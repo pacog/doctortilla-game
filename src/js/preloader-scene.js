@@ -26,6 +26,8 @@ var PreloaderScene = {
         this.game.load.image('broom_inv', 'images/broom_inv.png');
         this.game.load.spritesheet('door_sprite', 'images/puerta_1.png', 40, 60, 2);
 
+        this.game.load.spritesheet('BAND_IN_SOFA_SPRITE', 'images/resto_grupo.png', 111, 79, 9);
+
         this.game.load.image('bocadillo', 'images/bocadillo1.png');
         this.game.load.image('panceta', 'images/panceta.png');
         this.game.load.image('pan', 'images/bread.png');

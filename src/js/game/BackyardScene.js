@@ -1,6 +1,7 @@
 var Scene = require('../engine/models/Scene.js');
 var BackyardSceneBoundaries = require('./BackyardSceneBoundaries.js');
 var BackyardDoorToBackstage = require('./BackyardDoorToBackstage.js');
+var Bili = require('./Bili.js');
 var scenes = require('./Scenes.store.js');
 
 class BackyardScene extends Scene {
@@ -9,7 +10,7 @@ class BackyardScene extends Scene {
         let options = {
             BG: 'backyard_BG',
             boundaries: BackyardSceneBoundaries,
-            things: [BackyardDoorToBackstage]
+            things: [BackyardDoorToBackstage, Bili]
         };
 
         super(phaserGame, options, state);

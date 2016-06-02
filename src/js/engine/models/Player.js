@@ -13,6 +13,7 @@ class Player {
 
         this.phaserGame = phaserGame;
         this.createSprite();
+        this._state = new Map();
         this.inventory = new Inventory();
 
         this.direction = Directions.RIGHT;
@@ -90,6 +91,28 @@ class Player {
         this.sprite.x = pos.x;
         this.sprite.y = pos.y;
     }
+
+    get state() {
+        return this._state;
+    }
+
+    set state(newState) {
+        if (newState) {
+            this._state = newState;
+            this._onStateChange();
+        }
+    }
+
+    changeAttr(attrName, value) {
+        this._state.set(attrName, value);
+        this._onStateChange();
+    }
+
+    getAttr(attrName) {
+        return this._state.get(attrName);
+    }
+
+    _onStateChange() {}
 
     _createMovePromise(timeToMove) {
         var result = {};

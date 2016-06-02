@@ -32,6 +32,16 @@ class Scene {
         };
     }
 
+    getThingById(thingId) {
+        var foundThing = null;
+        this._things.forEach((thing) => {
+            if (thing.id === thingId) {
+                foundThing = thing;
+            }
+        });
+        return foundThing;
+    }
+
     _getSelfState() {
         return {};
     }

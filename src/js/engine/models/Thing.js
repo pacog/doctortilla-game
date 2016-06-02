@@ -52,7 +52,6 @@ class Thing {
             this.pushAction(player);
             break;
         case Verbs.USE:
-            //Implement use action (two objects)
             this.useAction(player);
             break;
         case Verbs.SPEAK:

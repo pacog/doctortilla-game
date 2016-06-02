@@ -5,6 +5,7 @@ var Thing = require('../engine/models/Thing.js');
 class Bacon extends Thing {
     constructor(phaserGame) {
         let options = {
+            id: 'bacon',
             spriteId: 'panceta',
             inventoryImageId: 'panceta',
             name: 'bacon',

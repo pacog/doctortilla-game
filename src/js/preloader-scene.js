@@ -21,7 +21,8 @@ var PreloaderScene = {
         this.game.load.spritesheet('buttons_BG', 'images/verb_buttons.png', 75, 18);
         //Last number is optional (number of images in sprite)
         this.game.load.spritesheet('vaca_sprite', 'images/vaca_sprite10.png', 44, 61, 21);
-        this.game.load.spritesheet('vending', 'images/vending.png', 26, 50, 1);
+        this.game.load.spritesheet('VENDING_SPRITE', 'images/vending_sprite.png', 33, 57, 3);
+        this.game.load.spritesheet('CABLE_SPRITE', 'images/cable.png', 18, 13, 1);
         this.game.load.image('broom', 'images/broom.png');
         this.game.load.image('broom_inv', 'images/broom_inv.png');
         this.game.load.spritesheet('door_sprite', 'images/puerta_1.png', 40, 60, 2);

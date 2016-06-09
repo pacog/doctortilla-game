@@ -32,10 +32,10 @@ class Glass extends Thing {
             return;
         }
         if (selectedThing.thing.id === 'dust') {
-            this._fillWithDust(player, selectedThing.thing);
+            this.fillWithDust(player, selectedThing.thing);
 
         } else if (selectedThing.thing.id === 'can') {
-            this._fillWithDrink(player, selectedThing.thing);
+            this.fillWithDrink(player, selectedThing.thing);
         } else {
             player.say('I don\t know how to do that...');
         }
@@ -53,12 +53,12 @@ class Glass extends Thing {
         }
     }
 
-    _fillWithDust(player, dust) {
+    fillWithDust(player, dust) {
         this.changeAttr('POWDER_INSIDE', true);
         dust.destroy();
     }
 
-    _fillWithDrink(player) {
+    fillWithDrink(player) {
         if (!this.getAttr('FILLED')) {
             this.changeAttr('FILLED', true);
             activeInventory.refresh();

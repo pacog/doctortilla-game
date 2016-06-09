@@ -15,6 +15,7 @@ class Thing {
             this._createSprite();
         }
         this._onStateChange();
+        this._applyModifier();
     }
 
     get id() {
@@ -152,6 +153,10 @@ class Thing {
     }
 
     _onStateChange() {}
+
+    //This method can be overwritten by modifiers so it's called after the constructor
+    //TODO there probably is a more elegant way to do this
+    _applyModifier() {}
 
     _createSprite() {
 

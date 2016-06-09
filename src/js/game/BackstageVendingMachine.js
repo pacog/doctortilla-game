@@ -43,11 +43,18 @@ class BackstageVendingMachine extends Thing {
 
     useAction(player) {
         if (selectedThing.thing.id === 'bacon') {
-            this.changeAttr('GREASED', true);
-            player.say('Nice, it will slide really well now...');
+            this._greaseWithBacon(player);
         } else {
             player.say('I don\t know how to use that with a vending machine...');
         }
+    }
+
+    _greaseWithBacon(player) {
+        player.goToThing(this)
+            .then(() => {
+                this.changeAttr('GREASED', true);
+                player.say('Nice, it will slide really well now...');
+            });
     }
 
     _onStateChange() {

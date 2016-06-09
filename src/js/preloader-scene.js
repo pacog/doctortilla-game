@@ -32,6 +32,14 @@ var PreloaderScene = {
         this.game.load.image('bocadillo', 'images/bocadillo1.png');
         this.game.load.image('panceta', 'images/panceta.png');
         this.game.load.image('pan', 'images/bread.png');
+        this.game.load.image('scissors', 'images/scissors.png');
+        this.game.load.image('table', 'images/mesa.png');
+        this.game.load.image('dust', 'images/polvo.png');
+        this.game.load.image('glass', 'images/vaso.png');
+        this.game.load.image('full_glass', 'images/vaso_lleno.png');
+        this.game.load.image('coconut', 'images/coco.png');
+        this.game.load.image('can', 'images/lata.png');
+        this.game.load.image('coin', 'images/moneda.png');
 
         this.game.load.image('monigote', 'images/monigote.png');
     },

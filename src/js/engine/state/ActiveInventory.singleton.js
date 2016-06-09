@@ -26,6 +26,10 @@ class ActiveInventory {
         this._subscribers.delete(callback);
     }
 
+    refresh() {
+        this._notifySubscribers();
+    }
+
     _notifySubscribers() {
         this._subscribers.forEach(callback => callback(this._activeInventory));
     }

@@ -21,6 +21,8 @@ class UIInventoryItem {
         this.sprite.inputEnabled = true;
         this.sprite.fixedToCamera = true;
 
+        this.sprite.frame = this.thing.getFrameForInventory();
+
         this.sprite.events.onInputDown.add(this._onClick, this);
         this.sprite.events.onInputOver.add(this._onInputOver, this);
         this.sprite.events.onInputOut.add(this._onInputOut, this);

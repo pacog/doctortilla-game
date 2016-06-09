@@ -10,6 +10,10 @@ class UIInventory {
         activeInventory.subscribeToChange((newInventory) => this._inventoryChanged(newInventory))
     }
 
+    refresh() {
+        this._inventoryChanged(activeInventory.getActiveInventory());
+    }
+
     _inventoryChanged(newInventory) {
         this._currentInventory = newInventory;
         this._createItems();

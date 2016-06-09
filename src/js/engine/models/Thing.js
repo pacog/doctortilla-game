@@ -148,6 +148,10 @@ class Thing {
         return this.state && this.state.get('IS_IN_INVENTORY');
     }
 
+    getFrameForInventory() {
+        return 0;
+    }
+
     _addToInventory() {
         activeInventory.getActiveInventory().add(this);
     }

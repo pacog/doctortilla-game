@@ -2,6 +2,7 @@ var Thing = require('../engine/models/Thing.js');
 var PickableModifier = require('../engine/models/PickableModifier.js');
 var compositionFactory = require('../engine/models/CompositionFactory.js');
 var selectedThing = require('../engine/state/SelectedThing.singleton.js');
+var activeInventory = require('../engine/state/ActiveInventory.singleton.js');
 
 const NORMAL_FRAME = 0;
 const POWDER_FRAME = 1;
@@ -60,23 +61,24 @@ class Glass extends Thing {
     _fillWithDrink(player) {
         if (!this.getAttr('FILLED')) {
             this.changeAttr('FILLED', true);
+            activeInventory.refresh();
         } else {
             player.say('It is already full');
         }
     }
 
-    _onStateChange() {
+    getFrameForInventory() {
         if (this.getAttr('FILLED')) {
             if (this.getAttr('POWDER_INSIDE')) {
-                this.sprite.frame = POWDER_FILLED_FRAME;
+                return POWDER_FILLED_FRAME;
             } else {
-                this.sprite.frame = FILLED_FRAME;
+                return FILLED_FRAME;
             }
         } else if (this.getAttr('POWDER_INSIDE')) {
-            this.sprite.frame = POWDER_FRAME;
-        } else {
-            this.sprite.frame = NORMAL_FRAME;
+            return POWDER_FRAME;
         }
+
+        return NORMAL_FRAME;
     }
 
 }

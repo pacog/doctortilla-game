@@ -11,6 +11,7 @@ var Bocadillo = require('./Bocadillo.js');
 var Dust = require('./Dust.js');
 var Glass = require('./Glass.js');
 var Coconut = require('./Coconut.js');
+var Coin = require('./Coin.js');
 var scenes = require('./Scenes.store.js');
 
 class BackstageScene extends Scene {
@@ -30,7 +31,8 @@ class BackstageScene extends Scene {
                 Scissors,
                 Dust,
                 Glass,
-                Coconut
+                Coconut,
+                Coin
             ]
         };
 

@@ -15,11 +15,12 @@ class Game {
         this.options = options;
         this.phaserGame = phaserGame;
         labels.setLabels(this.options.labels);
+        this._createPlayer();
         this._createScenes();
         this._updateWorldBounds();
-        this._createPlayer();
         this._createCamera();
         this._createUI();
+        this.player.bringToTop();
 
         actionDispatcher.subscribeTo(actions.CLICK_STAGE, ev => this._movePlayerTo(ev) );
         actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._selectThing(thing) );

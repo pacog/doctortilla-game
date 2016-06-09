@@ -1,12 +1,12 @@
 var Thing = require('../engine/models/Thing.js');
 
-class Coin extends Thing {
+class Can extends Thing {
     constructor(phaserGame) {
         let options = {
-            id: 'coin',
-            spriteId: 'coin',
-            inventoryImageId: 'coin',
-            name: 'coin',
+            id: 'can',
+            spriteId: 'can',
+            inventoryImageId: 'can',
+            name: 'can',
             directlyInInventory: true
         };
         super(phaserGame, options);
@@ -14,4 +14,4 @@ class Coin extends Thing {
 
 }
 
-module.exports = Coin;
+module.exports = Can;

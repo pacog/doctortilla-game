@@ -1,5 +1,9 @@
 var Thing = require('../engine/models/Thing.js');
 var selectedThing = require('../engine/state/SelectedThing.singleton.js');
+var TalkerModifier = require('../engine/models/TalkerModifier.js');
+var compositionFactory = require('../engine/models/CompositionFactory.js');
+var Can = require('./Can.js');
+var uiBlocker = require('../engine/ui/UIBlocker.singleton.js');
 
 const NORMAL_FRAME = 0;
 const GREASED_FRAME = 1;
@@ -44,6 +48,8 @@ class BackstageVendingMachine extends Thing {
     useAction(player) {
         if (selectedThing.thing.id === 'bacon') {
             this._greaseWithBacon(player);
+        } else if (selectedThing.thing.id === 'coin') {
+            this._getCan(player, selectedThing.thing);
         } else {
             player.say('I don\t know how to use that with a vending machine...');
         }
@@ -54,6 +60,20 @@ class BackstageVendingMachine extends Thing {
             .then(() => {
                 this.changeAttr('GREASED', true);
                 player.say('Nice, it will slide really well now...');
+            });
+    }
+
+    _getCan(player, coin) {
+        uiBlocker.block(this.phaserGame);
+        player.goToThing(this)
+            .then(() => {
+                coin.destroy();
+                return this.say('Clonk\n   clonk\n      clonk');
+            })
+            .then(() => {
+                new Can(this.phaserGame);
+                player.say('That was a wise purchase');
+                uiBlocker.unblock(this.phaserGame);
             });
     }
 
@@ -69,5 +89,7 @@ class BackstageVendingMachine extends Thing {
         }
     }
 }
+
+compositionFactory.applyModifier(TalkerModifier, BackstageVendingMachine);
 
 module.exports = BackstageVendingMachine;

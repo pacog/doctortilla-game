@@ -26,6 +26,8 @@ var PreloaderScene = {
         this.game.load.image('broom', 'images/broom.png');
         this.game.load.image('broom_inv', 'images/broom_inv.png');
         this.game.load.spritesheet('door_sprite', 'images/puerta_1.png', 40, 60, 2);
+        this.game.load.spritesheet('GLASS_SPRITE', 'images/vaso_sprite.png', 9, 9, 4);
+
 
         this.game.load.spritesheet('BAND_IN_SOFA_SPRITE', 'images/resto_grupo.png', 111, 79, 9);
 
@@ -35,8 +37,6 @@ var PreloaderScene = {
         this.game.load.image('scissors', 'images/scissors.png');
         this.game.load.image('table', 'images/mesa.png');
         this.game.load.image('dust', 'images/polvo.png');
-        this.game.load.image('glass', 'images/vaso.png');
-        this.game.load.image('full_glass', 'images/vaso_lleno.png');
         this.game.load.image('coconut', 'images/coco.png');
         this.game.load.image('can', 'images/lata.png');
         this.game.load.image('coin', 'images/moneda.png');

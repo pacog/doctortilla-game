@@ -5,6 +5,7 @@ var compositionFactory = require('../engine/models/CompositionFactory.js');
 class Dust extends Thing {
     constructor(phaserGame) {
         let options = {
+            id: 'dust',
             x: 102,
             y: 135,
             spriteId: 'dust',

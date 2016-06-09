@@ -27,7 +27,10 @@ var PreloaderScene = {
         this.game.load.image('broom_inv', 'images/broom_inv.png');
         this.game.load.spritesheet('door_sprite', 'images/puerta_1.png', 40, 60, 2);
         this.game.load.spritesheet('GLASS_SPRITE', 'images/vaso_sprite.png', 9, 9, 4);
+        this.game.load.spritesheet('COSTUME_SPRITE', 'images/costume_sprite.png', 40, 28, 4);
 
+        this.game.load.image('flowers', 'images/flowers.png');
+        this.game.load.image('skirt', 'images/skirt.png');
 
         this.game.load.spritesheet('BAND_IN_SOFA_SPRITE', 'images/resto_grupo.png', 111, 79, 9);
 

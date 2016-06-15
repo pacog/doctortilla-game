@@ -1,5 +1,6 @@
 var Player = require('../engine/models/Player.js');
 var randomText = require('../engine/models/RandomText.singleton.js');
+var activeInventory = require('../engine/state/ActiveInventory.singleton.js');
 
 class DoctortillaPlayer extends Player {
 
@@ -36,6 +37,47 @@ class DoctortillaPlayer extends Player {
             'Man, I really want to play that concert',
             'Probably I should find the rest of the band...'
         ));
+    }
+
+    hasCompleteCostume() {
+        let inventory = activeInventory.getActiveInventory();
+        let costume = inventory.getById('costume');
+
+        return costume && costume.isComplete();
+    }
+
+    hasCable() {
+        let inventory = activeInventory.getActiveInventory();
+        let cable = inventory.getById('cable');
+        return !!cable;
+    }
+
+    hasFunnyDrink() {
+        let inventory = activeInventory.getActiveInventory();
+        let glass = inventory.getById('glass');
+        return glass && glass.isFunny();
+    }
+
+    removeCostume() {
+        let inventory = activeInventory.getActiveInventory();
+        let costume = inventory.getById('costume');
+        inventory.remove(costume);
+    }
+
+    removeCable() {
+        let inventory = activeInventory.getActiveInventory();
+        let cable = inventory.getById('cable');
+        inventory.remove(cable);
+    }
+
+    removeGlass() {
+        let inventory = activeInventory.getActiveInventory();
+        let glass = inventory.getById('glass');
+        inventory.remove(glass);
+    }
+
+    deliveredEverything() {
+        return this.getAttr('DELIVERED_CABLE') && this.getAttr('DELIVERED_COSTUME') && this.getAttr('DELIVERED_DRINK');
     }
 
 }

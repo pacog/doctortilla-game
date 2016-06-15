@@ -43,7 +43,7 @@ class Glass extends Thing {
     }
 
     getFrameForInventory() {
-        if (this.getAttr('HAS_COCONUT') && this.getAttr('HAS_FLOWERS') && this.getAttr('HAS_SKIRT')) {
+        if (this.isComplete()) {
             return FULL_FRAME;
         }
         if (this.getAttr('HAS_COCONUT') && this.getAttr('HAS_FLOWERS')) {
@@ -71,6 +71,10 @@ class Glass extends Thing {
     addSkirt(skirt) {
         this.changeAttr('HAS_SKIRT', true);
         skirt.destroy();
+    }
+
+    isComplete() {
+        return this.getAttr('HAS_COCONUT') && this.getAttr('HAS_FLOWERS') && this.getAttr('HAS_SKIRT');
     }
 
 }

@@ -67,6 +67,10 @@ class Glass extends Thing {
         }
     }
 
+    isFunny() {
+        return this.getAttr('FILLED') && this.getAttr('POWDER_INSIDE');
+    }
+
     getFrameForInventory() {
         if (this.getAttr('FILLED')) {
             if (this.getAttr('POWDER_INSIDE')) {

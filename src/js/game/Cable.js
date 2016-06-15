@@ -6,6 +6,7 @@ var currentScene = require('../engine/state/CurrentScene.singleton.js');
 class Cable extends Thing {
     constructor(phaserGame) {
         let options = {
+            id: 'cable',
             x: 42,
             y: 165,
             spriteId: 'CABLE_SPRITE',

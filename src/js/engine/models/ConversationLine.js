@@ -42,7 +42,16 @@ class ConversationLine {
     }
 
     get nextState() {
-        return this._nextState;
+        return this._getNextState(this._nextState);
+    }
+
+    _getNextState(nextStateInfo) {
+        if (typeof nextStateInfo === 'string') {
+            return nextStateInfo;
+        } else {
+            //TODO: check if it is a function
+            return nextStateInfo();
+        }
     }
 }
 

@@ -40,6 +40,7 @@ class Conversation {
             this.ui.destroy();
         } else {
             this._stateId = newState;
+            this._loadScript();
             this._notifyStateChange();
         }
     }

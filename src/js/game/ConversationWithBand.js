@@ -45,6 +45,61 @@ function sayBiliSituation(player, band) {
     return band.say('ANGEL: Está fuera fumando, pero como lo dejemos mucho tiempo se va a poner como las grecas.');
 }
 
+function sayCostumeIsOk(player, band) {
+    return band.say('JUAN: Vaya disfraz ridículo.')
+                .then(() => {
+                    return band.say('JUAN: El mío era mejor');
+                })
+                .then(() => {
+                    return player.say('Te lo pones, o te lo pongo.');
+                })
+                .then(() => {
+                    band.changeAttr('HAS_COSTUME', true);
+                    player.changeAttr('DELIVERED_COSTUME', true);
+                    player.removeCostume();
+                    return player.say('JUAN: Me lo pongo.');
+                });
+}
+
+
+function sayCableIsOk(player, band) {
+    return band.say('ANGEL: No voy a preguntar de dónde lo has sacado...')
+                .then(() => {
+                    return band.say('SANTI: Lo has robado, ¿verdad?');
+                })
+                .then(() => {
+                    band.changeAttr('HAS_CABLE', true);
+                    player.changeAttr('DELIVERED_CABLE', true);
+                    player.removeCable();
+                    return player.say('Digamos que tengo recursos.');
+                });
+}
+
+function sayDrinkIsOk(player, band) {
+    return band.say('SANTI: Mmm un refrescante refresco...')
+                .then(() => {
+                    return band.say('SANTI: Glu glu glue');
+                })
+                .then(() => {
+                    return band.say('SANTI: ...');
+                })
+                .then(() => {
+                    return band.say('SANTI: (eructo)');
+                })
+                .then(() => {
+                    return band.say('SANTI: No sabía a droga ni nada');
+                })
+                .then(() => {
+                    return band.say('SANTI: Estoy empezando a sentirme listo para tocar');
+                })
+                .then(() => {
+                    band.changeAttr('HAS_DRINK', true);
+                    player.changeAttr('DELIVERED_DRINK', true);
+                    player.removeGlass();
+                    return player.say('Así me gusta.');
+                });
+}
+
 const script = {
     'initial': [
         new ConversationLine('¡Doctortillas! ¿Listos para tocar?', 'LIST_OF_PROBLEMS', sayProblemsIntro),
@@ -61,20 +116,72 @@ const script = {
     'INITIAL_AFTER_FIRST_TALK': [
         new ConversationLine('¿Cómo está Bili?', 'INITIAL_AFTER_FIRST_TALK', sayBiliSituation),
         new ConversationLine('Mmmm, voy a ver si arreglamos este follón', 'end')
+    ],
+    'WE_ARE_READY': [
+        new ConversationLine('¡Todo listo! Voy a por Bili y empezamos', 'end')
     ]
 };
 
 class ConversationWithBand extends Conversation {
     _initState() {
         if (this.player.getAttr('TALKED_TO_BAND_ABOUT_PROBLEMS')) {
-            this.state = 'INITIAL_AFTER_FIRST_TALK';
+            this.state = this._getStateIfPlayerDeliveredEverything();
         } else {
             this.state = 'initial';
         }
     }
 
     _loadScript() {
-        this.script = script;
+        this.script = Object.assign({}, script);
+        let dialogPart = [];
+        dialogPart.push(...this.script.INITIAL_AFTER_FIRST_TALK);
+
+        this._loadExtraOptionsInInitialFirstTalk(dialogPart);
+        this.script.INITIAL_AFTER_FIRST_TALK = dialogPart;
+    }
+
+    _loadExtraOptionsInInitialFirstTalk(dialogPart) {
+        this._addCostumeLine(dialogPart);
+        this._addCableLine(dialogPart);
+        this._addDrinkLine(dialogPart);
+    }
+
+    _addCostumeLine(dialogPart) {
+        if (this.player.hasCompleteCostume()) {
+            dialogPart.unshift(new ConversationLine(
+                'Tengo el disfraz',
+                () => { return this._getStateIfPlayerDeliveredEverything(); },
+                sayCostumeIsOk
+            ));
+        }
+    }
+
+    _addCableLine(dialogPart) {
+        if (this.player.hasCable()) {
+            dialogPart.unshift(new ConversationLine(
+                'Tengo el cable',
+                () => { return this._getStateIfPlayerDeliveredEverything(); },
+                sayCableIsOk
+            ));
+        }
+    }
+
+    _addDrinkLine(dialogPart) {
+        if (this.player.hasFunnyDrink()) {
+            dialogPart.unshift(new ConversationLine(
+                'Santi te he traido un refrigerio',
+                () => { return this._getStateIfPlayerDeliveredEverything(); },
+                sayDrinkIsOk
+            ));
+        }
+    }
+
+    _getStateIfPlayerDeliveredEverything() {
+        if (this.player.deliveredEverything()) {
+            return 'WE_ARE_READY';
+        } else {
+            return 'INITIAL_AFTER_FIRST_TALK';
+        }
     }
 
 }

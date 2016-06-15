@@ -24,6 +24,16 @@ class Inventory {
         this._subscribers.delete(callback);
     }
 
+    getById(id) {
+        let itemArray = Array.from(this.items);
+        for (let i = 0; i < itemArray.length; i++) {
+            if (itemArray[i].id === id) {
+                return itemArray[i];
+            }
+        }
+        return null;
+    }
+
     _notifySubscribers() {
         this._subscribers.forEach(callback => callback(this));
     }

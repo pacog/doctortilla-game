@@ -1,24 +1,33 @@
 {
   "version": "0.0.0",
   "name": "doctortilla-game",
-  "version": "0.0.0",
-  "author": "",
-  "license": "MIT",
-  
-  "repository": "pacog/doctortilla-game",
   "author": "pacog",
-  
+  "license": "MIT",
+  "repository": "pacog/doctortilla-game",
   "dependencies": {
     "browserify": "*",
     "browser-sync": "*",
     "del": "*",
     "gulp": "*",
     "gulp-connect": "*",
-    "gulp-gh-pages": "*", 
+    "gulp-gh-pages": "*",
     "gulp-util": "*",
     "merge-stream": "*",
     "phaser": "*",
     "vinyl-source-stream": "*",
     "watchify": "*"
+  },
+  "devDependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.13.6",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "tsify": "^0.16.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }

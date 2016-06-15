@@ -8,11 +8,14 @@ var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var watchify = require('watchify');
+var browserSync = require('browser-sync').create();
 
 var paths = {
     pages: ['src/*.html']
 };
 
+const DEV_BUILD_PATH = '.tmp';
+const PROD_BUILD_PATH = 'dist';
 
 var watchedBrowserify = watchify(browserify({
     basedir: '.',
@@ -24,32 +27,38 @@ var watchedBrowserify = watchify(browserify({
 
 function bundle() {
     return watchedBrowserify
-        .plugin(tsify)
         .transform('babelify')
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest(DEV_BUILD_PATH))
+        .pipe(browserSync.stream({once: true}));
 }
 
 gulp.task('copy-html', function () {
     return gulp.src(paths.pages)
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest(DEV_BUILD_PATH));
 });
 
 gulp.task('default', ['copy-html'], bundle);
-watchedBrowserify.on('update', bundle);
-watchedBrowserify.on('log', gutil.log);
 
-// gulp.task('run', ['watch', 'build'], function () {
-//   browserSync.init({
-//     server: ['src', '.tmp']
-//   });
 
-//   gulp.watch('src/**/*.{html,css}').on('change', browserSync.reload);
-// });
+gulp.task('run', ['watch'], function () {
+    bundle();
+    browserSync.init({
+        server: ['src', DEV_BUILD_PATH]
+    });
+
+    gulp.watch('src/**/*.{html,css}').on('change', browserSync.reload);
+});
+
+gulp.task('watch', function () {
+    watchedBrowserify.on('update', bundle);
+    watchedBrowserify.on('log', gutil.log);
+});
+
 
 // 
 
@@ -57,7 +66,7 @@ watchedBrowserify.on('log', gutil.log);
 // 
 // var source = require('vinyl-source-stream');
 
-// var browserSync = require('browser-sync').create();
+// 
 // var del = require('del');
 // var merge = require('merge-stream');
 

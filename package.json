@@ -5,21 +5,12 @@
   "license": "MIT",
   "repository": "pacog/doctortilla-game",
   "dependencies": {
-    "browserify": "*",
-    "browser-sync": "*",
-    "del": "*",
-    "gulp": "*",
-    "gulp-connect": "*",
-    "gulp-gh-pages": "*",
-    "gulp-util": "*",
-    "merge-stream": "*",
-    "phaser": "*",
-    "vinyl-source-stream": "*",
-    "watchify": "*"
+    "phaser": "2.4.8"
   },
   "devDependencies": {
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
+    "browser-sync": "2.13.0",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.13.6",

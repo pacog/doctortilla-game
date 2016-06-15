@@ -16,11 +16,12 @@ var paths = {
 
 const DEV_BUILD_PATH = '.tmp';
 const PROD_BUILD_PATH = 'dist';
+const ROOT_FILE = 'src/app/main.ts';
 
 var watchedBrowserify = watchify(browserify({
     basedir: '.',
     debug: true,
-    entries: ['src/main.ts'],
+    entries: [ROOT_FILE],
     cache: {},
     packageCache: {}
 }).plugin(tsify));
@@ -43,7 +44,6 @@ gulp.task('copy-html', function () {
 });
 
 gulp.task('default', ['copy-html'], bundle);
-
 
 gulp.task('run', ['watch'], function () {
     bundle();

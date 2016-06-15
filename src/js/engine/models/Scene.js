@@ -1,5 +1,6 @@
 var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var actions = require('../stores/Actions.store.js');
+var layout = require('../ui/LayoutManager.singleton.js');
 
 class Scene {
 
@@ -11,6 +12,7 @@ class Scene {
         this._createBackground();
         this._createBoundaries();
         this._createThings();
+        this._sortSceneObjects();
     }
 
     get id() {
@@ -66,12 +68,13 @@ class Scene {
     }
 
     _createBackground() {
-        this.background = this.phaserGame.add.sprite(
+        this.background = this.phaserGame.$$mainGroup.create(
                     0,
                     0,
                     this.options.BG);
         this.background.anchor.setTo(0, 0);
-
+        this.background.z = layout.z.BACKGROUND;
+        this.phaserGame.$$mainGroup.sort('z', Phaser.Group.SORT_ASCENDING);
         this.background.inputEnabled = true;
         this.background.pixelPerfectClick = true;
         this.background.events.onInputDown.add( (dest, ev) => {
@@ -120,6 +123,11 @@ class Scene {
             }
         }
         throw 'ERROR: could not find the related door.';
+    }
+
+    _sortSceneObjects() {
+        this.phaserGame.$$mainGroup.sort('z', Phaser.Group.SORT_ASCENDING);
+        //TODO: should reduce z index if needed
     }
 
     destroy() {

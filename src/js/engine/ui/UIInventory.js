@@ -22,12 +22,13 @@ class UIInventory {
     _createBG() {
         let layoutStartPosition = layout.INVENTORY_START_POSITION;
 
-        let background = this.phaserGame.add.sprite(
+        let background = this.phaserGame.$$mainGroup.create(
                     layoutStartPosition.x,
                     layoutStartPosition.y,
                     'UI_INV_BG');
         background.anchor.setTo(0, 0);
         background.fixedToCamera = true;
+        background.z = layout.z.INVENTORY;
     }
 
     _createItems() {
@@ -45,6 +46,7 @@ class UIInventory {
             );
             index += 1;
         }
+        this.phaserGame.$$mainGroup.sort('z', Phaser.Group.SORT_ASCENDING);
     }
 
     _destroyPrevItems() {

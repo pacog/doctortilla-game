@@ -14,6 +14,7 @@ class Game {
 
         this.options = options;
         this.phaserGame = phaserGame;
+        this.phaserGame.$$mainGroup = this.phaserGame.add.group();
         labels.setLabels(this.options.labels);
         this._createPlayer();
         this._createScenes();

@@ -12,7 +12,7 @@ class UIInventoryItem {
 
     _createSprite() {
         this._position = layout.getPositionForUIInventoryItem(this.index);
-        this.sprite = this.phaserGame.add.sprite(
+        this.sprite = this.phaserGame.$$mainGroup.create(
             this._position.x,
             this._position.y,
             this.thing.inventoryImage
@@ -26,6 +26,7 @@ class UIInventoryItem {
         this.sprite.events.onInputDown.add(this._onClick, this);
         this.sprite.events.onInputOver.add(this._onInputOver, this);
         this.sprite.events.onInputOut.add(this._onInputOut, this);
+        this.sprite.z = layout.z.INVENTORY_OBJECT;
     }
 
     _onClick() {

@@ -24,6 +24,8 @@ class UICurrentAction {
         );
         this.shadowText.anchor.setTo(0, 0);
         this.shadowText.fixedToCamera = true;
+        this.phaserGame.$$mainGroup.add(this.shadowText);
+        this.shadowText.z = layout.z.CURRENT_ACTION;
 
         this.text = this.phaserGame.add.bitmapText(
             layout.CURRENT_ACTION_POSITION.x,
@@ -34,6 +36,8 @@ class UICurrentAction {
         );
         this.text.anchor.setTo(0, 0);
         this.text.fixedToCamera = true;
+        this.phaserGame.$$mainGroup.add(this.shadowText);
+        this.shadowText.z = layout.z.CURRENT_ACTION + 1;
     }
 
     _updateText() {

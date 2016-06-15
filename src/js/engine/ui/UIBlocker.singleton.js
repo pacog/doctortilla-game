@@ -13,6 +13,9 @@ class UIBlocker {
         this._overlay.fixedToCamera = true;
         this._overlay.inputEnabled = true;
 
+        this.phaserGame.$$mainGroup.add(this._overlay);
+        this._overlay.z = layout.z.BLOCKER;
+
     }
 
     unblock() {

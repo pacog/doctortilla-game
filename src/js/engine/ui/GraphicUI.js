@@ -14,17 +14,16 @@ class GraphicUI {
         this.UICurrentAction = new UICurrentAction(phaserGame);
         this.UIInventory = new UIInventory(phaserGame);
         this.UIReflectButton = new UIReflectButton(phaserGame);
-
+        this.phaserGame.$$mainGroup.sort('z', Phaser.Group.SORT_ASCENDING);
     }
 
     _createBackground() {
         let layoutStartPosition = layout.UI_START_POSITION;
-        // let layoutSize = layout.UI_SIZE;
-
-        let background = this.phaserGame.add.sprite(
+        let background = this.phaserGame.$$mainGroup.create(
                     layoutStartPosition.x,
                     layoutStartPosition.y,
                     'UI_BG');
+        background.z = layout.z.UI;
         background.anchor.setTo(0, 0);
         background.fixedToCamera = true;
 

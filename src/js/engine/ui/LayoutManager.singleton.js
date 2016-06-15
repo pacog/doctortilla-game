@@ -25,7 +25,47 @@ const CONVERSATION_LINE_HEIGHT = CURRENT_ACTION_INFO_HEIGHT;
 const CONVERSATION_LINE_PADDING_X = 5;
 const CONVERSATION_LINE_PADDING_Y = 6;
 
+
+const Z_CONST = Object.freeze({
+    BACKGROUND: 1,
+    BACKGROUND_OBJECT: 5,
+    PLAYER: 9999,
+    FOREGROUND_OBJECT: 10000,
+    UI: 20000,
+    INVENTORY: 20001,
+    INVENTORY_OBJECT: 20010,
+    VERBS: 20002,
+    VERBS_BUTTONS: 20002,
+    VERBS_BUTTONS_TEXT: 20003,
+    CURRENT_ACTION: 20004,
+    CONVERSATION: 30000,
+    BLOCKER: 9999999
+});
+
+
 class LayoutManager {
+
+    get z() {
+        return Z_CONST;
+    }
+
+    getZForBGObject() {
+        this.lastZBGObject = this.lastZBGObject || Z_CONST.BACKGROUND_OBJECT;
+        this.lastZBGObject += 1;
+        return this.lastZBGObject;
+    }
+
+    getZForFGObject() {
+        this.lastZFGObject = this.lastZFGObject || Z_CONST.FOREGROUND_OBJECT;
+        this.lastZFGObject += 1;
+        return this.lastZFGObject;
+    }
+
+    getZForInvObject() {
+        this.lastZInvObject = this.lastZInvObject || Z_CONST.INVENTORY_OBJECT;
+        this.lastZInvObject += 1;
+        return this.lastZInvObject;
+    }
 
     get HEIGHT() {
         return LAYOUT_HEIGHT / LAYOUT_ZOOM;

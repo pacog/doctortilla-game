@@ -36,6 +36,8 @@ class ActionButton {
             2,
             1
         );
+        this.phaserGame.$$mainGroup.add(this.button);
+        this.button.z = layout.z.VERBS_BUTTONS;
         this.button.fixedToCamera = true;
     }
 
@@ -50,6 +52,8 @@ class ActionButton {
         );
         this.shadowText.anchor.setTo(0.5, 0.5);
         this.shadowText.fixedToCamera = true;
+        this.phaserGame.$$mainGroup.add(this.shadowText);
+        this.shadowText.z = layout.z.VERBS_BUTTONS_TEXT;
 
         this.text = this.phaserGame.add.bitmapText(
             this._position.x + layout.VERB_BUTTON_WIDTH / 2,
@@ -60,6 +64,8 @@ class ActionButton {
         );
         this.text.anchor.setTo(0.5, 0.5);
         this.text.fixedToCamera = true;
+        this.phaserGame.$$mainGroup.add(this.text);
+        this.text.z = layout.z.VERBS_BUTTONS_TEXT + 1;
     }
 
     _onClick() {

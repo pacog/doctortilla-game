@@ -1,7 +1,9 @@
 var actionDispatcher = require('../ActionDispatcher.singleton.js');
+var actionDispatcher = require('../ActionDispatcher.singleton.js');
 var actions = require('../stores/Actions.store.js');
 var Verbs = require('../stores/Verbs.store.js');
 var activeInventory = require('../state/ActiveInventory.singleton.js');
+var layout = require('../ui/LayoutManager.singleton.js');
 
 class Thing {
 
@@ -9,7 +11,7 @@ class Thing {
         this.options = options;
         this.phaserGame = phaserGame;
         this._state = new Map();
-        if(this.options.directlyInInventory) {
+        if (this.options.directlyInInventory) {
             this._addToInventory();
         } else {
             this._createSprite();
@@ -163,8 +165,7 @@ class Thing {
     _applyModifier() {}
 
     _createSprite() {
-
-        this.sprite = this.phaserGame.add.sprite(
+        this.sprite = this.phaserGame.$$mainGroup.create(
                         this.options.x,
                         this.options.y,
                         this.options.spriteId
@@ -172,6 +173,10 @@ class Thing {
 
         this.sprite.inputEnabled = true;
 
+        this.sprite.z = layout.getZForBGObject();
+        if (this.options.isForeground) {
+            this.sprite.z = layout.z.FOREGROUND_OBJECT;
+        }
         this.sprite.events.onInputDown.add(this._onClick, this);
         this.sprite.events.onInputOver.add(this._onInputOver, this);
         this.sprite.events.onInputOut.add(this._onInputOut, this);

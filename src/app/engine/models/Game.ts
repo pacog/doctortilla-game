@@ -1,11 +1,13 @@
+import { labelsStore } from '../stores/Labels.store';
+
 export interface IGameOptions {
-    // player: string
+    labels: Object
 }
 
 export abstract class Game {
 
     constructor(protected options: IGameOptions) {
-        this.options = options;
+        labelsStore.addLabels(this.options.labels);
         // this.phaserGame = phaserGame;
         // this.phaserGame.$$mainGroup = this.phaserGame.add.group();
         // labels .setLabels(this.options.labels);

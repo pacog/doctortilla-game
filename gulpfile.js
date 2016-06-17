@@ -51,12 +51,14 @@ gulp.task('run', ['watch'], function () {
         server: ['src', DEV_BUILD_PATH]
     });
 
+    watchedBrowserify.on('update', bundle);
+    watchedBrowserify.on('log', gutil.log);
+
     gulp.watch('src/**/*.{html,css}').on('change', browserSync.reload);
 });
 
 gulp.task('watch', function () {
-    watchedBrowserify.on('update', bundle);
-    watchedBrowserify.on('log', gutil.log);
+    
 });
 
 

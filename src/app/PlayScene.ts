@@ -1,9 +1,16 @@
-export const PlayScene = {
-    create: function () {
-        // this.gameModel = new DoctortillaGame(this.game);
-    },
+import { DoctortillaGame } from './game/DoctortillaGame';
 
-    update: function () {
-        // this.gameModel.update();
+class PlayScene {
+
+    gameModel: DoctortillaGame;
+
+    create() {
+        this.gameModel = new DoctortillaGame();
     }
-};
+
+    update() {
+        this.gameModel.update();
+    }
+}
+
+export const playScene = new PlayScene();

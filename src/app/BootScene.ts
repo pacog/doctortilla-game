@@ -1,5 +1,5 @@
-/// <reference path="../vendor/phaser/phaser.d.ts"/>
 import { layout } from './engine/ui/LayoutManager.singleton';
+import { phaser } from './Phaser';
 
 export const BootScene = {
     preload: function() {
@@ -8,12 +8,12 @@ export const BootScene = {
     },
 
     create: function () {
-        this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        this.game.scale.scaleMode = phaser.ScaleManager.USER_SCALE;
 
         this.game.scale.setUserScale(layout.LAYOUT_ZOOM, layout.LAYOUT_ZOOM);
         // enable crisp rendering
         this.game.renderer.renderSession.roundPixels = true;
-        Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
+        phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
 
         this.game.state.start('preloader');
     }

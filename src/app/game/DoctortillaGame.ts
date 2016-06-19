@@ -1,13 +1,13 @@
 import { Game } from '../engine/models/Game';
-import { label } from '../engine/stores/Labels.store';
 import { DOCTORTILLA_LABELS } from './DoctortillaLabels';
+import { DoctortillaPlayer } from './DoctortillaPlayer';
 
 export class DoctortillaGame extends Game {
     constructor() {
         let options = {
-            labels: DOCTORTILLA_LABELS
+            labels: DOCTORTILLA_LABELS,
+            player: new DoctortillaPlayer()
         };
         super(options);
-        console.log(label('Go to'));
     }
 }

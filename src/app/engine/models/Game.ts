@@ -1,17 +1,23 @@
 import { labelsStore } from '../stores/Labels.store';
+import { Player } from './Player';
+import { activeInventory } from '../state/ActiveInventory.singleton';
+
 
 export interface IGameOptions {
-    labels: Object
+    labels: Object,
+    player: Player
 }
 
 export abstract class Game {
 
+    player: Player;
+
     constructor(protected options: IGameOptions) {
         labelsStore.addLabels(this.options.labels);
-        // this.phaserGame = phaserGame;
-        // this.phaserGame.$$mainGroup = this.phaserGame.add.group();
-        // labels .setLabels(this.options.labels);
-        // this._createPlayer();
+
+        this.player = this.options.player;
+        activeInventory.setActiveInventory(this.player.inventory);
+
         // this._createScenes();
         // this._updateWorldBounds();
         // this._createCamera();
@@ -25,5 +31,6 @@ export abstract class Game {
         // actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
     }
 
-    update() {}
+    update(): void {}
+
 }

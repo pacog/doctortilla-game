@@ -1,6 +1,6 @@
 class PhaserGame {
 
-    currentValue: Phaser.Game;
+    private currentValue: Phaser.Game;
 
     set value(newValue: Phaser.Game) {
         this.currentValue = newValue;

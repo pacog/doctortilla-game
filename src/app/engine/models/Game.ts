@@ -1,23 +1,26 @@
 import { labelsStore } from '../stores/Labels.store';
 import { Player } from './Player';
 import { activeInventory } from '../state/ActiveInventory.singleton';
-
+import { Scene } from './Scene';
 
 export interface IGameOptions {
     labels: Object,
-    player: Player
+    player: Player,
+    scenes: Array<Scene>,
+    initialSceneId: string
 }
 
 export abstract class Game {
 
     player: Player;
+    scenes: Map<string, Scene>;
+    currentScene: Scene;
 
     constructor(protected options: IGameOptions) {
         labelsStore.addLabels(this.options.labels);
-
         this.player = this.options.player;
         activeInventory.setActiveInventory(this.player.inventory);
-
+        this.createScenes(this.options);
         // this._createScenes();
         // this._updateWorldBounds();
         // this._createCamera();
@@ -32,5 +35,36 @@ export abstract class Game {
     }
 
     update(): void {}
+
+
+
+
+    //TODO: separate all scenes handling into a Scenes Store?
+    private createScenes(options: IGameOptions): void {
+        this.scenes = new Map();
+        options.scenes.forEach((scene) => {
+            this.scenes.set(scene.id, scene);
+        });
+        this.setCurrentScene(options.initialSceneId);
+    }
+
+    private setCurrentScene(currentSceneId: string): void {
+        this.destroyCurrentScene();
+        let scene = this.scenes.get(currentSceneId);
+        if (!scene) {
+            throw `ERROR trying to init scene that is not present (${currentSceneId})`;
+        }
+        scene.show();
+    }
+
+    private destroyCurrentScene(): void {
+        if (this.currentScene) {
+            this.currentScene.destroy();
+            this.currentScene = null;
+        }
+    }
+
+
+
 
 }

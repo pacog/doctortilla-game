@@ -3,6 +3,9 @@ import { Player } from './Player';
 import { activeInventory } from '../state/ActiveInventory.singleton';
 import { Scene } from './Scene';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
+import { phaserGame } from '../state/PhaserGame.singleton';
+import { IPoint } from '../utils/Interfaces';
+import { style } from '../ui/Style';
 
 export interface IGameOptions {
     labels: Object,
@@ -13,9 +16,11 @@ export interface IGameOptions {
 
 export abstract class Game {
 
-    player: Player;
-    scenes: Map<string, Scene>;
-    currentScene: Scene;
+    private player: Player;
+    private scenes: Map<string, Scene>;
+    private currentScene: Scene;
+    private camera: Phaser.Camera;
+    private cameraPosition: IPoint;
 
     constructor(protected options: IGameOptions) {
         labelsStore.addLabels(this.options.labels);
@@ -23,16 +28,14 @@ export abstract class Game {
         activeInventory.setActiveInventory(this.player.inventory);
         this.createScenes(this.options);
         this.initActions();
-        // this._createScenes();
-        // this._updateWorldBounds();
-        // this._createCamera();
+        this.updateWorldBounds();
+        this.createCamera();
         // this._createUI();
     }
 
-    update(): void {}
-
-
-
+    update(): void {
+        this.updateCameraPosition();
+    }
 
     //TODO: separate all scenes handling into a Scenes Store?
     private createScenes(options: IGameOptions): void {
@@ -49,6 +52,7 @@ export abstract class Game {
         if (!scene) {
             throw `ERROR trying to init scene that is not present (${currentSceneId})`;
         }
+        this.currentScene = scene;
         scene.show();
     }
 
@@ -57,6 +61,27 @@ export abstract class Game {
             this.currentScene.destroy();
             this.currentScene = null;
         }
+    }
+
+
+    //TODO separate camera into a new module
+    private createCamera(): void {
+        if (!this.player) {
+            throw 'ERROR: camera must be created after player';
+        }
+        this.camera = phaserGame.value.camera;
+        this.updateCameraPosition();
+    }
+
+    private updateCameraPosition(): void {
+        this.cameraPosition = this.cameraPosition || new Phaser.Point(0, 0);
+
+        let player = this.player.sprite;
+        this.cameraPosition.x += (player.x - this.cameraPosition.x) * style.CAMERA_EASING_FACTOR;
+        this.cameraPosition.x = Math.round(this.cameraPosition.x);
+        this.cameraPosition.y += (player.y - this.cameraPosition.y) * style.CAMERA_EASING_FACTOR;
+        this.cameraPosition.y = Math.round(this.cameraPosition.y);
+        this.camera.focusOnXY(this.cameraPosition.x, this.cameraPosition.y);
     }
 
     private initActions(): void {
@@ -75,6 +100,13 @@ export abstract class Game {
         });
     }
 
-
+    private updateWorldBounds(): void {
+        let bounds = this.currentScene.sceneBounds;
+        phaserGame.value.world.setBounds(
+            bounds.x,
+            bounds.y,
+            bounds.width,
+            bounds.height);
+    }
 
 }

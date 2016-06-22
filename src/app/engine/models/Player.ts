@@ -25,7 +25,7 @@ export abstract class Player {
 
     inventory: Inventory;
 
-    private sprite: Phaser.Sprite;
+    private _sprite: Phaser.Sprite;
     private tween: Phaser.Tween;
     private direction: Directions;
     private willMovePromise: ITimeoutWithPromise;
@@ -45,7 +45,7 @@ export abstract class Player {
         if (timeToAnimate) {
             this.updateDirection(destination);
             this.playWalkingAnimation();
-            this.tween = phaserGame.value.add.tween(this.sprite);
+            this.tween = phaserGame.value.add.tween(this._sprite);
             this.tween.to({ x: destination.x, y: destination.y }, timeToAnimate, 'Linear', true, 0);
             this.tween.onComplete.add(this.stopAnimations, this);
         }
@@ -55,21 +55,25 @@ export abstract class Player {
         return this.willMovePromise.promise;
     }
 
+    get sprite(): Phaser.Sprite {
+        return this._sprite;
+    }
+
     private createSprite(): void {
-        this.sprite = uiLayers.player.create(
+        this._sprite = uiLayers.player.create(
             this.options.initialX,
             this.options.initialY,
             this.options.spriteId
         );
-        this.sprite.anchor.setTo(0.5, 0.99);
-        this.sprite.inputEnabled = true;
+        this._sprite.anchor.setTo(0.5, 0.99);
+        this._sprite.inputEnabled = true;
         uiLayers.player.sort('z', Phaser.Group.SORT_ASCENDING);
         this.addSpriteAnimations();
     }
 
     private addSpriteAnimations(): void {
         this.options.spriteOptions.forEach( (spritePosition, key) => {
-            this.sprite.animations.add(key, spritePosition.frames, this.options.animationSpeed, true);
+            this._sprite.animations.add(key, spritePosition.frames, this.options.animationSpeed, true);
         });
     }
 
@@ -118,8 +122,8 @@ export abstract class Player {
 
     private getTimeForAnimation(destination: IPoint): number {
         let angleBetween = this.getAngleToDesiredPosition(destination);
-        let diff1 = this.sprite.x - destination.x;
-        let diff2 = this.sprite.y - destination.y;
+        let diff1 = this._sprite.x - destination.x;
+        let diff2 = this._sprite.y - destination.y;
         let distance = Math.sqrt((diff1 * diff1) + (diff2 * diff2));
         let speedFromX = Math.abs(Math.cos(angleBetween)) * distance / this.options.xSpeed;
         let speedFromY = Math.abs(Math.sin(angleBetween)) * distance / this.options.ySpeed;
@@ -128,8 +132,8 @@ export abstract class Player {
     }
 
     private getAngleToDesiredPosition(destination: IPoint): number {
-        return Math.atan2(this.sprite.y - destination.y,
-            this.sprite.x - destination.x);
+        return Math.atan2(this._sprite.y - destination.y,
+            this._sprite.x - destination.x);
     }
 
     private updateDirection(destination: IPoint): void {
@@ -150,28 +154,28 @@ export abstract class Player {
     private playWalkingAnimation(): void {
         let directionName = getDirectionName(this.direction);
         let spriteState = 'walk_' + directionName;
-        this.sprite.animations.play(spriteState);
+        this._sprite.animations.play(spriteState);
         this.flipXIfNeeded(spriteState);
     }
 
     private flipXIfNeeded(spriteState: string): void {
         let spriteStateOptions = this.options.spriteOptions.get(spriteState);
         if (spriteStateOptions && spriteStateOptions.inverse) {
-            this.sprite.scale.x = -1;
+            this._sprite.scale.x = -1;
         } else {
-            this.sprite.scale.x = 1;
+            this._sprite.scale.x = 1;
         }
     }
 
     private stopAnimations(): void {
         this.playStandAnimation();
-        this.sprite.animations.stop();
+        this._sprite.animations.stop();
     }
 
     private playStandAnimation(): void {
         let directionName = getDirectionName(this.direction);
         let spriteState = 'stand_' + directionName;
-        this.sprite.animations.play(spriteState);
+        this._sprite.animations.play(spriteState);
         this.flipXIfNeeded(spriteState);
     }
 

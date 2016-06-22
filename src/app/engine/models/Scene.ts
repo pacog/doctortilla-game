@@ -1,5 +1,6 @@
 import { uiLayers } from '../ui/UILayers.singleton';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
+import { IRectangle } from '../utils/Interfaces';
 
 interface ISceneOptions {
     id: string,
@@ -15,6 +16,10 @@ export abstract class Scene {
 
     get id(): string {
         return this.options.id;
+    }
+
+    get sceneBounds(): IRectangle {
+        return this.background.getBounds();
     }
 
     show(): void {

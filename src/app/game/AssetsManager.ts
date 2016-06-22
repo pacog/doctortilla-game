@@ -3,7 +3,9 @@ const SPRITES = {
 };
 
 const IMAGES = {
-    'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png'
+    'UI_BG': 'images/UI_BG.png',
+    'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
+    
 };
 
 class AssetsManager {

@@ -6,6 +6,7 @@ import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { phaserGame } from '../state/PhaserGame.singleton';
 import { IPoint } from '../utils/Interfaces';
 import { style } from '../ui/Style';
+import { GraphicUI } from '../ui/GraphicUI';
 
 export interface IGameOptions {
     labels: Object,
@@ -21,6 +22,7 @@ export abstract class Game {
     private currentScene: Scene;
     private camera: Phaser.Camera;
     private cameraPosition: IPoint;
+    private graphicUI: GraphicUI;
 
     constructor(protected options: IGameOptions) {
         labelsStore.addLabels(this.options.labels);
@@ -30,7 +32,7 @@ export abstract class Game {
         this.initActions();
         this.updateWorldBounds();
         this.createCamera();
-        // this._createUI();
+        this.graphicUI = new GraphicUI();
     }
 
     update(): void {

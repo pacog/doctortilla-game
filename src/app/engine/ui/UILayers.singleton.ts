@@ -5,7 +5,8 @@ import { phaserGame } from '../state/PhaserGame.singleton';
 enum UILayers {
     BACKGROUND,
     PLAYER,
-    FOREGROUND
+    FOREGROUND,
+    GUI_BACKGROUND
 }
 
 class UILayersManager {
@@ -38,11 +39,17 @@ class UILayersManager {
         return this.groups.get(UILayers.FOREGROUND);
     }
 
+    get guiBackground(): Phaser.Group {
+        this.init();
+        return this.groups.get(UILayers.GUI_BACKGROUND);
+    }
+
     private createLayers(game: Phaser.Game): void {
         this.groups = new Map();
         this.groups.set(UILayers.BACKGROUND, game.add.group());
         this.groups.set(UILayers.PLAYER, game.add.group());
         this.groups.set(UILayers.FOREGROUND, game.add.group());
+        this.groups.set(UILayers.GUI_BACKGROUND, game.add.group());
     }
 }
 

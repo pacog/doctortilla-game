@@ -12,7 +12,7 @@ interface IPlayerOptions {
 
 export abstract class Player {
 
-    private inventory: Inventory;
+    inventory: Inventory;
     private sprite: Phaser.Sprite;
 
     constructor(private options : IPlayerOptions) {

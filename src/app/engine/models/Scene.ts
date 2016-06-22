@@ -1,4 +1,5 @@
 import { uiLayers } from '../ui/UILayers.singleton';
+import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 
 interface ISceneOptions {
     id: string,
@@ -29,11 +30,9 @@ export abstract class Scene {
         this.background.anchor.set(0, 0);
         this.background.inputEnabled = true;
         uiLayers.background.sort('z', Phaser.Group.SORT_ASCENDING);
-        // this.background.pixelPerfectClick = true;
-   // this.background.events.onInputDown.add( (dest, ev) => {
-//             actionDispatcher.execute(actions.CLICK_STAGE, ev);
-//         });
-        // this.background.events.onInputDown.add
+        this.background.events.onInputDown.add( (dest, ev) => {
+            actionDispatcher.execute(Actions.CLICK_STAGE, ev);
+        });
 
     }
 }

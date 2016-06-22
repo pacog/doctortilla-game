@@ -12,10 +12,10 @@ class ActionDispatcher {
         this.observersPerAction = new Map();
     }
 
-    execute(action: Actions, ...params) {
+    execute(action: Actions, param: any) {
         let actionObservable: Observable = this.observersPerAction.get(action);
         if (actionObservable) {
-            actionObservable.notifyObservers(params);
+            actionObservable.notifyObservers(param);
         }
     }
 

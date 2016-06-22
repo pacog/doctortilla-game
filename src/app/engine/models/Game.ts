@@ -60,11 +60,19 @@ export abstract class Game {
     }
 
     private initActions(): void {
-        actionDispatcher.subscribeTo(Actions.CLICK_STAGE, ev => console.log(ev) );
+        actionDispatcher.subscribeTo(Actions.CLICK_STAGE, ev => this.movePlayerTo(ev) );
         // actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._selectThing(thing) );
         // actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
         // actionDispatcher.subscribeTo(actions.TAKE_OBJECT, thing => this._takeObject(thing) );
         // actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
+    }
+
+    private movePlayerTo(event: Phaser.Pointer): void {
+        //TODO: get safe position here from current scene
+        this.player.moveTo({
+            x: event.worldX,
+            y: event.worldY
+        });
     }
 
 

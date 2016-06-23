@@ -4,7 +4,9 @@ import { phaserGame } from '../state/PhaserGame.singleton';
 
 enum UILayers {
     BACKGROUND,
+    BACKGROUND_OBJECTS,
     PLAYER,
+    FOREGROUND_OBJECTS,
     FOREGROUND,
     GUI_BACKGROUND,
     VERB_BUTTONS
@@ -30,9 +32,19 @@ class UILayersManager {
         return this.groups.get(UILayers.BACKGROUND);
     }
 
+    get backgroundObjects(): Phaser.Group {
+        this.init();
+        return this.groups.get(UILayers.BACKGROUND_OBJECTS);
+    }
+
     get player(): Phaser.Group {
         this.init();
         return this.groups.get(UILayers.PLAYER);
+    }
+
+    get foregroundObjects(): Phaser.Group {
+        this.init();
+        return this.groups.get(UILayers.FOREGROUND_OBJECTS);
     }
 
     get foreground(): Phaser.Group {
@@ -55,7 +67,9 @@ class UILayersManager {
 
         //TODO: do this with a loop
         this.groups.set(UILayers.BACKGROUND, game.add.group());
+        this.groups.set(UILayers.BACKGROUND_OBJECTS, game.add.group());
         this.groups.set(UILayers.PLAYER, game.add.group());
+        this.groups.set(UILayers.FOREGROUND_OBJECTS, game.add.group());
         this.groups.set(UILayers.FOREGROUND, game.add.group());
         this.groups.set(UILayers.GUI_BACKGROUND, game.add.group());
         this.groups.set(UILayers.VERB_BUTTONS, game.add.group());

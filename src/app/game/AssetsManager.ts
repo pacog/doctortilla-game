@@ -5,7 +5,10 @@ const SPRITES = {
 
 const IMAGES = {
     'UI_BG': 'images/UI_BG.png',
-    'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png'
+    'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
+    'BROOM': 'images/backstage/BROOM.png',
+    'BROOM_INV': 'images/backstage/BROOM_INV.png'
+
 };
 
 const FONTS = {
@@ -13,8 +16,6 @@ const FONTS = {
     'FONT_32_WHITE': ['images/fonts/font_32_white.png', 'images/fonts/font_32_white.fnt'],
     'FONT_32_ORANGE': ['images/fonts/font_32_orange.png', 'images/fonts/font_32_orange.fnt']
 };
-
-
 
 class AssetsManager {
 

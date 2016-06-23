@@ -2,6 +2,8 @@ import { IPoint } from '../utils/Interfaces';
 
 const VERB_BUTTON_HEIGHT: number = 36;
 const CURRENT_ACTION_INFO_HEIGHT = 40;
+const VERB_BUTTON_WIDTH = 150;
+const REFLECT_BUTTON_WIDTH = VERB_BUTTON_WIDTH;
 
 class LayoutManager {
 
@@ -43,6 +45,27 @@ class LayoutManager {
         return {
             x: 0,
             y: this.VERBS_Y_START - this.CURRENT_ACTION_INFO_HEIGHT
+        };
+    }
+
+    get VERB_BUTTON_WIDTH() {
+        return VERB_BUTTON_WIDTH / this.LAYOUT_ZOOM;
+    }
+
+    get REFLECT_BUTTON_WIDTH() {
+        return REFLECT_BUTTON_WIDTH / this.LAYOUT_ZOOM;
+    }
+
+    getVerbButtonPosition(verbGridPosition: IPoint): IPoint {
+        let marginX = (verbGridPosition.x + 2) * this.VERB_BUTTON_MARGIN;
+        let positionX = this.REFLECT_BUTTON_WIDTH + (verbGridPosition.x * this.VERB_BUTTON_WIDTH);
+
+        let marginY = (verbGridPosition.y + 1) * this.VERB_BUTTON_MARGIN;
+        let positionY = verbGridPosition.y * this.VERB_BUTTON_HEIGHT;
+
+        return {
+            x: marginX + positionX,
+            y: this.VERBS_Y_START + marginY + positionY
         };
     }
 }

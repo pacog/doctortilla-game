@@ -6,7 +6,8 @@ enum UILayers {
     BACKGROUND,
     PLAYER,
     FOREGROUND,
-    GUI_BACKGROUND
+    GUI_BACKGROUND,
+    VERB_BUTTONS
 }
 
 class UILayersManager {
@@ -44,12 +45,20 @@ class UILayersManager {
         return this.groups.get(UILayers.GUI_BACKGROUND);
     }
 
+    get verbButtons(): Phaser.Group {
+        this.init();
+        return this.groups.get(UILayers.VERB_BUTTONS);
+    }
+
     private createLayers(game: Phaser.Game): void {
         this.groups = new Map();
+
+        //TODO: do this with a loop
         this.groups.set(UILayers.BACKGROUND, game.add.group());
         this.groups.set(UILayers.PLAYER, game.add.group());
         this.groups.set(UILayers.FOREGROUND, game.add.group());
         this.groups.set(UILayers.GUI_BACKGROUND, game.add.group());
+        this.groups.set(UILayers.VERB_BUTTONS, game.add.group());
     }
 }
 

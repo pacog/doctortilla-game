@@ -1,11 +1,13 @@
 import { uiLayers } from './UILayers.singleton';
 import { layout } from './LayoutManager.singleton';
+import { VerbsUI } from './VerbsUI';
+
 
 export class GraphicUI {
 
     constructor() {
         this.createBackground();
-        // this.UIVerbs = new UIVerbs(phaserGame);
+        new VerbsUI();
         // this.UICurrentAction = new UICurrentAction(phaserGame);
         // this.UIInventory = new UIInventory(phaserGame);
         // this.UIReflectButton = new UIReflectButton(phaserGame);

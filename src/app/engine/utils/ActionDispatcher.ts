@@ -1,7 +1,8 @@
 import { Observable, ICallback } from './Observable';
 
 export enum Actions {
-    CLICK_STAGE
+    CLICK_STAGE,
+    SELECT_VERB
 }
 
 class ActionDispatcher {

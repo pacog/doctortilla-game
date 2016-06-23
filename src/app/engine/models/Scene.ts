@@ -1,17 +1,21 @@
 import { uiLayers } from '../ui/UILayers.singleton';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { IRectangle } from '../utils/Interfaces';
+import { SceneBoundaries, IBoundariesConfig } from './SceneBoundaries';
 
 interface ISceneOptions {
     id: string,
-    backgroundId: string
+    backgroundId: string,
+    boundariesConfig: IBoundariesConfig
 }
 
 export abstract class Scene {
     private background: Phaser.Sprite;
+    private _boundaries: SceneBoundaries;
 
     constructor(private options: ISceneOptions) {
         this.createBackground();
+        this._boundaries = new SceneBoundaries(options.boundariesConfig);
     }
 
     get id(): string {
@@ -20,6 +24,10 @@ export abstract class Scene {
 
     get sceneBounds(): IRectangle {
         return this.background.getBounds();
+    }
+
+    get boundaries(): SceneBoundaries {
+        return this._boundaries;
     }
 
     show(): void {

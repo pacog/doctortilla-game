@@ -6,6 +6,7 @@ import { phaser } from '../Phaser';
 import { uiLayers } from './UILayers.singleton';
 import { label } from '../stores/Labels.store';
 import { style } from './Style';
+import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 
 export class ActionButton {
 
@@ -72,7 +73,6 @@ export class ActionButton {
     }
 
     private onClick(): void {
-        console.log(this.verb);
-        // actionDispatcher.execute(actions.SELECT_VERB, this.verb);
+        actionDispatcher.execute(Actions.SELECT_VERB, this.verb);
     }
 }

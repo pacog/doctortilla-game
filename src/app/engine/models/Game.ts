@@ -4,9 +4,8 @@ import { activeInventory } from '../state/ActiveInventory.singleton';
 import { Scene } from './Scene';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { phaserGame } from '../state/PhaserGame.singleton';
-import { IPoint } from '../utils/Interfaces';
-import { style } from '../ui/Style';
 import { GraphicUI } from '../ui/GraphicUI';
+import { GameCamera } from './GameCamera';
 
 export interface IGameOptions {
     labels: Object,
@@ -20,8 +19,8 @@ export abstract class Game {
     private player: Player;
     private scenes: Map<string, Scene>;
     private currentScene: Scene;
-    private camera: Phaser.Camera;
-    private cameraPosition: IPoint;
+    private camera: GameCamera;
+    
     private graphicUI: GraphicUI;
 
     constructor(protected options: IGameOptions) {
@@ -31,12 +30,12 @@ export abstract class Game {
         this.createScenes(this.options);
         this.initActions();
         this.updateWorldBounds();
-        this.createCamera();
+        this.camera = new GameCamera(this.player);
         this.graphicUI = new GraphicUI();
     }
 
     update(): void {
-        this.updateCameraPosition();
+        this.camera.updatePosition();
     }
 
     //TODO: separate all scenes handling into a Scenes Store?
@@ -65,27 +64,6 @@ export abstract class Game {
         }
     }
 
-
-    //TODO separate camera into a new module
-    private createCamera(): void {
-        if (!this.player) {
-            throw 'ERROR: camera must be created after player';
-        }
-        this.camera = phaserGame.value.camera;
-        this.updateCameraPosition();
-    }
-
-    private updateCameraPosition(): void {
-        this.cameraPosition = this.cameraPosition || new Phaser.Point(0, 0);
-
-        let player = this.player.sprite;
-        this.cameraPosition.x += (player.x - this.cameraPosition.x) * style.CAMERA_EASING_FACTOR;
-        this.cameraPosition.x = Math.round(this.cameraPosition.x);
-        this.cameraPosition.y += (player.y - this.cameraPosition.y) * style.CAMERA_EASING_FACTOR;
-        this.cameraPosition.y = Math.round(this.cameraPosition.y);
-        this.camera.focusOnXY(this.cameraPosition.x, this.cameraPosition.y);
-    }
-
     private initActions(): void {
         actionDispatcher.subscribeTo(Actions.CLICK_STAGE, ev => this.movePlayerTo(ev) );
         // actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._selectThing(thing) );
@@ -95,11 +73,12 @@ export abstract class Game {
     }
 
     private movePlayerTo(event: Phaser.Pointer): void {
-        //TODO: get safe position here from current scene
-        this.player.moveTo({
+        let nonSafePosition = {
             x: event.worldX,
             y: event.worldY
-        });
+        };
+        let safePosition = this.currentScene.boundaries.getPositionInside(nonSafePosition);
+        this.player.moveTo(safePosition);
     }
 
     private updateWorldBounds(): void {

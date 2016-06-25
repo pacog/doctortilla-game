@@ -1,6 +1,8 @@
 /// <reference path="../../../../my-typings/lib.es6.d.ts" />
 import { IPoint } from '../utils/Interfaces';
 import { uiLayers } from '../ui/UILayers.singleton';
+import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
+import { activeInventory } from '../state/ActiveInventory.singleton';
 
 interface IThingOptions {
     id: string,
@@ -14,9 +16,9 @@ interface IThingOptions {
     isForeground?: Boolean
 }
 
-export class Thing {
+export abstract class Thing {
 
-    private state: Map<string, any>;
+    private _state: Map<string, any>;
     private sprite: Phaser.Sprite;
 
     constructor(private options: IThingOptions) {
@@ -29,16 +31,41 @@ export class Thing {
 
     show(): void {
         this.createSprite();
-        // this.onStateChange();
-        // this.applyModifier();
+        this.onStateChange();
+        this.applyModifier();
+    }
+
+    get state(): Map<string, any> {
+        return this._state;
+    }
+
+    set state(newState) {
+        if (newState) {
+            this._state = newState;
+            this.onStateChange();
+        }
+    }
+
+    changeAttr(attrName: string, value: any) {
+        this._state.set(attrName, value);
+        this.onStateChange();
+    }
+
+    getAttr(attrName: string): any {
+        return this._state.get(attrName);
     }
 
     destroy(): void {
         this.sprite.destroy();
     }
 
+    // Methods that can be overwritten in subclasses
+    private onStateChange(): void {};
+    private applyModifier(): void {};
+
+
     private addToInventory(): void {
-        //TODO
+        activeInventory.getActiveInventory().add(this);
     }
 
     private createSprite(): void {
@@ -53,10 +80,20 @@ export class Thing {
         );
 
         this.sprite.inputEnabled = true;
+        this.sprite.events.onInputDown.add(this.onClick, this);
+        this.sprite.events.onInputOver.add(this.onInputOver, this);
+        this.sprite.events.onInputOut.add(this.onInputOut, this);
+    }
 
-        // TODO: events
-        // this.sprite.events.onInputDown.add(this._onClick, this);
-        // this.sprite.events.onInputOver.add(this._onInputOver, this);
-        // this.sprite.events.onInputOut.add(this._onInputOut, this);
+    private onClick(): void {
+        actionDispatcher.execute(Actions.SELECT_THING, this);
+    }
+
+    private onInputOver() {
+        actionDispatcher.execute(Actions.CURSOR_OVER_THING, this);
+    }
+
+    private onInputOut() {
+        actionDispatcher.execute(Actions.CURSOR_OUT_THING, this);
     }
 }

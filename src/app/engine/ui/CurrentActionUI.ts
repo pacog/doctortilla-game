@@ -11,7 +11,7 @@ export class CurrentActionUI {
     private text: TextWithShadow;
     private currentText: string;
 
-    constructor(phaserGame) {
+    constructor() {
         this.createText();
         selectedVerb.subscribeToChange(newVerb => this.updateText());
         highlightedThing.subscribeToChange(newThing => this.updateText());
@@ -19,7 +19,6 @@ export class CurrentActionUI {
     }
 
     private createText(): void {
-        debugger;
         this.text = new TextWithShadow({
             position: layout.CURRENT_ACTION_POSITION,
             layer: uiLayers.verbButtons,

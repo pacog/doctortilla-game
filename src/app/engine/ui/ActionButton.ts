@@ -7,13 +7,13 @@ import { uiLayers } from './UILayers.singleton';
 import { label } from '../stores/Labels.store';
 import { style } from './Style';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
+import { TextWithShadow } from './TextWithShadow';
 
 export class ActionButton {
 
     private screenPosition: IPoint;
     private button: Phaser.Button;
-    private shadowText: Phaser.BitmapText;
-    private text: Phaser.BitmapText;
+    private text: TextWithShadow;
 
     constructor(private verb: Verbs, position: IPoint) {
         this.screenPosition = layout.getVerbButtonPosition(position);
@@ -47,28 +47,20 @@ export class ActionButton {
 
     private createText(): void {
         let text = label(VerbsInfo.get(this.verb).label);
-
-        this.shadowText = phaserGame.value.add.bitmapText(
-            1 + this.screenPosition.x + layout.VERB_BUTTON_WIDTH / 2,
-            1 + this.screenPosition.y + layout.VERB_BUTTON_HEIGHT / 2,
-            'FONT_32_BLACK',
-            text,
-            style.DEFAULT_FONT_SIZE
-        );
-        this.shadowText.anchor.setTo(0.5, 0.5);
-        this.shadowText.fixedToCamera = true;
-        uiLayers.verbButtons.add(this.shadowText);
-
-        this.text = phaserGame.value.add.bitmapText(
-            this.screenPosition.x + layout.VERB_BUTTON_WIDTH / 2,
-            this.screenPosition.y + layout.VERB_BUTTON_HEIGHT / 2,
-            'FONT_32_WHITE',
-            text,
-            style.DEFAULT_FONT_SIZE
-        );
-        this.text.anchor.setTo(0.5, 0.5);
-        this.text.fixedToCamera = true;
-        uiLayers.verbButtons.add(this.text);
+        let position = {
+            x: this.screenPosition.x + layout.VERB_BUTTON_WIDTH / 2,
+            y: this.screenPosition.y + layout.VERB_BUTTON_HEIGHT / 2
+        };
+        this.text = new TextWithShadow({
+            initialText: text,
+            position: position,
+            fixedToCamera: true,
+            layer: uiLayers.verbButtons,
+            anchor: {
+                x: 0.5,
+                y: 0.5
+            }
+        });
 
     }
 

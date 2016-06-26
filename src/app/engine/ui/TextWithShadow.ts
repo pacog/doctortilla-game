@@ -6,7 +6,8 @@ interface ITextWithShadowOptions {
     position: IPoint,
     layer: Phaser.Group,
     initialText?: string,
-    fixedToCamera?: Boolean
+    fixedToCamera?: Boolean,
+    anchor?: IPoint
 }
 
 export class TextWithShadow {
@@ -14,6 +15,10 @@ export class TextWithShadow {
     private text: Phaser.BitmapText;
 
     constructor(private options: ITextWithShadowOptions) {
+        let anchor: IPoint = this.options.anchor || {
+            x: 0,
+            y: 0
+        };
         this.shadowText = phaserGame.value.add.bitmapText(
             1 + options.position.x,
             1 + options.position.y,
@@ -21,7 +26,7 @@ export class TextWithShadow {
             this.options.initialText || '',
             style.DEFAULT_FONT_SIZE
         );
-        this.shadowText.anchor.setTo(0, 0);
+        this.shadowText.anchor.setTo(anchor.x, anchor.y);
         this.shadowText.fixedToCamera = !!this.options.fixedToCamera;
 
         this.options.layer.add(this.shadowText);
@@ -33,7 +38,7 @@ export class TextWithShadow {
             this.options.initialText || '',
             style.DEFAULT_FONT_SIZE
         );
-        this.text.anchor.setTo(0, 0);
+        this.text.anchor.setTo(anchor.x, anchor.y);
         this.text.fixedToCamera = !!this.options.fixedToCamera;
         this.options.layer.add(this.text);
     }

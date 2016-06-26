@@ -1,9 +1,12 @@
 import { Verbs } from '../stores/Verbs.store';
 import { ActionButton } from './ActionButton';
+import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
+import { Thing } from '../models/Thing';
 
 export class VerbsUI {
 
     private buttons: Map<Verbs, ActionButton>;
+    private highlightedAction: Verbs;
 
     constructor() {
         this.createButtons();
@@ -77,35 +80,30 @@ export class VerbsUI {
             );
     }
 
-    private listenToEvents(): void  {}
+    private listenToEvents(): void  {
+        actionDispatcher.subscribeTo(
+            Actions.CURSOR_OVER_THING,
+            (thing) => this.highlightSecondaryActionForThing(thing)
+        );
+
+        actionDispatcher.subscribeTo(
+            Actions.CURSOR_OUT_THING,
+            () => this.removePreviouslyHighlightedAction()
+        );
+    }
+
+    private highlightSecondaryActionForThing(thing: Thing) : void{
+        this.removePreviouslyHighlightedAction();
+        this.highlightedAction = thing.getPreferredAction();
+        if (this.highlightedAction) {
+            this.buttons.get(this.highlightedAction).highlight();
+        }
+    }
+
+    private removePreviouslyHighlightedAction(): void {
+        if (this.highlightedAction) {
+            this.buttons.get(this.highlightedAction).unhighlight();
+            this.highlightedAction = null;
+        }
+    }
 }
-
-
-    // _listenToEvents() {
-    //     actionDispatcher.subscribeTo(
-    //         actions.CURSOR_OVER_THING,
-    //         (thing) => this._highlightSecondaryActionForThing(thing)
-    //     );
-
-    //     actionDispatcher.subscribeTo(
-    //         actions.CURSOR_OUT_THING,
-    //         () => this._removePreviouslyHighlightedAction()
-    //     );
-    // }
-
-    // _highlightSecondaryActionForThing(thing) {
-    //     this._removePreviouslyHighlightedAction();
-    //     this._highlightedAction = thing.getPreferredAction();
-    //     if (this._highlightedAction) {
-    //         this.buttons.get(this._highlightedAction).highlight();
-    //     }
-    // }
-
-    // _removePreviouslyHighlightedAction() {
-    //     if (this._highlightedAction) {
-    //         this.buttons.get(this._highlightedAction).unhighlight();
-    //         this._highlightedAction = null;
-    //     }
-    // }
-
-    

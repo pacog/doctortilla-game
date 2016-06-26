@@ -1,7 +1,7 @@
 /// <reference path="../../../../my-typings/lib.es6.d.ts" />
 
 export enum Verbs {
-    GO_TO,
+    GO_TO = 1,
     LOOK,
     CLOSE,
     PUSH,

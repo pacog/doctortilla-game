@@ -3,6 +3,8 @@ import { IPoint } from '../utils/Interfaces';
 import { uiLayers } from '../ui/UILayers.singleton';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { activeInventory } from '../state/ActiveInventory.singleton';
+import { Verbs } from '../stores/Verbs.store';
+import { phaserGame } from '../state/PhaserGame.singleton';
 
 interface IThingOptions {
     id: string,
@@ -13,7 +15,8 @@ interface IThingOptions {
     spriteId?: string,
     inventoryImageId?: string,
     goToPosition?: IPoint,
-    isForeground?: Boolean
+    isForeground?: Boolean,
+    preferredAction?: Verbs
 }
 
 export abstract class Thing {
@@ -57,6 +60,14 @@ export abstract class Thing {
 
     getAttr(attrName: string): any {
         return this._state.get(attrName);
+    }
+
+    getPreferredAction(): Verbs {
+        return this.options.preferredAction || null;
+    }
+
+    isInInventory(): Boolean {
+        return this.state && this.state.get('IS_IN_INVENTORY');
     }
 
     destroy(): void {

@@ -7,7 +7,7 @@
 *
 * Phaser - http://phaser.io
 *
-* v2.4.8 "Watch Hill" - Built: Thu May 19 2016 12:23:01
+* v2.5.0 "Five Kings" - Built: Fri Jun 17 2016 12:45:06
 *
 * By Richard Davey http://www.photonstorm.com @photonstorm
 *
@@ -18,8 +18,7 @@
 * Phaser uses p2.js for full-body physics, created by Stefan Hedman https://github.com/schteppe/p2.js @schteppe
 * Phaser contains a port of N+ Physics, converted by Richard Davey, original by http://www.metanetsoftware.com
 *
-* Many thanks to Adam Saltsman (@ADAMATOMIC) for releasing Flixel, from which both Phaser
-* and my love of framework development originate.
+* Many thanks to Adam Saltsman (@ADAMATOMIC) for releasing Flixel, from which both Phaser and my love of framework development originate.
 *
 * Follow development at http://phaser.io and on our forum
 *
@@ -631,12 +630,11 @@ PIXI.DisplayObject.prototype.updateTransform = function(parent)
         wt.ty = tx * pt.b + ty * pt.d + pt.ty;
     }
 
-    // multiply the alphas..
+    //  Set the World values
     this.worldAlpha = this.alpha * p.worldAlpha;
-
     this.worldPosition.set(wt.tx, wt.ty);
-    this.worldScale.set(wt.a, wt.d);
-    this.worldRotation = Math.atan2(wt.c, wt.d);
+    this.worldScale.set(this.scale.x * Math.sqrt(wt.a * wt.a + wt.c * wt.c), this.scale.y * Math.sqrt(wt.b * wt.b + wt.d * wt.d));
+    this.worldRotation = Math.atan2(-wt.c, wt.d);
 
     // reset the bounds each time this is called!
     this._currentBounds = null;
@@ -937,6 +935,17 @@ PIXI.DisplayObjectContainer = function()
      * @readOnly
      */
     this.children = [];
+
+    /**
+    * If `ignoreChildInput`  is `false` it will allow this objects _children_ to be considered as valid for Input events.
+    * 
+    * If this property is `true` then the children will _not_ be considered as valid for Input events.
+    * 
+    * Note that this property isn't recursive: only immediate children are influenced, it doesn't scan further down.
+    * @property {boolean} ignoreChildInput
+    * @default
+    */
+    this.ignoreChildInput = false;
     
 };
 
@@ -1540,6 +1549,15 @@ PIXI.Sprite = function(texture)
      */
     this.shader = null;
 
+    /**
+    * Controls if this Sprite is processed by the core Phaser game loops and Group loops.
+    *
+    * @property exists
+    * @type Boolean
+    * @default true
+    */
+    this.exists = true;
+
     if (this.texture.baseTexture.hasLoaded)
     {
         this.onTextureUpdate();
@@ -1855,7 +1873,7 @@ PIXI.Sprite.prototype._renderCanvas = function(renderSession, matrix)
 
         renderSession.context.globalAlpha = this.worldAlpha;
 
-         //  If smoothingEnabled is supported and we need to change the smoothing property for this texture
+        //  If smoothingEnabled is supported and we need to change the smoothing property for this texture
         if (renderSession.smoothProperty && renderSession.scaleMode !== this.texture.baseTexture.scaleMode)
         {
             renderSession.scaleMode = this.texture.baseTexture.scaleMode;
@@ -3675,9 +3693,6 @@ PIXI.WebGLRenderer.prototype.render = function(stage)
     {
         return;
     }
-
-    // update the scene graph
-    stage.updateTransform();
 
     var gl = this.gl;
 
@@ -6659,8 +6674,6 @@ PIXI.CanvasRenderer.prototype.constructor = PIXI.CanvasRenderer;
  */
 PIXI.CanvasRenderer.prototype.render = function (stage) {
 
-    stage.updateTransform();
-
     this.context.setTransform(1, 0, 0, 1, 0, 0);
 
     this.context.globalAlpha = 1;
@@ -7842,6 +7855,7 @@ PIXI.RenderTexture.prototype.getCanvas = function()
 /**
  * This is the base class for creating a PIXI filter. Currently only webGL supports filters.
  * If you want to make a custom filter this should be your base class.
+ * 
  * @class AbstractFilter
  * @constructor
  * @param fragmentSrc {Array} The fragment source in an array of strings.
@@ -7853,14 +7867,14 @@ PIXI.AbstractFilter = function(fragmentSrc, uniforms)
     * An array of passes - some filters contain a few steps this array simply stores the steps in a liniear fashion.
     * For example the blur filter has two passes blurX and blurY.
     * @property passes
-    * @type Array(Filter)
+    * @type Array
     * @private
     */
     this.passes = [this];
 
     /**
     * @property shaders
-    * @type Array(Shader)
+    * @type Array
     * @private
     */
     this.shaders = [];
@@ -7879,7 +7893,7 @@ PIXI.AbstractFilter = function(fragmentSrc, uniforms)
 
     /**
     * @property uniforms
-    * @type object
+    * @type Object
     * @private
     */
     this.uniforms = uniforms || {};
@@ -7907,12 +7921,6 @@ PIXI.AbstractFilter.prototype.syncUniforms = function()
     }
 };
 
-/*
-PIXI.AbstractFilter.prototype.apply = function(frameBuffer)
-{
-    // TODO :)
-};
-*/
 /**
  * @author Mat Groves http://matgroves.com/
  */

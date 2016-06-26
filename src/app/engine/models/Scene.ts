@@ -53,7 +53,7 @@ export abstract class Scene {
         this.background = uiLayers.background.create(0, 0, this.options.backgroundId);
         this.background.anchor.set(0, 0);
         this.background.inputEnabled = true;
-        this.background.events.onInputDown.add( (dest, ev) => {
+        this.background.events.onInputDown.add( (dest: any, ev: any) => {
             actionDispatcher.execute(Actions.CLICK_STAGE, ev);
         });
 

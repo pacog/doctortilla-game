@@ -1,6 +1,8 @@
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { GenericHighlightedThing } from '../models/GenericHighlightedThing';
 import { Thing } from '../models/Thing';
+import { selectedVerb } from './SelectedVerb.singleton';
+import { VerbsInfo } from '../stores/Verbs.store';
 
 class SelectedThing extends GenericHighlightedThing {
     constructor() {
@@ -15,11 +17,17 @@ class SelectedThing extends GenericHighlightedThing {
 class HighlightedThing extends GenericHighlightedThing {
 
     protected onCursorOverThing(thing: Thing): void {
-        // if (selectedVerb.verb && selectedVerb.verb.singleObject) {
-        //     this._highlightThing(thing);
-        // } else if (selectedVerb.verb && !selectedVerb.verb.singleObject) {
-        //     this._highlightThingForMultipleObjectVerb(thing);
-        // }
+        if (!selectedVerb.verb) {
+            return;
+        }
+        let verbInfo = VerbsInfo.get(selectedVerb.verb);
+
+        if (selectedVerb.verb && verbInfo.singleObject) {
+
+            this.highlightThing(thing);
+        } else if (selectedVerb.verb && !verbInfo.singleObject) {
+            this.highlightThingForMultipleObjectVerb(thing);
+        }
     }
 
     private highlightThingForMultipleObjectVerb(thing: Thing): void {

@@ -1,14 +1,14 @@
 import { uiLayers } from './UILayers.singleton';
 import { layout } from './LayoutManager.singleton';
 import { VerbsUI } from './VerbsUI';
-
+import { CurrentActionUI } from './CurrentActionUI';
 
 export class GraphicUI {
 
     constructor() {
         this.createBackground();
         new VerbsUI();
-        // this.UICurrentAction = new UICurrentAction(phaserGame);
+        new CurrentActionUI();
         // this.UIInventory = new UIInventory(phaserGame);
         // this.UIReflectButton = new UIReflectButton(phaserGame);
         // this.phaserGame.$$mainGroup.sort('z', Phaser.Group.SORT_ASCENDING);

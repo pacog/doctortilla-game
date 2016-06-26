@@ -5,6 +5,9 @@ const CURRENT_ACTION_INFO_HEIGHT = 40;
 const VERB_BUTTON_WIDTH = 150;
 const REFLECT_BUTTON_WIDTH = VERB_BUTTON_WIDTH;
 
+const CURRENT_ACTION_INFO_PADDING_X = 5;
+const CURRENT_ACTION_INFO_PADDING_Y = 7;
+
 class LayoutManager {
 
     LAYOUT_WIDTH: number = 1066;
@@ -54,6 +57,13 @@ class LayoutManager {
 
     get REFLECT_BUTTON_WIDTH() {
         return REFLECT_BUTTON_WIDTH / this.LAYOUT_ZOOM;
+    }
+
+    get CURRENT_ACTION_POSITION() {
+        return {
+            x: CURRENT_ACTION_INFO_PADDING_X,
+            y: this.HEIGHT - this.VERBS_HEIGHT - this.CURRENT_ACTION_INFO_HEIGHT + CURRENT_ACTION_INFO_PADDING_Y
+        };
     }
 
     getVerbButtonPosition(verbGridPosition: IPoint): IPoint {

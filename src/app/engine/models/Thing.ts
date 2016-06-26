@@ -46,6 +46,10 @@ export abstract class Thing {
         }
     }
 
+    get name(): string {
+        return this.options.name;
+    }
+
     changeAttr(attrName: string, value: any) {
         this._state.set(attrName, value);
         this.onStateChange();

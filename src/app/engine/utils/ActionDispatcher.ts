@@ -5,7 +5,8 @@ export enum Actions {
     SELECT_VERB,
     SELECT_THING,
     CURSOR_OVER_THING,
-    CURSOR_OUT_THING
+    CURSOR_OUT_THING,
+    ACTION_APPLIED
 }
 
 class ActionDispatcher {

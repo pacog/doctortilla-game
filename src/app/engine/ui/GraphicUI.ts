@@ -2,6 +2,7 @@ import { uiLayers } from './UILayers.singleton';
 import { layout } from './LayoutManager.singleton';
 import { VerbsUI } from './VerbsUI';
 import { CurrentActionUI } from './CurrentActionUI';
+import { InventoryUI } from './InventoryUI';
 
 export class GraphicUI {
 
@@ -9,9 +10,8 @@ export class GraphicUI {
         this.createBackground();
         new VerbsUI();
         new CurrentActionUI();
-        // this.UIInventory = new UIInventory(phaserGame);
+        new InventoryUI();
         // this.UIReflectButton = new UIReflectButton(phaserGame);
-        // this.phaserGame.$$mainGroup.sort('z', Phaser.Group.SORT_ASCENDING);
     }
 
     private createBackground(): void {

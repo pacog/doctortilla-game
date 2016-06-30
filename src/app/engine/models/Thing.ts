@@ -129,11 +129,19 @@ export abstract class Thing {
         }
     }
 
+    get inventoryImage(): string {
+        return this.options.inventoryImageId || this.options.spriteId;
+    }
+
     destroy(): void {
         this.sprite.destroy();
     }
 
     // Methods that can be overwritten in subclasses
+    getFrameForInventory(): number {
+        return 0;
+    }
+
     protected onStateChange(): void {};
     protected applyModifier(): void {};
 

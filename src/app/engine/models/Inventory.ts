@@ -4,7 +4,7 @@ import { Thing } from './Thing';
 export class Inventory {
 
     private changeObservable : Observable;
-    private items: Set<Thing>;
+    items: Set<Thing>;
 
     constructor() {
         this.changeObservable = new Observable();

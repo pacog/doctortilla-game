@@ -18,7 +18,8 @@ interface IThingOptions {
     inventoryImageId?: string,
     goToPosition?: IPoint,
     isForeground?: Boolean,
-    preferredAction?: Verbs
+    preferredAction?: Verbs,
+    pickable?: Boolean
 }
 
 export abstract class Thing {
@@ -100,9 +101,7 @@ export abstract class Thing {
             }
             break;
         case Verbs.TAKE:
-            if (!this.isInInventory()) {
-                this.takeAction(player);
-            }
+            this.takeAction(player);
             break;
         case Verbs.LOOK:
             this.lookAction(player);
@@ -143,7 +142,16 @@ export abstract class Thing {
     }
 
     protected takeAction(player: Player): void  {
-        player.say('I cannot pick that up');
+        if (!this.options.pickable) {
+            
+        } else if(this.isInInventory()) {
+            player.say('I already have it');
+        } else {
+            player.goToThing(this)
+                .then(() => {
+                    actionDispatcher.execute(Actions.TAKE_OBJECT, this);
+                });
+        }
     }
 
     protected lookAction(player: Player): void  {

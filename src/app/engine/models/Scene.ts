@@ -38,10 +38,11 @@ export abstract class Scene {
     show(): void {
         this.createBackground();
         this.things.forEach(thing => thing.show());
+    }
 
-        // uiLayers.background.sort('z', Phaser.Group.SORT_ASCENDING);
-        // uiLayers.backgroundObjects.sort('z', Phaser.Group.SORT_ASCENDING);
-        // uiLayers.foregroundObjects.sort('z', Phaser.Group.SORT_ASCENDING);
+    removeObject(objectToRemove: Thing): void {
+        this.things.delete(objectToRemove);
+        objectToRemove.destroy();
     }
 
     destroy(): void {

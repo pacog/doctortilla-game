@@ -6,7 +6,9 @@ export enum Actions {
     SELECT_THING,
     CURSOR_OVER_THING,
     CURSOR_OUT_THING,
-    ACTION_APPLIED
+    ACTION_APPLIED,
+    TAKE_OBJECT,
+    UPDATE_INVENTORY
 }
 
 class ActionDispatcher {

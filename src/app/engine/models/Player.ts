@@ -81,6 +81,10 @@ export abstract class Player {
         return result;
     }
 
+    addObjectToInventory(thing: Thing): void {
+        this.inventory.add(thing);
+    }
+
     private createSprite(): void {
         this._sprite = uiLayers.player.create(
             this.options.initialX,

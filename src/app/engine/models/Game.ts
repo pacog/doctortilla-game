@@ -72,7 +72,7 @@ export abstract class Game {
         actionDispatcher.subscribeTo(Actions.CLICK_STAGE, ev => this.movePlayerTo(ev) );
         actionDispatcher.subscribeTo(Actions.SELECT_THING, thing => this.selectThing(thing) );
         // actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
-        // actionDispatcher.subscribeTo(actions.TAKE_OBJECT, thing => this._takeObject(thing) );
+        actionDispatcher.subscribeTo(Actions.TAKE_OBJECT, thing => this.takeObject(thing) );
         // actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
     }
 
@@ -102,6 +102,12 @@ export abstract class Game {
         } else {
             this.selectThingForMultipleObjectVerb(thing);
         }
+    }
+
+    private takeObject(thing: Thing): void {
+        this.currentScene.removeObject(thing);
+        this.player.addObjectToInventory(thing);
+        actionDispatcher.execute(Actions.UPDATE_INVENTORY);
     }
 
     private selectThingForMultipleObjectVerb(thing: Thing): void {

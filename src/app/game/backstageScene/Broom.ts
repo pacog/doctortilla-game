@@ -10,7 +10,8 @@ const options = {
     goToPosition: {
         x: 250,
         y: 175
-    }
+    },
+    pickable: true
 };
 
 export class Broom extends Thing {

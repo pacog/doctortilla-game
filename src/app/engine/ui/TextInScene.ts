@@ -3,6 +3,7 @@ import { IPoint } from '../utils/Interfaces';
 import { style } from './Style';
 import { TextWithShadow } from './TextWithShadow';
 import { uiLayers } from './UILayers.singleton';
+import { scenes } from '../state/Scenes.singleton';
 
 interface ITextInSceneOptions {
     text: string,
@@ -103,12 +104,9 @@ export class TextInScene {
     }
 
     private getMaxXForText(textWidth: number): number {
-        return 1000;
-        //TODO: handle scenes in a singleton and extracting that from Game.ts
-        // let sceneWidth = currentScene.value.sceneBounds.width;
-        // return sceneWidth - this.options.paddingInScreen - textWidth;
+        let sceneWidth = scenes.currentScene.sceneBounds.width;
+        return sceneWidth - this.options.paddingInScreen - textWidth;
     }
-
 
     private getYPositionForText(text: string): number {
         let lines = text.split('\n').length;

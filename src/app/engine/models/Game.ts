@@ -10,6 +10,7 @@ import { GameCamera } from './GameCamera';
 import { selectedVerb } from '../state/SelectedVerb.singleton';
 import { VerbsInfo } from '../stores/Verbs.store';
 import { selectedThing } from '../state/SelectedObjects';
+import { scenes } from '../state/Scenes.singleton';
 
 export interface IGameOptions {
     labels: Object,
@@ -21,10 +22,7 @@ export interface IGameOptions {
 export abstract class Game {
 
     private player: Player;
-    private scenes: Map<string, Scene>;
-    private currentScene: Scene;
     private camera: GameCamera;
-    
     private graphicUI: GraphicUI;
 
     constructor(protected options: IGameOptions) {
@@ -42,30 +40,9 @@ export abstract class Game {
         this.camera.updatePosition();
     }
 
-    //TODO: separate all scenes handling into a Scenes Store?
     private createScenes(options: IGameOptions): void {
-        this.scenes = new Map();
-        options.scenes.forEach((scene) => {
-            this.scenes.set(scene.id, scene);
-        });
-        this.setCurrentScene(options.initialSceneId);
-    }
-
-    private setCurrentScene(currentSceneId: string): void {
-        this.destroyCurrentScene();
-        let scene = this.scenes.get(currentSceneId);
-        if (!scene) {
-            throw `ERROR trying to init scene that is not present (${currentSceneId})`;
-        }
-        this.currentScene = scene;
-        scene.show();
-    }
-
-    private destroyCurrentScene(): void {
-        if (this.currentScene) {
-            this.currentScene.destroy();
-            this.currentScene = null;
-        }
+        scenes.init(options.scenes);
+        scenes.setCurrentSceneById(options.initialSceneId);
     }
 
     private initActions(): void {
@@ -81,12 +58,12 @@ export abstract class Game {
             x: event.worldX,
             y: event.worldY
         };
-        let safePosition = this.currentScene.boundaries.getPositionInside(nonSafePosition);
+        let safePosition = scenes.currentScene.boundaries.getPositionInside(nonSafePosition);
         this.player.moveTo(safePosition);
     }
 
     private updateWorldBounds(): void {
-        let bounds = this.currentScene.sceneBounds;
+        let bounds = scenes.currentScene.sceneBounds;
         phaserGame.value.world.setBounds(
             bounds.x,
             bounds.y,
@@ -105,7 +82,7 @@ export abstract class Game {
     }
 
     private takeObject(thing: Thing): void {
-        this.currentScene.removeObject(thing);
+        scenes.currentScene.removeObject(thing);
         this.player.addObjectToInventory(thing);
         actionDispatcher.execute(Actions.UPDATE_INVENTORY);
     }

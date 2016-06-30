@@ -83,6 +83,14 @@ export abstract class Thing {
         }
     }
 
+    getPositionOnTop(): IPoint{
+        var result = {
+            x: this.sprite.x,
+            y: Math.round(this.sprite.getBounds().y) - 10
+        };
+        return result;
+    }
+
     applyAction(verb: Verbs, player: Player): void {
         switch (verb) {
 

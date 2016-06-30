@@ -4,8 +4,7 @@ import { uiLayers } from '../ui/UILayers.singleton';
 import { IPoint, ISpriteInfo } from '../utils/Interfaces';
 import { Directions, getDirectionName } from '../utils/Directions';
 import { phaserGame } from '../state/PhaserGame.singleton';
-import { Talker } from '../mixins/Talker';
-import { applyMixins } from '../mixins/MixinUtils';
+import { SpeechBubble } from '../ui/SpeechBubble';
 
 interface IPlayerOptions {
     spriteId: string,
@@ -24,7 +23,7 @@ interface ITimeoutWithPromise {
     rejectCallback: () => void
 }
 
-export abstract class Player implements Talker{
+export abstract class Player {
 
     inventory: Inventory;
 
@@ -32,12 +31,16 @@ export abstract class Player implements Talker{
     private tween: Phaser.Tween;
     private direction: Directions;
     private willMovePromise: ITimeoutWithPromise;
+    private speechBubble: SpeechBubble;
 
     constructor(private options : IPlayerOptions) {
         this.inventory = new Inventory();
         this.createSprite();
         this.direction = Directions.RIGHT;
         this.playStandAnimation();
+        this.speechBubble = new SpeechBubble({
+            owner: this
+        });
     }
 
     moveTo(destination: IPoint): Promise<void> {
@@ -66,9 +69,17 @@ export abstract class Player implements Talker{
         return this.moveTo(thing.getPositionToGoTo());
     }
 
-    //Talker modifier
-    say: (thingToSay: string) => void
+    say(text: string): Promise<void> {
+        return this.speechBubble.say(text);
+    }
 
+    getPositionOnTop(): IPoint{
+        var result = {
+            x: this.sprite.x,
+            y: Math.round(this.sprite.getBounds().y) - 10
+        };
+        return result;
+    }
 
     private createSprite(): void {
         this._sprite = uiLayers.player.create(
@@ -191,5 +202,3 @@ export abstract class Player implements Talker{
     }
 
 }
-
-applyMixins(Player, [Talker]);

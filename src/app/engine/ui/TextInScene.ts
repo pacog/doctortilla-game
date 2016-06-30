@@ -41,6 +41,10 @@ export class TextInScene {
         }
     }
 
+    get promise(): Promise<void> {
+        return this.promiseToDestroy;
+    }
+
     destroy() {
         if (this.currentText) {
             this.currentText.destroy();

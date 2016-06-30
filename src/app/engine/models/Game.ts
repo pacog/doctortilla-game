@@ -1,11 +1,15 @@
 import { labelsStore } from '../stores/Labels.store';
 import { Player } from './Player';
+import { Thing } from './Thing';
 import { activeInventory } from '../state/ActiveInventory.singleton';
 import { Scene } from './Scene';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { phaserGame } from '../state/PhaserGame.singleton';
 import { GraphicUI } from '../ui/GraphicUI';
 import { GameCamera } from './GameCamera';
+import { selectedVerb } from '../state/SelectedVerb.singleton';
+import { VerbsInfo } from '../stores/Verbs.store';
+import { selectedThing } from '../state/SelectedObjects';
 
 export interface IGameOptions {
     labels: Object,
@@ -66,7 +70,7 @@ export abstract class Game {
 
     private initActions(): void {
         actionDispatcher.subscribeTo(Actions.CLICK_STAGE, ev => this.movePlayerTo(ev) );
-        // actionDispatcher.subscribeTo(actions.SELECT_THING, thing => this._selectThing(thing) );
+        actionDispatcher.subscribeTo(Actions.SELECT_THING, thing => this.selectThing(thing) );
         // actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
         // actionDispatcher.subscribeTo(actions.TAKE_OBJECT, thing => this._takeObject(thing) );
         // actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
@@ -88,6 +92,27 @@ export abstract class Game {
             bounds.y,
             bounds.width,
             bounds.height);
+    }
+
+    private selectThing(thing: Thing): void {
+        var verb = VerbsInfo.get(selectedVerb.verb);
+        if (verb.singleObject) {
+            thing.applyAction(selectedVerb.verb, this.player);
+            actionDispatcher.execute(Actions.ACTION_APPLIED);
+        } else {
+            this.selectThingForMultipleObjectVerb(thing);
+        }
+    }
+
+    private selectThingForMultipleObjectVerb(thing: Thing): void {
+        if (selectedThing.thing) {
+            thing.applyAction(selectedVerb.verb, this.player);
+            actionDispatcher.execute(Actions.ACTION_APPLIED);
+        } else {
+            if (thing.isInInventory()) {
+                selectedThing.thing = thing;
+            }
+        }
     }
 
 }

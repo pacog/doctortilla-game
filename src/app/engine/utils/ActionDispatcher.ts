@@ -17,7 +17,7 @@ class ActionDispatcher {
         this.observersPerAction = new Map();
     }
 
-    execute(action: Actions, param: any) {
+    execute(action: Actions, param: any = {}) {
         let actionObservable: Observable = this.observersPerAction.get(action);
         if (actionObservable) {
             actionObservable.notifyObservers(param);

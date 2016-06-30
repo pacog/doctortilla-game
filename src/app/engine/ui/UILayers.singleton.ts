@@ -8,6 +8,7 @@ enum UILayers {
     PLAYER,
     FOREGROUND_OBJECTS,
     FOREGROUND,
+    TEXT_IN_SCENE,
     GUI_BACKGROUND,
     VERB_BUTTONS
 }
@@ -52,6 +53,11 @@ class UILayersManager {
         return this.groups.get(UILayers.FOREGROUND);
     }
 
+    get textInScene(): Phaser.Group {
+        this.init();
+        return this.groups.get(UILayers.TEXT_IN_SCENE);
+    }
+
     get guiBackground(): Phaser.Group {
         this.init();
         return this.groups.get(UILayers.GUI_BACKGROUND);
@@ -71,6 +77,7 @@ class UILayersManager {
         this.groups.set(UILayers.PLAYER, game.add.group());
         this.groups.set(UILayers.FOREGROUND_OBJECTS, game.add.group());
         this.groups.set(UILayers.FOREGROUND, game.add.group());
+        this.groups.set(UILayers.TEXT_IN_SCENE, game.add.group());
         this.groups.set(UILayers.GUI_BACKGROUND, game.add.group());
         this.groups.set(UILayers.VERB_BUTTONS, game.add.group());
     }

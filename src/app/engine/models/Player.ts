@@ -1,8 +1,11 @@
 import { Inventory } from './Inventory';
+import { Thing } from './Thing';
 import { uiLayers } from '../ui/UILayers.singleton';
 import { IPoint, ISpriteInfo } from '../utils/Interfaces';
 import { Directions, getDirectionName } from '../utils/Directions';
 import { phaserGame } from '../state/PhaserGame.singleton';
+import { Talker } from '../mixins/Talker';
+import { applyMixins } from '../mixins/MixinUtils';
 
 interface IPlayerOptions {
     spriteId: string,
@@ -21,7 +24,7 @@ interface ITimeoutWithPromise {
     rejectCallback: () => void
 }
 
-export abstract class Player {
+export abstract class Player implements Talker{
 
     inventory: Inventory;
 
@@ -58,6 +61,14 @@ export abstract class Player {
     get sprite(): Phaser.Sprite {
         return this._sprite;
     }
+
+    goToThing(thing: Thing): Promise<void> {
+        return this.moveTo(thing.getPositionToGoTo());
+    }
+
+    //Talker modifier
+    say: (thingToSay: string) => void
+
 
     private createSprite(): void {
         this._sprite = uiLayers.player.create(
@@ -180,3 +191,5 @@ export abstract class Player {
     }
 
 }
+
+applyMixins(Player, [Talker]);

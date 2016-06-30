@@ -5,6 +5,8 @@ import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { activeInventory } from '../state/ActiveInventory.singleton';
 import { Verbs } from '../stores/Verbs.store';
 import { phaserGame } from '../state/PhaserGame.singleton';
+import { Player } from './Player';
+
 
 interface IThingOptions {
     id: string,
@@ -70,15 +72,103 @@ export abstract class Thing {
         return this.state && this.state.get('IS_IN_INVENTORY');
     }
 
+    getPositionToGoTo(): IPoint {
+        if (this.options.goToPosition) {
+            return this.options.goToPosition;
+        } else {
+            return {
+                x: this.options.x,
+                y: this.options.y
+            };
+        }
+    }
+
+    applyAction(verb: Verbs, player: Player): void {
+        switch (verb) {
+
+        case Verbs.GO_TO:
+            if (!this.isInInventory()) {
+                this.goToAction(player);
+            }
+            break;
+        case Verbs.TAKE:
+            if (!this.isInInventory()) {
+                this.takeAction(player);
+            }
+            break;
+        case Verbs.LOOK:
+            this.lookAction(player);
+            break;
+        case Verbs.OPEN:
+            this.openAction(player);
+            break;
+        case Verbs.CLOSE:
+            this.closeAction(player);
+            break;
+        case Verbs.PUSH:
+            this.pushAction(player);
+            break;
+        case Verbs.USE:
+            this.useAction(player);
+            break;
+        case Verbs.SPEAK:
+            this.speakAction(player);
+            break;
+        case Verbs.GIVE:
+            this.giveAction(player);
+            break;
+        default:
+            throw 'ERROR, unknown action ' + verb;
+        }
+    }
+
     destroy(): void {
         this.sprite.destroy();
     }
 
     // Methods that can be overwritten in subclasses
-    private onStateChange(): void {};
-    private applyModifier(): void {};
+    protected onStateChange(): void {};
+    protected applyModifier(): void {};
+
+    protected goToAction(player: Player): void {
+        player.goToThing(this);
+    }
+
+    protected takeAction(player: Player): void  {
+        player.say('I cannot pick that up');
+    }
+
+    protected lookAction(player: Player): void  {
+        //TODO: check if there are look options
+        player.say('That is pretty neat');
+    }
+
+    protected openAction(player: Player): void  {
+        player.say('That cannot be opened');
+    }
+
+    protected closeAction(player: Player): void  {
+        player.say('That cannot be closed');
+    }
+
+    protected pushAction(player: Player): void  {
+        player.say('I cannot move that');
+    }
+
+    protected useAction(player: Player): void  {
+        player.say('I do not know how to use that');
+    }
+
+    protected speakAction(player: Player): void  {
+        player.say('I wouldn\'t know what to say');
+    }
+
+    protected giveAction(player: Player): void  {
+        player.say('I cannot do that');
+    }
 
 
+    //Methods that shouldn't be overriden
     private addToInventory(): void {
         activeInventory.getActiveInventory().add(this);
     }

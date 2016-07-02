@@ -9,7 +9,8 @@ const IMAGES = {
     'UI_INV_BG': 'images/UI_INV_BG.png',
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
     'BROOM': 'images/backstage/BROOM.png',
-    'BROOM_INV': 'images/backstage/BROOM_INV.png'
+    'BROOM_INV': 'images/backstage/BROOM_INV.png',
+    'BACKYARD_BG': 'images/backyard/BACKYARD_BG.png'
 
 };
 

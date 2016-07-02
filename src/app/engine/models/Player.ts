@@ -5,6 +5,7 @@ import { IPoint, ISpriteInfo } from '../utils/Interfaces';
 import { Directions, getDirectionName } from '../utils/Directions';
 import { phaserGame } from '../state/PhaserGame.singleton';
 import { SpeechBubble } from '../ui/SpeechBubble';
+import { scenes } from '../state/Scenes.singleton';
 
 interface IPlayerOptions {
     spriteId: string,
@@ -83,6 +84,20 @@ export abstract class Player {
 
     addObjectToInventory(thing: Thing): void {
         this.inventory.add(thing);
+    }
+
+    teleportTo(destination: IPoint): void {
+        let safePosition = scenes.currentScene.boundaries.getPositionInside(destination);
+        return this.moveToWithoutAnimation(safePosition);
+    }
+
+    private moveToWithoutAnimation(position: IPoint): void {
+        this.updateDirection(position);
+        this.cancelCurrentTween();
+        this.cancelCurrentMovePromise();
+        this.playStandAnimation();
+        this.sprite.x = position.x;
+        this.sprite.y = position.y;
     }
 
     private createSprite(): void {

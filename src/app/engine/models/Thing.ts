@@ -25,9 +25,9 @@ interface IThingOptions {
 export abstract class Thing {
 
     private _state: Map<string, any>;
-    private sprite: Phaser.Sprite;
+    protected sprite: Phaser.Sprite;
 
-    constructor(private options: IThingOptions) {
+    constructor(protected options: IThingOptions) {
         this.state = new Map();
 
         if (this.options.directlyInInventory) {
@@ -54,6 +54,10 @@ export abstract class Thing {
 
     get name(): string {
         return this.options.name;
+    }
+
+    get id(): string {
+        return this.options.id;
     }
 
     changeAttr(attrName: string, value: any) {

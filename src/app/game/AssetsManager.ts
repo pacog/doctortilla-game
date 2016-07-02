@@ -1,6 +1,7 @@
 const SPRITES = {
     'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 21],
-    'BUTTON_BG': ['images/BUTTON_BG_SPRITE.png',75, 18, 3]
+    'BUTTON_BG': ['images/BUTTON_BG_SPRITE.png',75, 18, 3],
+    'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2]
 };
 
 const IMAGES = {

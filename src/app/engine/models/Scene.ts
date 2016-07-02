@@ -3,6 +3,8 @@ import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { IRectangle } from '../utils/Interfaces';
 import { SceneBoundaries, IBoundariesConfig } from './SceneBoundaries';
 import { Thing } from './Thing';
+import { Player } from './Player';
+import { Door } from './Door';
 
 
 interface ISceneOptions {
@@ -45,6 +47,12 @@ export abstract class Scene {
         objectToRemove.destroy();
     }
 
+    playerArrivesAtDoor(player: Player, doorId: string): void {
+        let door = this.findDoor(doorId);
+        door.forceOpen();
+        player.teleportTo(door.getPositionToGoTo());
+    }
+
     destroy(): void {
         this.background.destroy();
         this.things.forEach(thing => thing.destroy());
@@ -63,6 +71,15 @@ export abstract class Scene {
     private createThings() {
         this.things = new Set();
         this.options.things.forEach((thing) => this.things.add(thing));
+    }
+
+    private findDoor(doorId: string): Door {
+        for (let thing of this.things) {
+            if (thing.id === doorId) {
+                return <Door>thing;
+            }
+        }
+        throw 'ERROR: could not find the related door.';
     }
 
 }

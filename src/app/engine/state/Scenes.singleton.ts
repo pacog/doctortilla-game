@@ -25,6 +25,11 @@ class ScenesSet {
         scene.show();
     }
 
+    goToSceneWithId(sceneId: string): void {
+        this.destroyCurrentScene();
+        this.setCurrentSceneById(sceneId);
+    }   
+
     private destroyCurrentScene(): void {
         if (this._currentScene) {
             this._currentScene.destroy();

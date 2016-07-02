@@ -14,3 +14,8 @@ export interface IRectangle {
     width: number,
     height: number
 }
+
+export interface IGoToSceneOptions {
+    sceneId: string,
+    relatedDoorId: string
+}

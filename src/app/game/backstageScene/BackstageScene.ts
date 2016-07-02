@@ -1,5 +1,7 @@
 import { Scene } from '../../engine/models/Scene';
 import { Broom } from './Broom';
+import { BackstageDoorToBackyard } from './BackstageDoorToBackyard';
+
 const sceneOptions = {
     id: 'BACKSTAGE',
     backgroundId: 'BACKSTAGE_BG',
@@ -10,7 +12,8 @@ const sceneOptions = {
         maxX: 1200 / 2
     },
     things: [
-        new Broom()
+        new Broom(),
+        new BackstageDoorToBackyard()
     ]
 };
 

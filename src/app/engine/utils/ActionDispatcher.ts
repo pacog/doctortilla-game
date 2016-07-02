@@ -8,7 +8,8 @@ export enum Actions {
     CURSOR_OUT_THING,
     ACTION_APPLIED,
     TAKE_OBJECT,
-    UPDATE_INVENTORY
+    UPDATE_INVENTORY,
+    GO_TO_SCENE
 }
 
 class ActionDispatcher {

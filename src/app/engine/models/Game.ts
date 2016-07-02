@@ -11,6 +11,7 @@ import { selectedVerb } from '../state/SelectedVerb.singleton';
 import { VerbsInfo } from '../stores/Verbs.store';
 import { selectedThing } from '../state/SelectedObjects';
 import { scenes } from '../state/Scenes.singleton';
+import { IGoToSceneOptions } from '../utils/Interfaces';
 
 export interface IGameOptions {
     labels: Object,
@@ -48,7 +49,7 @@ export abstract class Game {
     private initActions(): void {
         actionDispatcher.subscribeTo(Actions.CLICK_STAGE, ev => this.movePlayerTo(ev) );
         actionDispatcher.subscribeTo(Actions.SELECT_THING, thing => this.selectThing(thing) );
-        // actionDispatcher.subscribeTo(actions.GO_TO_SCENE, options => this._goToScene(options) );
+        actionDispatcher.subscribeTo(Actions.GO_TO_SCENE, options => this.goToScene(options) );
         actionDispatcher.subscribeTo(Actions.TAKE_OBJECT, thing => this.takeObject(thing) );
         // actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
     }
@@ -96,6 +97,11 @@ export abstract class Game {
                 selectedThing.thing = thing;
             }
         }
+    }
+
+    private goToScene(options: IGoToSceneOptions) {
+        scenes.goToSceneWithId(options.sceneId);
+        scenes.currentScene.playerArrivesAtDoor(this.player, options.relatedDoorId);
     }
 
 }

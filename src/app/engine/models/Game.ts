@@ -105,7 +105,7 @@ export abstract class Game {
     }
 
     private reflect(): void {
-        this.player.reflect(this);
+        this.player.reflect();
     }
 
 }

@@ -91,7 +91,7 @@ export abstract class Player {
         return this.moveToWithoutAnimation(safePosition);
     }
 
-    protected abstract reflect(): void
+    abstract reflect(): void
 
     private moveToWithoutAnimation(position: IPoint): void {
         this.updateDirection(position);

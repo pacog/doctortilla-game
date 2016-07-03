@@ -109,7 +109,6 @@ export abstract class Player {
             this.options.spriteId
         );
         this._sprite.anchor.setTo(0.5, 0.99);
-        this._sprite.inputEnabled = true;
         uiLayers.player.sort('z', Phaser.Group.SORT_ASCENDING);
         this.addSpriteAnimations();
     }

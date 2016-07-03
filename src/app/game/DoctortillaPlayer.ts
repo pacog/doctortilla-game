@@ -1,5 +1,5 @@
 import { Player } from '../engine/models/Player';
-
+import { randomText } from '../engine/utils/RandomText';
 let spriteOptions = new Map();
 
 spriteOptions.set('stand_right', { frames: [0]});
@@ -27,7 +27,9 @@ export class DoctortillaPlayer extends Player {
     }
 
     reflect() {
-        this.say('Hola');
-        //TODO: random text
+        this.say(randomText('Now I should say something smart that helps',
+            'This is a pretty nice room',
+            'Man, I really want to play that concert',
+            'Probably I should find the rest of the band...'));
     }
 }

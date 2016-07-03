@@ -3,6 +3,7 @@ import { layout } from './LayoutManager.singleton';
 import { VerbsUI } from './VerbsUI';
 import { CurrentActionUI } from './CurrentActionUI';
 import { InventoryUI } from './InventoryUI';
+import { ReflectButton } from './ReflectButton';
 
 export class GraphicUI {
 
@@ -11,7 +12,7 @@ export class GraphicUI {
         new VerbsUI();
         new CurrentActionUI();
         new InventoryUI();
-        // this.UIReflectButton = new UIReflectButton(phaserGame);
+        new ReflectButton();
     }
 
     private createBackground(): void {

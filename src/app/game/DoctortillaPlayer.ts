@@ -25,4 +25,9 @@ export class DoctortillaPlayer extends Player {
     constructor() {
         super(options);
     }
+
+    reflect() {
+        this.say('Hola');
+        //TODO: random text
+    }
 }

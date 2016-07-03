@@ -118,6 +118,20 @@ class LayoutManager {
         };
     }
 
+    getReflectButtonPosition() {
+        return {
+            x: this.LAYOUT_DEFAULT_MARGIN,
+            y: this.VERBS_Y_START + this.LAYOUT_DEFAULT_MARGIN
+        };
+    }
+
+    getReflectButtonSize() {
+        return {
+            height: this.VERBS_HEIGHT,
+            width: this.REFLECT_BUTTON_WIDTH
+        };
+    }
+
     private getInventoryItemPosition(index: number): {column: number, row: number} {
         let column = index % INV_COLUMNS;
         let row = Math.floor(index / INV_COLUMNS);

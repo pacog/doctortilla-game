@@ -51,7 +51,7 @@ export abstract class Game {
         actionDispatcher.subscribeTo(Actions.SELECT_THING, thing => this.selectThing(thing) );
         actionDispatcher.subscribeTo(Actions.GO_TO_SCENE, options => this.goToScene(options) );
         actionDispatcher.subscribeTo(Actions.TAKE_OBJECT, thing => this.takeObject(thing) );
-        // actionDispatcher.subscribeTo(actions.REFLECT, () => this._reflect() );
+        actionDispatcher.subscribeTo(Actions.REFLECT, () => this.reflect() );
     }
 
     private movePlayerTo(event: Phaser.Pointer): void {
@@ -102,6 +102,10 @@ export abstract class Game {
     private goToScene(options: IGoToSceneOptions) {
         scenes.goToSceneWithId(options.sceneId);
         scenes.currentScene.playerArrivesAtDoor(this.player, options.relatedDoorId);
+    }
+
+    private reflect(): void {
+        this.player.reflect(this);
     }
 
 }

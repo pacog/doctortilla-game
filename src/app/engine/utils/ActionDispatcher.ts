@@ -9,7 +9,8 @@ export enum Actions {
     ACTION_APPLIED,
     TAKE_OBJECT,
     UPDATE_INVENTORY,
-    GO_TO_SCENE
+    GO_TO_SCENE,
+    REFLECT
 }
 
 class ActionDispatcher {

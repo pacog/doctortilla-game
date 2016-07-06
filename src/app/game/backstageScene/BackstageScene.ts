@@ -1,5 +1,6 @@
 import { Scene } from '../../engine/models/Scene';
 import { Broom } from './Broom';
+import { VendingMachine } from './VendingMachine';
 import { BackstageDoorToBackyard } from './BackstageDoorToBackyard';
 
 const sceneOptions = {
@@ -13,7 +14,8 @@ const sceneOptions = {
     },
     things: [
         new Broom(),
-        new BackstageDoorToBackyard()
+        new BackstageDoorToBackyard(),
+        new VendingMachine()
     ]
 };
 

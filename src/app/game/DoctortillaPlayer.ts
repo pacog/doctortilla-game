@@ -1,5 +1,6 @@
 import { Player } from '../engine/models/Player';
 import { randomText } from '../engine/utils/RandomText';
+
 let spriteOptions = new Map();
 
 spriteOptions.set('stand_right', { frames: [0]});

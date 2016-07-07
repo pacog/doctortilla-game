@@ -43,6 +43,7 @@ export abstract class Player {
         this.speechBubble = new SpeechBubble({
             owner: this
         });
+        this._state = new Map();
     }
 
     moveTo(destination: IPoint): Promise<void> {

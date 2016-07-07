@@ -29,15 +29,13 @@ const script: IConversationScript = {
 
 export class ConversationWithBand extends Conversation {
 
-    private doctortillaPlayer: DoctortillaPlayer;
 
-    constructor(protected player: Player, protected otherPerson: Thing) {
+    constructor(protected player: DoctortillaPlayer, protected otherPerson: Thing) {
         super(player, otherPerson);
-        this.doctortillaPlayer = <DoctortillaPlayer> this.player;
     }
 
     protected initState(): void {
-        if (this.doctortillaPlayer.getAttr('TALKED_TO_BAND_ABOUT_PROBLEMS')) {
+        if (this.player.getAttr('TALKED_TO_BAND_ABOUT_PROBLEMS')) {
             this.state = this.getStateIfPlayerDeliveredEverything();
         } else {
             this.state = 'initial';
@@ -60,7 +58,7 @@ export class ConversationWithBand extends Conversation {
     }
 
     private addCostumeLine(dialogPart: Array<ConversationLine>): void {
-        if (this.doctortillaPlayer.hasCompleteCostume()) {
+        if (this.player.hasCompleteCostume()) {
             dialogPart.unshift(new ConversationLine(
                 'Tengo el disfraz',
                 () => { return this.getStateIfPlayerDeliveredEverything(); },
@@ -70,7 +68,7 @@ export class ConversationWithBand extends Conversation {
     }
 
     private addCableLine(dialogPart: Array<ConversationLine>): void {
-        if (this.doctortillaPlayer.hasCable()) {
+        if (this.player.hasCable()) {
             dialogPart.unshift(new ConversationLine(
                 'Tengo el cable',
                 () => { return this.getStateIfPlayerDeliveredEverything(); },
@@ -80,7 +78,7 @@ export class ConversationWithBand extends Conversation {
     }
 
     private addDrinkLine(dialogPart: Array<ConversationLine>): void {
-        if (this.doctortillaPlayer.hasFunnyDrink()) {
+        if (this.player.hasFunnyDrink()) {
             dialogPart.unshift(new ConversationLine(
                 'Santi te he traido un refrigerio',
                 () => { return this.getStateIfPlayerDeliveredEverything(); },
@@ -90,7 +88,7 @@ export class ConversationWithBand extends Conversation {
     }
 
     private getStateIfPlayerDeliveredEverything(): string {
-        if (this.doctortillaPlayer.deliveredEverything()) {
+        if (this.player.deliveredEverything()) {
             return 'WE_ARE_READY';
         } else {
             return 'INITIAL_AFTER_FIRST_TALK';

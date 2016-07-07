@@ -1,8 +1,8 @@
-// var UIConversation = require('../ui/UIConversation.js');
 import { Player } from './Player';
 import { Thing } from './Thing';
 import { Observable, ICallback } from '../utils/Observable';
 import { ConversationLine } from './ConversationLine';
+import { ConversationUI } from '../ui/ConversationUI';
 
 export interface IConversationScript { [s: string]: Array<ConversationLine>; }
 
@@ -11,6 +11,7 @@ export abstract class Conversation {
     private onChangeObservable: Observable;
     private _stateId: string;
     protected script: IConversationScript;
+    private ui: ConversationUI;
 
     constructor(protected player: Player, protected otherPerson: Thing) {
         this.player = player;
@@ -40,8 +41,7 @@ export abstract class Conversation {
 
     set state(newState) {
         if (newState === 'end') {
-            //TODO
-            // this.ui.destroy();
+            this.ui.destroy();
         } else {
             this._stateId = newState;
             this.loadScript();
@@ -49,14 +49,14 @@ export abstract class Conversation {
         }
     }
 
-    applyLine(line) {
+    applyLine(line: ConversationLine): void {
         line.afterCallback(this.player, this.otherPerson)
             .then(() => {
                 this.state = line.nextState;
             });
     }
 
-    getTextForLine(line) {
+    getTextForLine(line: ConversationLine): string {
         return line.text();
     }
 
@@ -64,8 +64,7 @@ export abstract class Conversation {
     protected abstract initState(): void;
 
     private createConversationUI(): void {
-        //TODO
-        // this.ui = new UIConversation(this.phaserGame, this);
+        this.ui = new ConversationUI(this);
     }
 
     private notifyStateChange(): void {

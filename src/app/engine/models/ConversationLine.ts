@@ -1,5 +1,6 @@
 import { Player } from './Player';
 import { Thing } from './Thing';
+import { ICallback } from '../Utils/Observable';
 
 export interface IConversationCallback {
     (player: Player, otherPerson: Thing): any;
@@ -18,6 +19,7 @@ const emptyFunctionWithPromise = function () {
 };
 
 export class ConversationLine {
+
     constructor(private _text: string | IConversationCallback,
                 private _nextState: string | (() => string),
                 private _afterCallback: IConversationCallback = emptyFunctionWithPromise) {
@@ -30,11 +32,11 @@ export class ConversationLine {
         }
     }
 
-    get text(): IConversationCallback {
+    get text(): ICallback {
         if (typeof this._text === 'string') {
             return (() => {return this._text; });
         } else if (typeof this._text === 'function') {
-            return <IConversationCallback> this._text;
+            return <ICallback> this._text;
         }
         throw 'ERROR: getting text of conversation line, with incorrect type';
     }
@@ -47,12 +49,11 @@ export class ConversationLine {
         return this.getNextState();
     }
 
-    private getNextState() {
+    private getNextState(): string {
         if (typeof this._nextState === 'string') {
-            return this._nextState;
+            return <string> this._nextState;
         } else {
-            //TODO: check if it is a function
-            // return this._nextState();
+            return (<(() => string)> this._nextState)();
         }
     }
 }

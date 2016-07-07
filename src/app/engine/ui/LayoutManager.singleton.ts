@@ -16,6 +16,10 @@ const INV_COLUMNS = 3;
 const INV_ITEM_WIDTH = 136;
 const INV_ITEM_HEIGHT = 52;
 
+const CONVERSATION_LINE_HEIGHT = CURRENT_ACTION_INFO_HEIGHT;
+const CONVERSATION_LINE_PADDING_X = 5;
+const CONVERSATION_LINE_PADDING_Y = 6;
+
 class LayoutManager {
 
     LAYOUT_WIDTH: number = 1066;
@@ -129,6 +133,27 @@ class LayoutManager {
         return {
             height: this.VERBS_HEIGHT,
             width: this.REFLECT_BUTTON_WIDTH
+        };
+    }
+
+    get CONVERSATION_LINE_HEIGHT(): number {
+        return CONVERSATION_LINE_HEIGHT / this.LAYOUT_ZOOM;
+    }
+
+    get CONVERSATION_LINE_PADDING_X(): number {
+        return CONVERSATION_LINE_PADDING_X;
+    }
+
+    get CONVERSATION_LINE_PADDING_Y(): number {
+        return CONVERSATION_LINE_PADDING_Y;
+    }
+
+    getPositionForConversationLine(index: number): IPoint {
+        let marginY = (index + 1) * this.LAYOUT_DEFAULT_MARGIN;
+        let positionY = this.CONVERSATION_LINE_HEIGHT * index;
+        return {
+            x: this.LAYOUT_DEFAULT_MARGIN,
+            y: this.UI_START_POSITION.y + marginY + positionY
         };
     }
 

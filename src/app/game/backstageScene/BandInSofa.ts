@@ -4,6 +4,7 @@ import { SpeechBubble } from '../../engine/ui/SpeechBubble';
 import { Thing } from '../../engine/models/Thing';
 import { Player } from '../../engine/models/Player';
 import { ConversationWithBand } from './ConversationWithBand';
+import { DoctortillaPlayer } from '../DoctortillaPlayer';
 
 export class BandInSofa extends Thing {
 
@@ -27,11 +28,11 @@ export class BandInSofa extends Thing {
         });
     }
 
-    lookAction(player: Player): void {
+    lookAction(player: DoctortillaPlayer): void {
         player.say('There is my band.');
     }
 
-    speakAction(player: Player): void {
+    speakAction(player: DoctortillaPlayer): void {
         player.goToThing(this).then(
             () => new ConversationWithBand(player, this)
         );

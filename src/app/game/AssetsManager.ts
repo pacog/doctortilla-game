@@ -3,7 +3,8 @@ const SPRITES = {
     'BUTTON_BG': ['images/BUTTON_BG_SPRITE.png',75, 18, 3],
     'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2],
     'VENDING_SPRITE': ['images/backstage/VENDING_SPRITE.png', 33, 57, 3],
-    'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 111, 79, 9]
+    'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 111, 79, 9],
+    'CONVERSATION_LINE_BG': ['images/CONVERSATION_LINE_BG.png', 529, 20]
 };
 
 const IMAGES = {
@@ -14,8 +15,9 @@ const IMAGES = {
     'BROOM_INV': 'images/backstage/BROOM_INV.png',
     'BACKYARD_BG': 'images/backyard/BACKYARD_BG.png',
     'CAN_INV': 'images/backstage/CAN_INV.png',
-    'COIN_INV': 'images/backstage/COIN_INV.png'
-
+    'COIN_INV': 'images/backstage/COIN_INV.png',
+    'UI_CONVERSATION_BG': 'images/UI_CONVERSATION_BG.png',
+    'CONVERSATION_LINE_BG': 'images/CONVERSATION_LINE_BG.png'
 };
 
 const FONTS = {

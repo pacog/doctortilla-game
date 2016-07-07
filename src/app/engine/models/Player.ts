@@ -33,6 +33,7 @@ export abstract class Player {
     private direction: Directions;
     private willMovePromise: ITimeoutWithPromise;
     private speechBubble: SpeechBubble;
+    private _state: Map<string, any>;
 
     constructor(private options : IPlayerOptions) {
         this.inventory = new Inventory();
@@ -91,7 +92,30 @@ export abstract class Player {
         return this.moveToWithoutAnimation(safePosition);
     }
 
+    get state(): Map<string, any> {
+        return this._state;
+    }
+
+    set state(newState: Map<string, any>){
+        if (newState) {
+            this._state = newState;
+            this.onStateChange();
+        }
+    }
+
+    changeAttr(attrName: string, value: any) {
+        this._state.set(attrName, value);
+        this.onStateChange();
+    }
+
+    getAttr(attrName: string) {
+        return this._state.get(attrName);
+    }
+
     abstract reflect(): void
+
+    //This method can be overwritten in child classes
+    protected onStateChange() {}
 
     private moveToWithoutAnimation(position: IPoint): void {
         this.updateDirection(position);

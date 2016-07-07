@@ -30,4 +30,14 @@ export class Inventory {
         this.changeObservable.notifyObservers(this);
     }
 
+    getById(id: string): Thing {
+        let itemArray = Array.from(this.items);
+        for (let i = 0; i < itemArray.length; i++) {
+            if (itemArray[i].id === id) {
+                return itemArray[i];
+            }
+        }
+        return null;
+    }
+
 }

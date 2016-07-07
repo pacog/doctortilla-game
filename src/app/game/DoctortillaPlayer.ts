@@ -1,6 +1,7 @@
 import { Player } from '../engine/models/Player';
 import { randomText } from '../engine/utils/RandomText';
 import { Coin } from './BackstageScene/Coin';
+import { activeInventory } from '../engine/state/ActiveInventory.singleton';
 
 let spriteOptions = new Map();
 
@@ -29,10 +30,52 @@ export class DoctortillaPlayer extends Player {
         this.inventory.add(new Coin());
     }
 
-    reflect() {
+    reflect(): void {
         this.say(randomText('Now I should say something smart that helps',
             'This is a pretty nice room',
             'Man, I really want to play that concert',
             'Probably I should find the rest of the band...'));
     }
+
+    hasCompleteCostume(): Boolean {
+        let inventory = activeInventory.getActiveInventory();
+        let costume = inventory.getById('costume');
+
+        return costume && costume.isComplete();
+    }
+
+    hasCable(): Boolean {
+        let inventory = activeInventory.getActiveInventory();
+        let cable = inventory.getById('cable');
+        return !!cable;
+    }
+
+    hasFunnyDrink(): Boolean {
+        let inventory = activeInventory.getActiveInventory();
+        let glass = inventory.getById('glass');
+        return glass && glass.isFunny();
+    }
+
+    removeCostume(): void {
+        let inventory = activeInventory.getActiveInventory();
+        let costume = inventory.getById('costume');
+        inventory.remove(costume);
+    }
+
+    removeCable(): void {
+        let inventory = activeInventory.getActiveInventory();
+        let cable = inventory.getById('cable');
+        inventory.remove(cable);
+    }
+
+    removeGlass(): void {
+        let inventory = activeInventory.getActiveInventory();
+        let glass = inventory.getById('glass');
+        inventory.remove(glass);
+    }
+
+    deliveredEverything(): Boolean {
+        return this.getAttr('DELIVERED_CABLE') && this.getAttr('DELIVERED_COSTUME') && this.getAttr('DELIVERED_DRINK');
+    }
+
 }

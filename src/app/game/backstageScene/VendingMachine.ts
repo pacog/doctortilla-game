@@ -3,7 +3,7 @@ import { Player } from '../../engine/models/Player';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { SpeechBubble } from '../../engine/ui/SpeechBubble';
 import { Can } from './Can';
-
+import { uiBlocker } from '../../engine/ui/UIBlocker.singleton';
 
 const NORMAL_FRAME = 0;
 const GREASED_FRAME = 1;
@@ -74,18 +74,16 @@ export class VendingMachine extends Thing {
     }
 
     private getCan(player: Player, coin: Thing): void {
-        //TODO
-        // uiBlocker.block();
+        uiBlocker.block();
         player.goToThing(this)
             .then(() => {
                 coin.destroy();
-                this.say('Clonk\n   clonk\n      clonk');
+                return this.say('Clonk\n   clonk\n      clonk');
             })
             .then(() => {
                 new Can();
                 player.say('That was a wise purchase');
-                //TODO
-                // uiBlocker.unblock();
+                uiBlocker.unblock();
             });
     }
 

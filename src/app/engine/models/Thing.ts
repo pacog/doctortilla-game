@@ -138,7 +138,12 @@ export abstract class Thing {
     }
 
     destroy(): void {
-        this.sprite.destroy();
+        if (this.sprite) {
+            this.sprite.destroy();
+        }
+        if(this.isInInventory) {
+            activeInventory.getActiveInventory().remove(this);
+        }
     }
 
     // Methods that can be overwritten in subclasses

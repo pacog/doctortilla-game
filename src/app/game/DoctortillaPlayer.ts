@@ -1,5 +1,6 @@
 import { Player } from '../engine/models/Player';
 import { randomText } from '../engine/utils/RandomText';
+import { Coin } from './BackstageScene/Coin';
 
 let spriteOptions = new Map();
 
@@ -25,6 +26,7 @@ const options = {
 export class DoctortillaPlayer extends Player {
     constructor() {
         super(options);
+        this.inventory.add(new Coin());
     }
 
     reflect() {

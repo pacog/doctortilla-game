@@ -31,6 +31,7 @@ class ActiveInventory {
 
     subscribeToChange(callback: ICallback): void {
         this.changeObservable.registerObserver(callback);
+        callback(this.activeInventory);
     }
 
     unsubscribeToChange(callback: ICallback): void {

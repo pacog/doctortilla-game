@@ -2,6 +2,8 @@ import { Thing } from '../../engine/models/Thing';
 import { Player } from '../../engine/models/Player';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { SpeechBubble } from '../../engine/ui/SpeechBubble';
+import { Can } from './Can';
+
 
 const NORMAL_FRAME = 0;
 const GREASED_FRAME = 1;
@@ -80,8 +82,7 @@ export class VendingMachine extends Thing {
                 this.say('Clonk\n   clonk\n      clonk');
             })
             .then(() => {
-                //TODO
-                // new Can();
+                new Can();
                 player.say('That was a wise purchase');
                 //TODO
                 // uiBlocker.unblock();

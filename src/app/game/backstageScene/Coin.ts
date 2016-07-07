@@ -4,8 +4,7 @@ export class Coin extends Thing {
     constructor() {
         let options = {
             id: 'coin',
-            spriteId: 'coin',
-            inventoryImageId: 'coin',
+            inventoryImageId: 'COIN_INV',
             name: 'coin',
             directlyInInventory: true
         };

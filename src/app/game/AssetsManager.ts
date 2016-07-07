@@ -11,7 +11,9 @@ const IMAGES = {
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
     'BROOM': 'images/backstage/BROOM.png',
     'BROOM_INV': 'images/backstage/BROOM_INV.png',
-    'BACKYARD_BG': 'images/backyard/BACKYARD_BG.png'
+    'BACKYARD_BG': 'images/backyard/BACKYARD_BG.png',
+    'CAN_INV': 'images/backstage/CAN_INV.png',
+    'COIN_INV': 'images/backstage/COIN_INV.png'
 
 };
 

@@ -198,7 +198,9 @@ export abstract class Thing {
 
     //Methods that shouldn't be overriden
     private addToInventory(): void {
-        activeInventory.getActiveInventory().add(this);
+        if(activeInventory.getActiveInventory()) {
+            activeInventory.getActiveInventory().add(this);
+        }
     }
 
     private createSprite(): void {

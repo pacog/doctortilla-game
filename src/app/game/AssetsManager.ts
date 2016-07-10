@@ -8,16 +8,25 @@ const SPRITES = {
 };
 
 const IMAGES = {
+    //General
     'UI_BG': 'images/UI_BG.png',
     'UI_INV_BG': 'images/UI_INV_BG.png',
+    'UI_CONVERSATION_BG': 'images/UI_CONVERSATION_BG.png',
+    'CONVERSATION_LINE_BG': 'images/CONVERSATION_LINE_BG.png',
+
+    //Backstage scene:
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
+    'SKIRT': 'images/backstage/SKIRT.png',
     'BROOM': 'images/backstage/BROOM.png',
     'BROOM_INV': 'images/backstage/BROOM_INV.png',
     'BACKYARD_BG': 'images/backyard/BACKYARD_BG.png',
     'CAN_INV': 'images/backstage/CAN_INV.png',
     'COIN_INV': 'images/backstage/COIN_INV.png',
-    'UI_CONVERSATION_BG': 'images/UI_CONVERSATION_BG.png',
-    'CONVERSATION_LINE_BG': 'images/CONVERSATION_LINE_BG.png'
+    'COSTUME_SPRITE': 'images/backstage/COSTUME_SPRITE.png',
+    'SCISSORS': 'images/backstage/SCISSORS.png',
+
+    //Backyard:
+    'FLOWERS': 'images/backyard/FLOWERS.png'
 };
 
 const FONTS = {

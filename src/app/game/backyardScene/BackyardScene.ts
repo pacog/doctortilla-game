@@ -1,5 +1,6 @@
 import { Scene } from '../../engine/models/Scene';
 import { BackyardDoorToBackstage } from './BackyardDoorToBackstage';
+import { Flowers } from './Flowers';
 
 const sceneOptions = {
     id: 'BACKYARD',
@@ -11,7 +12,8 @@ const sceneOptions = {
         maxX: 1200 / 2
     },
     things: [
-        new BackyardDoorToBackstage()
+        new BackyardDoorToBackstage(),
+        new Flowers()
     ]
 };
 

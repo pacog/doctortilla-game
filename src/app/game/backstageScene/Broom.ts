@@ -1,4 +1,7 @@
 import { Thing } from '../../engine/models/Thing';
+import { DoctortillaPlayer } from '../DoctortillaPlayer';
+import { selectedThing } from '../../engine/state/SelectedObjects';
+import { Skirt } from './Skirt';
 
 const options = {
     id: 'broom',
@@ -15,51 +18,29 @@ const options = {
 };
 
 export class Broom extends Thing {
+
     constructor() {
         super(options);
     }
+
+    protected lookAction(player: DoctortillaPlayer): void {
+        if (this.isInInventory()) {
+            player.say('Awesome, now I have a broom');
+        } else {
+            player.say('Si yo tuviera una escoba...');
+        }
+    }
+
+    protected useAction(player: DoctortillaPlayer): void {
+        if (selectedThing.thing.id === 'scissors') {
+            this.cutWithScissors();
+        } else {
+            player.say('I don\'t know how to do that');
+        }
+    }
+
+    cutWithScissors() {
+        new Skirt();
+        this.destroy();
+    }
 }
-
-
-
-
-
-// var Thing = require('../engine/models/Thing.js');
-// var PickableModifier = require('../engine/models/PickableModifier.js');
-// var compositionFactory = require('../engine/models/CompositionFactory.js');
-// var Skirt = require('./Skirt.js');
-// var selectedThing = require('../engine/state/SelectedThing.singleton.js');
-
-// class Broom extends Thing {
-
-//     takeAction(player) {
-//         player.say('a broom!');
-//         this._getTakenBy(player);
-//     }
-
-//     lookAction(player) {
-//         if (this.isInInventory()) {
-//             player.say('Awesome, now I have a broom');
-//         } else {
-//             player.say('Si yo tuviera una escoba...');
-//         }
-//     }
-
-//     useAction(player) {
-//         if (selectedThing.thing.id === 'scissors') {
-//             this.cutWithScissors();
-//         } else {
-//             player.say('I don\'t know how to do that');
-//         }
-//     }
-
-//     cutWithScissors() {
-//         new Skirt(this.phaserGame);
-//         this.destroy();
-//     }
-
-// }
-
-// compositionFactory.applyModifier(PickableModifier, Broom);
-
-// module.exports = Broom;

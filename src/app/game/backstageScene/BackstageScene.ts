@@ -6,6 +6,10 @@ import { BandInSofa } from './BandInSofa';
 import { Scissors } from './Scissors';
 import { Bocadillo } from './Bocadillo';
 import { Cable } from './Cable';
+import { Coconut } from './Coconut';
+import { Table } from './Table';
+import { Dust } from './Dust';
+import { Glass } from './Glass';
 
 const sceneOptions = {
     id: 'BACKSTAGE',
@@ -23,7 +27,11 @@ const sceneOptions = {
         new VendingMachine(),
         new BandInSofa(),
         new Scissors(),
-        new Bocadillo()
+        new Bocadillo(),
+        new Table(),
+        new Glass(),
+        new Dust(),
+        new Coconut()
     ]
 };
 

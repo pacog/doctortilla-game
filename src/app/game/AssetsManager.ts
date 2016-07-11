@@ -5,7 +5,9 @@ const SPRITES = {
     'VENDING_SPRITE': ['images/backstage/VENDING_SPRITE.png', 33, 57, 3],
     'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 111, 79, 9],
     'CONVERSATION_LINE_BG': ['images/CONVERSATION_LINE_BG.png', 529, 20],
-    'CABLE_SPRITE': ['images/backstage/CABLE_SPRITE.png', 18, 13, 1]
+    'CABLE_SPRITE': ['images/backstage/CABLE_SPRITE.png', 18, 13, 1],
+    'GLASS_SPRITE': ['images/backstage/GLASS_SPRITE.png', 9, 9, 4],
+    'COSTUME_SPRITE': ['images/backstage/COSTUME_SPRITE.png', 40, 28, 4],
 };
 
 const IMAGES = {
@@ -23,11 +25,13 @@ const IMAGES = {
     'BACKYARD_BG': 'images/backyard/BACKYARD_BG.png',
     'CAN_INV': 'images/backstage/CAN_INV.png',
     'COIN_INV': 'images/backstage/COIN_INV.png',
-    'COSTUME_SPRITE': 'images/backstage/COSTUME_SPRITE.png',
     'SCISSORS': 'images/backstage/SCISSORS.png',
     'BOCADILLO': 'images/backstage/BOCADILLO.png',
     'BREAD': 'images/backstage/BREAD.png',
     'BACON': 'images/backstage/BACON.png',
+    'COCONUT': 'images/backstage/COCONUT.png',
+    'DUST': 'images/backstage/DUST.png',
+    'TABLE': 'images/backstage/TABLE.png',
 
     //Backyard:
     'FLOWERS': 'images/backyard/FLOWERS.png'

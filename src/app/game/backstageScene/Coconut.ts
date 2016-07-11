@@ -25,28 +25,7 @@ export class Coconut extends Thing {
         super(options);
     }
 
-    lookAction(player: DoctortillaPlayer) {
-        if (this.isInInventory()) {
-            player.say('Does it look like a pair of tits?');
-        } else {
-            player.say('Compare cómprame un coco');
-        }
-    }
-
-    useAction(player: DoctortillaPlayer) {
-        if (selectedThing.thing.id === 'flowers') {
-            let flowers = <Flowers> selectedThing.thing;
-            flowers.createCostumeFromCoconut(player, this);
-        } else if (selectedThing.thing.id === 'skirt') {
-            this.createCostumeFromSkirt(player, <Skirt> selectedThing.thing);
-        } else if (selectedThing.thing.id === 'costume') {
-            this.addCoconutToCostume(player, <Costume> selectedThing.thing);
-        } else {
-            player.say('I don\'t know how to do that');
-        }
-    }
-
-    createCostumeFromSkirt(player: DoctortillaPlayer, skirt: Skirt) {
+    createCostumeFromSkirt(player: DoctortillaPlayer, skirt: Skirt): void {
         if (!this.isInInventory()) {
             player.say('I have to pick it up first');
             return;
@@ -58,6 +37,27 @@ export class Coconut extends Thing {
 
     addCoconutToCostume(player: DoctortillaPlayer, costume: Costume) {
         costume.addCoconut(this);
+    }
+
+    protected lookAction(player: DoctortillaPlayer): void {
+        if (this.isInInventory()) {
+            player.say('Does it look like a pair of tits?');
+        } else {
+            player.say('Compare cómprame un coco');
+        }
+    }
+
+    protected useAction(player: DoctortillaPlayer): void {
+        if (selectedThing.thing.id === 'flowers') {
+            let flowers = <Flowers> selectedThing.thing;
+            flowers.createCostumeFromCoconut(player, this);
+        } else if (selectedThing.thing.id === 'skirt') {
+            this.createCostumeFromSkirt(player, <Skirt> selectedThing.thing);
+        } else if (selectedThing.thing.id === 'costume') {
+            this.addCoconutToCostume(player, <Costume> selectedThing.thing);
+        } else {
+            player.say('I don\'t know how to do that');
+        }
     }
 
 }

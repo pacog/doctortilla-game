@@ -19,7 +19,8 @@ interface IThingOptions {
     goToPosition?: IPoint,
     isForeground?: Boolean,
     preferredAction?: Verbs,
-    pickable?: Boolean
+    pickable?: Boolean,
+    justDecoration?: Boolean
 }
 
 export abstract class Thing {
@@ -223,10 +224,12 @@ export abstract class Thing {
             this.options.spriteId
         );
 
-        this.sprite.inputEnabled = true;
-        this.sprite.events.onInputDown.add(this.onClick, this);
-        this.sprite.events.onInputOver.add(this.onInputOver, this);
-        this.sprite.events.onInputOut.add(this.onInputOut, this);
+        if(!this.options.justDecoration) {
+            this.sprite.inputEnabled = true;
+            this.sprite.events.onInputDown.add(this.onClick, this);
+            this.sprite.events.onInputOver.add(this.onInputOver, this);
+            this.sprite.events.onInputOut.add(this.onInputOut, this);
+        }
     }
 
     private onClick(): void {

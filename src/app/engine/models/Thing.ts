@@ -164,11 +164,15 @@ export abstract class Thing {
         } else if(this.isInInventory()) {
             player.say('I already have it');
         } else {
-            player.goToThing(this)
-                .then(() => {
-                    actionDispatcher.execute(Actions.TAKE_OBJECT, this);
-                });
+            this.letPlayerComeAndTakeIt(player);
         }
+    }
+
+    protected letPlayerComeAndTakeIt(player: Player) {
+        player.goToThing(this)
+            .then(() => {
+                actionDispatcher.execute(Actions.TAKE_OBJECT, this);
+            });
     }
 
     protected lookAction(player: Player): void  {

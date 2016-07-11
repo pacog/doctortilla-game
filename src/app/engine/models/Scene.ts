@@ -53,6 +53,16 @@ export abstract class Scene {
         player.teleportTo(door.getPositionToGoTo());
     }
 
+    getThingById(thingId: string): Thing {
+        var foundThing: Thing = null;
+        this.things.forEach((thing) => {
+            if (thing.id === thingId) {
+                foundThing = thing;
+            }
+        });
+        return foundThing;
+    }
+
     destroy(): void {
         this.background.destroy();
         this.things.forEach(thing => thing.destroy());

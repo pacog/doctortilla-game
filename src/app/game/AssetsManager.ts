@@ -4,7 +4,8 @@ const SPRITES = {
     'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2],
     'VENDING_SPRITE': ['images/backstage/VENDING_SPRITE.png', 33, 57, 3],
     'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 111, 79, 9],
-    'CONVERSATION_LINE_BG': ['images/CONVERSATION_LINE_BG.png', 529, 20]
+    'CONVERSATION_LINE_BG': ['images/CONVERSATION_LINE_BG.png', 529, 20],
+    'CABLE_SPRITE': ['images/backstage/CABLE_SPRITE.png', 18, 13, 1]
 };
 
 const IMAGES = {
@@ -24,6 +25,9 @@ const IMAGES = {
     'COIN_INV': 'images/backstage/COIN_INV.png',
     'COSTUME_SPRITE': 'images/backstage/COSTUME_SPRITE.png',
     'SCISSORS': 'images/backstage/SCISSORS.png',
+    'BOCADILLO': 'images/backstage/BOCADILLO.png',
+    'BREAD': 'images/backstage/BREAD.png',
+    'BACON': 'images/backstage/BACON.png',
 
     //Backyard:
     'FLOWERS': 'images/backyard/FLOWERS.png'

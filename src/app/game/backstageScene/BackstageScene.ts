@@ -4,6 +4,8 @@ import { VendingMachine } from './VendingMachine';
 import { BackstageDoorToBackyard } from './BackstageDoorToBackyard';
 import { BandInSofa } from './BandInSofa';
 import { Scissors } from './Scissors';
+import { Bocadillo } from './Bocadillo';
+import { Cable } from './Cable';
 
 const sceneOptions = {
     id: 'BACKSTAGE',
@@ -17,9 +19,11 @@ const sceneOptions = {
     things: [
         new Broom(),
         new BackstageDoorToBackyard(),
+        new Cable(),
         new VendingMachine(),
         new BandInSofa(),
-        new Scissors()
+        new Scissors(),
+        new Bocadillo()
     ]
 };
 

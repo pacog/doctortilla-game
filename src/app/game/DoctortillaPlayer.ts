@@ -2,7 +2,7 @@ import { Player } from '../engine/models/Player';
 import { randomText } from '../engine/utils/RandomText';
 import { Coin } from './BackstageScene/Coin';
 import { Costume } from './BackstageScene/Costume';
-import { Glass } from './BackstageScene/Glass';
+import { Glass } from './BackstageScene/GlassInTable';
 import { activeInventory } from '../engine/state/ActiveInventory.singleton';
 
 let spriteOptions = new Map();

@@ -8,8 +8,8 @@ import { Bocadillo } from './Bocadillo';
 import { Cable } from './Cable';
 import { Coconut } from './Coconut';
 import { Table } from './Table';
-import { Dust } from './Dust';
-import { Glass } from './Glass';
+import { Dust } from './DustInTable';
+import { Glass } from './GlassInTable';
 
 const sceneOptions = {
     id: 'BACKSTAGE',

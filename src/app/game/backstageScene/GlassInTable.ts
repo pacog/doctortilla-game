@@ -2,7 +2,7 @@ import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { activeInventory } from '../../engine/state/ActiveInventory.singleton';
-import { Dust } from './Dust';
+import { Dust } from './DustInTable';
 import { Can } from './Can';
 
 const NORMAL_FRAME = 0;

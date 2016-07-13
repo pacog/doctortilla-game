@@ -15,7 +15,7 @@ class RandomText {
     }
 
     getRandomText(): string {
-        let result;
+        let result: string;
 
         if (this.phrases.length === 1) {
             result = this.phrases[0];
@@ -41,7 +41,7 @@ class RandomTextFactory {
         this.generators = new Map();
     }
 
-    getRandomText(...phrases): string {
+    getRandomText(...phrases: Array<string>): string {
         let phrasesId = this.getIdFromPhrases(phrases);
         let generator = this.generators.get(phrasesId);
         if (!generator) {
@@ -61,6 +61,6 @@ class RandomTextFactory {
 
 }
 const textFactory = new RandomTextFactory();
-export const randomText = (...phrases) => {
+export const randomText = (...phrases: Array<string>) => {
     return textFactory.getRandomText(...phrases);
 };

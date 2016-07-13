@@ -2,7 +2,7 @@ import { Verbs, VerbsInfo } from '../stores/Verbs.store';
 import { IPoint } from '../utils/Interfaces';
 import { layout } from './LayoutManager.singleton';
 import { phaserGame } from '../state/PhaserGame.singleton';
-import { phaser } from '../Phaser';
+import { phaser } from '../../Phaser';
 import { uiLayers } from './UILayers.singleton';
 import { label } from '../stores/Labels.store';
 import { style } from './Style';

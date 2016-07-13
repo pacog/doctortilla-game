@@ -1,10 +1,18 @@
 /// <reference path="../../../../my-typings/lib.es6.d.ts" />
 import { DEFAULT_LABELS } from './DefaultLabels';
 
+export interface ILabelsPerLanguage {
+    [index : string] : string;
+};
+
+export interface ILabels {
+    [index : string] : ILabelsPerLanguage;
+};
+
 const DEFAULT_LANGUAGE = 'en';
 
 class LabelsStore {
-    private labels: Map<string, Object>;
+    private labels: Map<string, ILabelsPerLanguage>;
     private currentLanguage: string;
 
     constructor() {
@@ -12,7 +20,7 @@ class LabelsStore {
         this.currentLanguage = DEFAULT_LANGUAGE;
     }
 
-    addLabels(labelsToAdd: Object): void {
+    addLabels(labelsToAdd: ILabels): void {
         for(let key in labelsToAdd) {
             this.addLabelsForLanguage(key, labelsToAdd[key]);
         }
@@ -26,7 +34,7 @@ class LabelsStore {
         return allLanguageLabels[labelName] || labelName;
     }
 
-    private addLabelsForLanguage(language: string, labels: Object): void {
+    private addLabelsForLanguage(language: string, labels: ILabelsPerLanguage): void {
         let previousLabels = this.labels.get(language) || {};
         let newLabels = Object.assign({}, previousLabels, labels);
         this.labels.set(language, newLabels);
@@ -34,7 +42,7 @@ class LabelsStore {
 }
 let labelsStoreSingleton = new LabelsStore();
 
-labelsStoreSingleton.addLabels(DEFAULT_LABELS);
+labelsStoreSingleton.addLabels(<ILabels> DEFAULT_LABELS);
 
 export const label = ((labelId: string) => {
     return labelsStoreSingleton.getLabel(labelId);

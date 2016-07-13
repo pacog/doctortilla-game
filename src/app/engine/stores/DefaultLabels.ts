@@ -1,4 +1,6 @@
-export const DEFAULT_LABELS = {
+import { ILabels  } from './Labels.store';
+
+export const DEFAULT_LABELS: ILabels = {
     'es': {
         'Close': 'Cerrar',
         'Give': 'Dar',

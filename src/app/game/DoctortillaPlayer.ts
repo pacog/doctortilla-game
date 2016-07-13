@@ -1,6 +1,8 @@
 import { Player } from '../engine/models/Player';
 import { randomText } from '../engine/utils/RandomText';
 import { Coin } from './BackstageScene/Coin';
+import { Costume } from './BackstageScene/Costume';
+import { Glass } from './BackstageScene/Glass';
 import { activeInventory } from '../engine/state/ActiveInventory.singleton';
 
 let spriteOptions = new Map();
@@ -39,7 +41,7 @@ export class DoctortillaPlayer extends Player {
 
     hasCompleteCostume(): Boolean {
         let inventory = activeInventory.getActiveInventory();
-        let costume = inventory.getById('costume');
+        let costume = <Costume> inventory.getById('costume');
 
         return costume && costume.isComplete();
     }
@@ -52,7 +54,7 @@ export class DoctortillaPlayer extends Player {
 
     hasFunnyDrink(): Boolean {
         let inventory = activeInventory.getActiveInventory();
-        let glass = inventory.getById('glass');
+        let glass = <Glass> inventory.getById('glass');
         return glass && glass.isFunny();
     }
 

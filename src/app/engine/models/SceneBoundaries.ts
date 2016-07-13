@@ -11,10 +11,10 @@ export class SceneBoundaries {
 
     constructor(private config: IBoundariesConfig) {}
 
-    getPositionInside(IPoint): IPoint {
-        let x = Math.max(this.config.minX, IPoint.x);
+    getPositionInside(point: IPoint): IPoint {
+        let x = Math.max(this.config.minX, point.x);
         x = Math.min(this.config.maxX, x);
-        let y = Math.max(this.config.minY, IPoint.y);
+        let y = Math.max(this.config.minY, point.y);
         y = Math.min(this.config.maxY, y);
 
         return {

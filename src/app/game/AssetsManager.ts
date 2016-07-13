@@ -1,4 +1,16 @@
-const SPRITES = {
+interface IImagesInfo {
+    [index : string] : string;
+};
+
+interface ISpritesInfo {
+    [index : string] : (string|number)[];
+};
+
+interface IFontsInfo {
+    [index : string] : Array<string>;
+};
+
+const SPRITES: ISpritesInfo = {
     // UI
     'BUTTON_BG': ['images/ui/BUTTON_BG_SPRITE.png',75, 18, 3],
     'CONVERSATION_LINE_BG': ['images/ui/CONVERSATION_LINE_BG.png', 529, 20],
@@ -15,7 +27,7 @@ const SPRITES = {
     'COSTUME_SPRITE': ['images/backstage/COSTUME_SPRITE.png', 40, 28, 4],
 };
 
-const IMAGES = {
+const IMAGES: IImagesInfo = {
     // UI
     'UI_BG': 'images/ui/UI_BG.png',
     'UI_INV_BG': 'images/ui/UI_INV_BG.png',
@@ -43,7 +55,7 @@ const IMAGES = {
     'BILI': 'images/backyard/BILI.png'
 };
 
-const FONTS = {
+const FONTS: IFontsInfo = {
     'FONT_32_BLACK': ['images/fonts/font_32_black.png', 'images/fonts/font_32_black.fnt'],
     'FONT_32_WHITE': ['images/fonts/font_32_white.png', 'images/fonts/font_32_white.fnt'],
     'FONT_32_ORANGE': ['images/fonts/font_32_orange.png', 'images/fonts/font_32_orange.fnt']
@@ -67,10 +79,10 @@ class AssetsManager {
         for (let spriteKey in SPRITES) {
             game.load.spritesheet(
                 spriteKey,
-                SPRITES[spriteKey][0],
-                SPRITES[spriteKey][1],
-                SPRITES[spriteKey][2],
-                SPRITES[spriteKey][3]
+                <string> SPRITES[spriteKey][0],
+                <number> SPRITES[spriteKey][1],
+                <number> SPRITES[spriteKey][2],
+                <number> SPRITES[spriteKey][3]
             );
         }
     }

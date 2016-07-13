@@ -53,7 +53,7 @@ export class Glass extends Thing {
         }
     }
 
-    protected fillWithDust(player: DoctortillaPlayer, dust: Dust): void {
+    fillWithDust(player: DoctortillaPlayer, dust: Dust): void {
         this.changeAttr('POWDER_INSIDE', true);
         dust.destroy();
     }

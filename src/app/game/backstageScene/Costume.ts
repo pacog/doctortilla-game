@@ -74,7 +74,7 @@ export class Costume extends Thing {
         skirt.destroy();
     }
 
-    private isComplete(): Boolean {
+    isComplete(): Boolean {
         return this.getAttr('HAS_COCONUT') && this.getAttr('HAS_FLOWERS') && this.getAttr('HAS_SKIRT');
     }
 

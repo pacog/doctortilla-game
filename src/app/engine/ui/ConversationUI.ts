@@ -47,7 +47,7 @@ export class ConversationUI {
         newLines.forEach((newLine, index) => this.createLine(newLine, index));
     }
 
-    private createLine(line, index): void {
+    private createLine(line: ConversationLine, index: number): void {
         let newUILine = new ConversationLineUI(
             line,
             this.conversation.getTextForLine(line),

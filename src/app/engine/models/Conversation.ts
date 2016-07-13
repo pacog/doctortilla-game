@@ -57,7 +57,8 @@ export abstract class Conversation {
     }
 
     getTextForLine(line: ConversationLine): string {
-        return line.text();
+        var textCallback = line.text;
+        return textCallback({});
     }
 
     protected abstract loadScript(): void;

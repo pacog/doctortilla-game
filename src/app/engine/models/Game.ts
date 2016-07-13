@@ -13,8 +13,10 @@ import { selectedThing } from '../state/SelectedObjects';
 import { scenes } from '../state/Scenes.singleton';
 import { IGoToSceneOptions } from '../utils/Interfaces';
 
+import { ILabels  } from '../stores/Labels.store';
+
 export interface IGameOptions {
-    labels: Object,
+    labels: ILabels,
     player: Player,
     scenes: Array<Scene>,
     initialSceneId: string

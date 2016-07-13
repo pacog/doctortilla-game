@@ -55,7 +55,7 @@ export class Flowers extends Thing {
         }
     }
 
-    private createCostumeFromSkirt(player: DoctortillaPlayer, skirt: Skirt) {
+    createCostumeFromSkirt(player: DoctortillaPlayer, skirt: Skirt) {
         if (!this.isInInventory()) {
             player.say('I have to pick it up first');
             return;

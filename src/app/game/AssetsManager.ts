@@ -34,7 +34,8 @@ const IMAGES = {
     'TABLE': 'images/backstage/TABLE.png',
 
     //Backyard:
-    'FLOWERS': 'images/backyard/FLOWERS.png'
+    'FLOWERS': 'images/backyard/FLOWERS.png',
+    'BILI': 'images/backyard/BILI.png'
 };
 
 const FONTS = {

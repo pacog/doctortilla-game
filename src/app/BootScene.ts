@@ -4,7 +4,7 @@ import { phaser } from './Phaser';
 export const BootScene = {
     preload: function() {
         // load here assets required for the loading screen
-        this.game.load.image('preloader_bar', 'images/preloader_bar.png');
+        this.game.load.image('preloader_bar', 'images/ui/PRELOADER_BAR.png');
     },
 
     create: function () {

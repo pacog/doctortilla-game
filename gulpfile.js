@@ -10,21 +10,23 @@ var gutil = require('gulp-util');
 var watchify = require('watchify');
 var browserSync = require('browser-sync').create();
 
-var paths = {
-    pages: ['src/*.html']
-};
+// var paths = {
+//     pages: ['src/*.html']
+// };
 
 const DEV_BUILD_PATH = '.tmp';
 const PROD_BUILD_PATH = 'dist';
 const ROOT_FILE = 'src/app/main.ts';
 
-var watchedBrowserify = watchify(browserify({
+var nonWatchedBrowserify = browserify({
     basedir: '.',
     debug: true,
     entries: [ROOT_FILE],
     cache: {},
     packageCache: {}
-}).plugin(tsify));
+}).plugin(tsify);
+
+var watchedBrowserify = watchify(nonWatchedBrowserify);
 
 function bundle() {
     return watchedBrowserify
@@ -38,14 +40,14 @@ function bundle() {
         .pipe(browserSync.stream({once: true}));
 }
 
-gulp.task('copy-html', function () {
-    return gulp.src(paths.pages)
-        .pipe(gulp.dest(DEV_BUILD_PATH));
-});
+// gulp.task('copy-html', function () {
+//     return gulp.src(paths.pages)
+//         .pipe(gulp.dest(DEV_BUILD_PATH));
+// });
 
-gulp.task('default', ['copy-html'], bundle);
+gulp.task('default', ['run'], bundle);
 
-gulp.task('run', ['watch'], function () {
+gulp.task('run', function () {
     bundle();
     browserSync.init({
         server: ['src', DEV_BUILD_PATH]
@@ -57,9 +59,10 @@ gulp.task('run', ['watch'], function () {
     gulp.watch('src/**/*.{html,css}').on('change', browserSync.reload);
 });
 
-gulp.task('watch', function () {
-    
-});
+// gulp.task('build', function() {
+
+// });
+
 
 
 // 

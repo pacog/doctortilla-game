@@ -43,9 +43,9 @@ export class ConversationWithBand extends Conversation {
     }
 
     protected loadScript(): void {
-        this.script = script
+        this.script = Object.assign({}, script);
         let dialogPart: Array<ConversationLine> = [];
-        dialogPart.push(...this.script['INITIAL_AFTER_FIRST_TALK']);
+        dialogPart = this.script['INITIAL_AFTER_FIRST_TALK'].concat(dialogPart);
 
         this.loadExtraOptionsInInitialFirstTalk(dialogPart);
         this.script['INITIAL_AFTER_FIRST_TALK'] = dialogPart;

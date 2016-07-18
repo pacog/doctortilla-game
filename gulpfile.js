@@ -12,6 +12,7 @@ var browserSync = require('browser-sync').create();
 var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
 var ghpages = require('gulp-gh-pages');
+var cachebust = require('gulp-cache-bust');
 
 var paths = {
     pages: ['src/*.html'],
@@ -85,9 +86,17 @@ gulp.task('run', function () {
 });
 
 gulp.task('dist', function (callback) {
-    runSequence('clean-dist',
-              ['build-dist', 'copy-html-dist', 'copy-css-dist', 'copy-vendor-dist', 'copy-assets-dist'],
-              callback);
+    runSequence(
+        'clean-dist',
+        [
+            'build-dist',
+            'copy-html-dist',
+            'copy-css-dist',
+            'copy-vendor-dist',
+            'copy-assets-dist'
+        ],
+        'cache-bust-dist',
+        callback);
 });
 
 gulp.task('build-dist', function () {
@@ -96,7 +105,15 @@ gulp.task('build-dist', function () {
     .transform('babelify')
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(buffer())
+    .pipe(gulp.dest(PROD_BUILD_PATH));
+});
+
+gulp.task('cache-bust-dist', function () {
+    gulp.src(PROD_BUILD_PATH + '/index.html')
+    .pipe(debug({title: 'htmls:'}))
+    .pipe(cachebust({
+        type: 'timestamp'
+    }))
     .pipe(gulp.dest(PROD_BUILD_PATH));
 });
 

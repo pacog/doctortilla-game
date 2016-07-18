@@ -2,7 +2,6 @@ import { Player } from '../engine/models/Player';
 import { randomText } from '../engine/utils/RandomText';
 import { Coin } from './BackstageScene/Coin';
 import { Costume } from './BackstageScene/Costume';
-import { Glass } from './BackstageScene/GlassInTable';
 import { activeInventory } from '../engine/state/ActiveInventory.singleton';
 
 let spriteOptions = new Map();
@@ -25,6 +24,7 @@ const options = {
     animationSpeed: 6,
     spriteOptions: spriteOptions
 };
+
 
 export class DoctortillaPlayer extends Player {
     constructor() {
@@ -54,7 +54,7 @@ export class DoctortillaPlayer extends Player {
 
     hasFunnyDrink(): Boolean {
         let inventory = activeInventory.getActiveInventory();
-        let glass = <Glass> inventory.getById('glass');
+        let glass = <any> inventory.getById('glass');
         return glass && glass.isFunny();
     }
 

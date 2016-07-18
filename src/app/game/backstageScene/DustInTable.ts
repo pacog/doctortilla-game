@@ -1,7 +1,7 @@
 import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
-import { Glass } from './GlassInTable';
+import { Glass } from './Glass';
 
 const options = {
     id: 'dust',

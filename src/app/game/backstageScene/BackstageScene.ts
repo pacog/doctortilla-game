@@ -9,7 +9,7 @@ import { Cable } from './Cable';
 import { Coconut } from './Coconut';
 import { Table } from './Table';
 import { Dust } from './DustInTable';
-import { Glass } from './GlassInTable';
+import { Glass } from './Glass';
 
 const sceneOptions = {
     id: 'BACKSTAGE',

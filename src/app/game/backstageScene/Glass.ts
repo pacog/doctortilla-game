@@ -2,7 +2,6 @@ import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { activeInventory } from '../../engine/state/ActiveInventory.singleton';
-import { Dust } from './DustInTable';
 import { Can } from './Can';
 
 const NORMAL_FRAME = 0;
@@ -35,7 +34,7 @@ export class Glass extends Thing {
             return;
         }
         if (selectedThing.thing.id === 'dust') {
-            let dust = <Dust> selectedThing.thing;
+            let dust = selectedThing.thing;
             this.fillWithDust(player, dust);
         } else if (selectedThing.thing.id === 'can') {
             let can = <Can> selectedThing.thing;
@@ -53,7 +52,7 @@ export class Glass extends Thing {
         }
     }
 
-    fillWithDust(player: DoctortillaPlayer, dust: Dust): void {
+    fillWithDust(player: DoctortillaPlayer, dust: Thing): void {
         this.changeAttr('POWDER_INSIDE', true);
         dust.destroy();
     }

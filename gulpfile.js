@@ -110,7 +110,6 @@ gulp.task('build-dist', function () {
 
 gulp.task('cache-bust-dist', function () {
     gulp.src(PROD_BUILD_PATH + '/index.html')
-    .pipe(debug({title: 'htmls:'}))
     .pipe(cachebust({
         type: 'timestamp'
     }))

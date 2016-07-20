@@ -39,7 +39,7 @@ export class InventoryPaginationButton {
         this.button = phaserGame.value.add.button(
             position.x,
             position.y,
-            'BUTTON_BG',
+            'PAGINATION_BUTTON_UP',
             this.onClick,
             this,
             1,

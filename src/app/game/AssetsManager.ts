@@ -14,6 +14,7 @@ const SPRITES: ISpritesInfo = {
     // UI
     'BUTTON_BG': ['images/ui/BUTTON_BG_SPRITE.png',75, 18, 3],
     'CONVERSATION_LINE_BG': ['images/ui/CONVERSATION_LINE_BG.png', 529, 20],
+    'PAGINATION_BUTTON_UP': ['images/ui/PAGINATION_BUTTON_UP.png', 16, 25, 4],
 
     // PLAYER
     'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 21],

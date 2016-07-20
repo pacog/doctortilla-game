@@ -47,6 +47,10 @@ export class InventoryPaginationButton {
             2,
             1
         );
+        if(this.options.type === PaginationButtonType.DOWN) {
+            this.button.scale.y = -1;
+            this.button.anchor.setTo(0, 1);
+        }
         uiLayers.verbButtons.add(this.button);
         this.button.fixedToCamera = true;
     }

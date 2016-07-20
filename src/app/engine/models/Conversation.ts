@@ -50,9 +50,12 @@ export abstract class Conversation {
     }
 
     applyLine(line: ConversationLine): void {
-        line.afterCallback(this.player, this.otherPerson)
+        this.player.say(line.text(this.player))
             .then(() => {
-                this.state = line.nextState;
+                line.afterCallback(this.player, this.otherPerson)
+                    .then(() => {
+                        this.state = line.nextState;
+                    });
             });
     }
 

@@ -30,7 +30,7 @@ export class InventoryPaginationButton {
     }
 
     private createButton(): void {
-        let position;
+        let position: IPoint;
         if(this.options.type === PaginationButtonType.UP) {
             position = layout.getPaginationButtonUp();
         } else {

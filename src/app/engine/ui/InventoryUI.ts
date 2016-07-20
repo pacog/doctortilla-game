@@ -3,15 +3,24 @@ import { uiLayers } from './UILayers.singleton';
 import { InventoryItemUI } from './InventoryItemUI';
 import { activeInventory } from '../state/ActiveInventory.singleton';
 import { Inventory } from '../models/Inventory';
+import { PaginationButtonType, InventoryPaginationButton } from './InventoryPaginationButton';
+
+const ITEMS_PER_PAGE = 6;
 
 export class InventoryUI {
 
+    private currentPage: number;
     private items: Set<InventoryItemUI>;
     private currentInventory: Inventory;
+    private paginationButtonUp: InventoryPaginationButton;
+    private paginationButtonDown: InventoryPaginationButton;
 
     constructor() {
+        this.currentPage = 0;
         this.createBackground();
+        this.createPaginationButtons();
         this.items = new Set();
+
         activeInventory.subscribeToChange((newInventory) => this.inventoryChanged(newInventory))
     }
 
@@ -35,15 +44,31 @@ export class InventoryUI {
         background.fixedToCamera = true;
     }
 
+    private createPaginationButtons(): void {
+        this.paginationButtonUp = new InventoryPaginationButton({type: PaginationButtonType.UP });
+        this.paginationButtonDown = new InventoryPaginationButton({type: PaginationButtonType.DOWN });
+
+        this.paginationButtonUp.subscribeToClick(() => {
+            this.goToPrevPage();
+        });
+
+        this.paginationButtonDown.subscribeToClick(() => {
+            this.goToNextPage();
+        });
+    }
+
     private createItems(): void {
-        //TODO: handle order and more than 6 inv items
+
         this.destroyPrevItems();
 
         let index = 0;
-        for (let thing of this.currentInventory.items) {
+        let arrayOfThings = Array.from(this.currentInventory.items);
+        let firstPageElement = ITEMS_PER_PAGE * this.currentPage;
+        let nextPageFirstElement = ITEMS_PER_PAGE * (this.currentPage + 1);
+        for(let i = firstPageElement; (i < nextPageFirstElement) && (i < arrayOfThings.length); i++) {
             this.items.add(
                 new InventoryItemUI({
-                    thing: thing,
+                    thing: arrayOfThings[i],
                     index: index
                 })
             );
@@ -54,5 +79,20 @@ export class InventoryUI {
     private destroyPrevItems(): void {
         this.items.forEach(item => item.destroy());
         this.items.clear();
+    }
+
+    private goToNextPage(): void {
+        if(this.currentInventory.items.size >= (ITEMS_PER_PAGE * (this.currentPage + 1))) {
+            this.currentPage++;
+            this.createItems();
+        }
+        
+    }
+
+    private goToPrevPage(): void {
+        if(this.currentPage > 0) {
+            this.currentPage--;
+            this.createItems();
+        }
     }
 }

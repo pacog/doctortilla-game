@@ -108,18 +108,7 @@ class LayoutManager {
     getPositionForUIInventoryItem(index: number): IPoint {
         let {column, row} = this.getInventoryItemPosition(index);
 
-        let initialPosition = this.INVENTORY_START_POSITION;
-
-        let marginX = (column + 1) * this.VERB_BUTTON_MARGIN;
-        let positionX = column * this.INV_ITEM_WIDTH;
-
-        let marginY = (row + 1) * this.VERB_BUTTON_MARGIN;
-        let positionY = row * this.INV_ITEM_HEIGHT;
-
-        return {
-            x: marginX + positionX + initialPosition.x,
-            y: marginY + positionY + initialPosition.y
-        };
+        return this.getInventoryPositionFromRowAndColumn(row, column);
     }
 
     getReflectButtonPosition() {
@@ -154,6 +143,35 @@ class LayoutManager {
         return {
             x: this.LAYOUT_DEFAULT_MARGIN,
             y: this.UI_START_POSITION.y + marginY + positionY
+        };
+    }
+
+    getPaginationButtonUp(): IPoint {
+        let column = INV_COLUMNS;
+        let row = 0;
+
+        return this.getInventoryPositionFromRowAndColumn(row, column);
+    }
+
+    getPaginationButtonDown(): IPoint {
+        let column = INV_COLUMNS;
+        let row = 1;
+
+        return this.getInventoryPositionFromRowAndColumn(row, column);
+    }
+
+    private getInventoryPositionFromRowAndColumn(row: number, column: number): IPoint {
+        let initialPosition = this.INVENTORY_START_POSITION;
+
+        let marginX = (column + 1) * this.VERB_BUTTON_MARGIN;
+        let positionX = column * this.INV_ITEM_WIDTH;
+
+        let marginY = (row + 1) * this.VERB_BUTTON_MARGIN;
+        let positionY = row * this.INV_ITEM_HEIGHT;
+
+        return {
+            x: marginX + positionX + initialPosition.x,
+            y: marginY + positionY + initialPosition.y
         };
     }
 

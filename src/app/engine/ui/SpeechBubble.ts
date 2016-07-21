@@ -23,6 +23,17 @@ export class SpeechBubble {
         return this.textBeingSaid.promise;
     }
 
+    isShown(): Boolean {
+        return !!this.textBeingSaid;
+    }
+
+    updatePosition(): void {
+        if(!this.isShown()) {
+            return;
+        }
+        this.textBeingSaid.setPosition(this.options.owner.getPositionOnTop());
+    }
+
     private destroyPrevText():void {
         if (this.textBeingSaid) {
             this.textBeingSaid.destroy();

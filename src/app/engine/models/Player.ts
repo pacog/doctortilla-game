@@ -57,6 +57,7 @@ export abstract class Player {
             this.tween = phaserGame.value.add.tween(this._sprite);
             this.tween.to({ x: destination.x, y: destination.y }, timeToAnimate, 'Linear', true, 0);
             this.tween.onComplete.add(this.stopAnimations, this);
+            this.tween.onUpdateCallback(this.updateOnTweenMove, this);
         }
 
         this.willMovePromise = this.createMovePromise(timeToAnimate);
@@ -255,6 +256,12 @@ export abstract class Player {
         let spriteState = 'stand_' + directionName;
         this._sprite.animations.play(spriteState);
         this.flipXIfNeeded(spriteState);
+    }
+
+    private updateOnTweenMove(a: any, b: any): void {
+        if(this.speechBubble.isShown()) {
+            this.speechBubble.updatePosition();
+        }
     }
 
 }

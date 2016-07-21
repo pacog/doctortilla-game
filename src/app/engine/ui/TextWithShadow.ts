@@ -58,6 +58,15 @@ export class TextWithShadow {
         this.text.setText(text);
     }
 
+    setPosition(newPosition: IPoint): void {
+        if(this.text && this.shadowText) {
+            this.text.x = newPosition.x;
+            this.text.y = newPosition.y;
+            this.shadowText.x = newPosition.x + 1;
+            this.shadowText.y = newPosition.y + 1;
+        }
+    }
+
     destroy(): void {
         if(this.text) {
             this.text.destroy();

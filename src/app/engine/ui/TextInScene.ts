@@ -33,9 +33,12 @@ export class TextInScene {
     private promiseToDestroy: Promise<any>;
     private resolveCallback: () => void;
     private timeoutToDestroy: number;
+    private textInLines: string;
+    private position: IPoint;
 
     constructor(private options: ITextInSceneOptions) {
         this.options = Object.assign({}, DEFAULT_TEXT_OPTIONS, this.options);
+        this.position = Object.assign({}, this.options.position);
         this.createText();
         if (this.options.autoDestroy) {
             this.promiseToDestroy = this.autoDestroy();
@@ -44,6 +47,15 @@ export class TextInScene {
 
     get promise(): Promise<void> {
         return this.promiseToDestroy;
+    }
+
+    setPosition(newPosition: IPoint): void {
+        this.position = newPosition;
+        if(this.currentText) {
+            let position = this.getPosition();
+            this.currentText.setPosition(position);
+        }
+
     }
 
     destroy() {
@@ -57,18 +69,20 @@ export class TextInScene {
         }
     }
 
+    private getPosition(): IPoint {
+        return {
+            x: this.getXPositionForText(this.textInLines),
+            y: this.getYPositionForText(this.textInLines)
+        }
+    }
+
     private createText(): void {
-        let textInLines = this.addLinesSeparators(this.options.text, this.options.width);
-        let positionX = this.getXPositionForText(textInLines);
-        let positionY = this.getYPositionForText(textInLines);
+        this.textInLines = this.addLinesSeparators(this.options.text, this.options.width);
 
         this.currentText = new TextWithShadow({
-            position: {
-                x: positionX,
-                y: positionY
-            },
+            position: this.getPosition(),
             layer: uiLayers.textInScene,
-            initialText: textInLines,
+            initialText: this.textInLines,
             align: 'center',
             anchor: this.options.anchor
         });
@@ -95,7 +109,7 @@ export class TextInScene {
     private getXPositionForText(text: string): number {
         let longestLineLength = this.getLongestLineLength(text);
         let maxWidth = longestLineLength * style.DEFAULT_FONT_SIZE;
-        let result = this.options.position.x - (maxWidth / 2);
+        let result = this.position.x - (maxWidth / 2);
 
         result = Math.max(result, this.options.paddingInScreen);
         result = Math.min(result, this.getMaxXForText(maxWidth));
@@ -111,7 +125,7 @@ export class TextInScene {
     private getYPositionForText(text: string): number {
         let lines = text.split('\n').length;
         let totalHeight = lines * style.DEFAULT_FONT_SIZE;
-        return this.options.position.y - totalHeight;
+        return this.position.y - totalHeight;
     }
 
     private getLongestLineLength(text: string): number {

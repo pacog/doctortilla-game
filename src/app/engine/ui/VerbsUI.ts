@@ -90,6 +90,11 @@ export class VerbsUI {
             Actions.CURSOR_OUT_THING,
             () => this.removePreviouslyHighlightedAction()
         );
+
+        actionDispatcher.subscribeTo(
+            Actions.ACTION_APPLIED,
+            () => this.removePreviouslyHighlightedAction()
+        );
     }
 
     private highlightSecondaryActionForThing(thing: Thing) : void{

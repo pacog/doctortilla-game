@@ -22,6 +22,11 @@ export interface IGameOptions {
     initialSceneId: string
 }
 
+interface ISelectThingOptions {
+    thing: Thing,
+    secondaryAction?: Boolean
+}
+
 export abstract class Game {
 
     private player: Player;
@@ -50,7 +55,7 @@ export abstract class Game {
 
     private initActions(): void {
         actionDispatcher.subscribeTo(Actions.CLICK_STAGE, ev => this.movePlayerTo(ev) );
-        actionDispatcher.subscribeTo(Actions.SELECT_THING, thing => this.selectThing(thing) );
+        actionDispatcher.subscribeTo(Actions.SELECT_THING, options => this.selectThing(options) );
         actionDispatcher.subscribeTo(Actions.GO_TO_SCENE, options => this.goToScene(options) );
         actionDispatcher.subscribeTo(Actions.TAKE_OBJECT, thing => this.takeObject(thing) );
         actionDispatcher.subscribeTo(Actions.REFLECT, () => this.reflect() );
@@ -74,13 +79,16 @@ export abstract class Game {
             bounds.height);
     }
 
-    private selectThing(thing: Thing): void {
+    private selectThing(options: ISelectThingOptions): void {
         var verb = VerbsInfo.get(selectedVerb.verb);
-        if (verb.singleObject) {
-            thing.applyAction(selectedVerb.verb, this.player);
+        if(options.secondaryAction && options.thing.getPreferredAction()) {
+            options.thing.applyAction(options.thing.getPreferredAction(), this.player);
+            actionDispatcher.execute(Actions.ACTION_APPLIED);
+        } else if (verb.singleObject) {
+            options.thing.applyAction(selectedVerb.verb, this.player);
             actionDispatcher.execute(Actions.ACTION_APPLIED);
         } else {
-            this.selectThingForMultipleObjectVerb(thing);
+            this.selectThingForMultipleObjectVerb(options.thing);
         }
     }
 

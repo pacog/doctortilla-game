@@ -1,6 +1,7 @@
 import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
+import { Verbs } from '../../engine/stores/Verbs.store';
 import { Directions } from '../../engine/utils/Directions';
 import { Skirt } from './Skirt';
 
@@ -16,7 +17,9 @@ const options = {
         y: 175
     },
     pickable: true,
-    directionToLook: Directions.RIGHT
+    directionToLook: Directions.RIGHT,
+    preferredAction: Verbs.TAKE,
+    preferredInventoryAction: Verbs.LOOK
 };
 
 export class Broom extends Thing {

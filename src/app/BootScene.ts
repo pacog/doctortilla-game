@@ -15,6 +15,8 @@ export const BootScene = {
         this.game.renderer.renderSession.roundPixels = true;
         phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
 
+        this.game.canvas.oncontextmenu = function (e: Event) { e.preventDefault(); }
+
         this.game.state.start('preloader');
     }
 };

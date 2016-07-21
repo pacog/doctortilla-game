@@ -38,8 +38,11 @@ export class InventoryItemUI {
         this.sprite.events.onInputOut.add(this.onInputOut, this);
     }
 
-    private onClick(): void {
-        actionDispatcher.execute(Actions.SELECT_THING, this.options.thing);
+    private onClick(receptor: Phaser.Sprite, pointer: Phaser.Pointer): void {
+        actionDispatcher.execute(Actions.SELECT_THING, {
+            thing: this.options.thing,
+            secondaryAction: !!pointer.rightButton.isDown
+        });
     }
 
     private onInputOver(): void {

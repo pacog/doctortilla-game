@@ -20,6 +20,7 @@ interface IThingOptions {
     goToPosition?: IPoint,
     isForeground?: Boolean,
     preferredAction?: Verbs,
+    preferredInventoryAction? : Verbs,
     pickable?: Boolean,
     justDecoration?: Boolean,
     directionToLook?: Directions
@@ -73,7 +74,11 @@ export abstract class Thing {
     }
 
     getPreferredAction(): Verbs {
-        return this.options.preferredAction || null;
+        if(this.isInInventory()) {
+            return this.options.preferredInventoryAction || Verbs.LOOK;
+        } else {
+            return this.options.preferredAction || null;
+        }
     }
 
     isInInventory(): Boolean {
@@ -238,8 +243,11 @@ export abstract class Thing {
         }
     }
 
-    private onClick(): void {
-        actionDispatcher.execute(Actions.SELECT_THING, this);
+    private onClick(receptor: Phaser.Sprite, pointer: Phaser.Pointer): void {
+        actionDispatcher.execute(Actions.SELECT_THING, {
+            thing: this,
+            secondaryAction: !!pointer.rightButton.isDown
+        });
     }
 
     private onInputOver() {

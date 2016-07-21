@@ -1,5 +1,6 @@
 /// <reference path="../../../../my-typings/lib.es6.d.ts" />
 import { IPoint } from '../utils/Interfaces';
+import { Directions } from '../utils/Directions';
 import { uiLayers } from '../ui/UILayers.singleton';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
 import { activeInventory } from '../state/ActiveInventory.singleton';
@@ -20,7 +21,8 @@ interface IThingOptions {
     isForeground?: Boolean,
     preferredAction?: Verbs,
     pickable?: Boolean,
-    justDecoration?: Boolean
+    justDecoration?: Boolean,
+    directionToLook?: Directions
 }
 
 export abstract class Thing {
@@ -89,12 +91,16 @@ export abstract class Thing {
         }
     }
 
-    getPositionOnTop(): IPoint{
+    getPositionOnTop(): IPoint {
         var result = {
             x: this.sprite.x,
             y: Math.round(this.sprite.getBounds().y) - 10
         };
         return result;
+    }
+
+    getDirectionToLook(): Directions {
+        return this.options.directionToLook || null;
     }
 
     applyAction(verb: Verbs, player: Player): void {

@@ -1,6 +1,7 @@
 import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
+import { Directions } from '../../engine/utils/Directions';
 import { Skirt } from './Skirt';
 
 const options = {
@@ -14,7 +15,8 @@ const options = {
         x: 250,
         y: 175
     },
-    pickable: true
+    pickable: true,
+    directionToLook: Directions.RIGHT
 };
 
 export class Broom extends Thing {

@@ -69,7 +69,18 @@ export abstract class Player {
     }
 
     goToThing(thing: Thing): Promise<void> {
-        return this.moveTo(thing.getPositionToGoTo());
+        return this.moveTo(thing.getPositionToGoTo())
+                .then(() => {
+                    let direction = thing.getDirectionToLook();
+                    if(direction) {
+                        this.lookAt(direction);
+                    }
+                });
+    }
+
+    lookAt(direction: Directions) {
+        this.direction = direction;
+        this.playStandAnimation();
     }
 
     say(text: string): Promise<void> {

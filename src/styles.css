@@ -25,6 +25,14 @@ main {
   border: 1px solid #333;
   width: 1066px;
   height: 600px;
+  
+}
+#game canvas {
+  cursor: url('images/ui/custom-cursor.png') 16 16, auto !important;
+  cursor: -webkit-image-set(
+    url('images/ui/custom-cursor.png') 1x,
+    url('images/ui/custom-cursor@2x.png') 2x
+  ) 16 16, auto !important;
 }
 
 footer {

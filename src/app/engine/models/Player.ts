@@ -85,7 +85,10 @@ export abstract class Player {
     }
 
     say(text: string): Promise<void> {
-        return this.speechBubble.say(text);
+        this.playTalkingAnimation();
+        return this.speechBubble.say(text).then(() => {
+            this.stopTalkingAnimation();
+        });
     }
 
     getPositionOnTop(): IPoint{
@@ -235,6 +238,21 @@ export abstract class Player {
         let spriteState = 'walk_' + directionName;
         this._sprite.animations.play(spriteState);
         this.flipXIfNeeded(spriteState);
+    }
+
+    private playTalkingAnimation(): void {
+        let directionName = getDirectionName(this.direction);
+        let spriteState = 'talk_' + directionName;
+        this._sprite.animations.play(spriteState);
+        this.flipXIfNeeded(spriteState);
+    }
+
+    private stopTalkingAnimation(): void {
+        if (this._sprite.animations &&
+            this._sprite.animations.name &&
+            (this._sprite.animations.name.indexOf('talk') === 0)) {
+            this.stopAnimations();
+        }
     }
 
     private flipXIfNeeded(spriteState: string): void {

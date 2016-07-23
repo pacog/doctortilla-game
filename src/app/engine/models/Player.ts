@@ -38,7 +38,7 @@ export abstract class Player {
         this._state = new Map();
     }
 
-    moveTo(destination: IPoint): Promise<void> {
+    moveTo(destination: IPoint): Promise<{}> {
         return this.movementHandler.moveTo(destination);
     }
 
@@ -60,6 +60,13 @@ export abstract class Player {
 
     set direction(newDirection: Directions) {
         this._direction = newDirection;
+    }
+
+    get position(): IPoint {
+        return {
+            x: this._sprite.x,
+            y: this._sprite.y
+        };
     }
 
     goToThing(thing: Thing): Promise<void> {
@@ -145,11 +152,30 @@ export abstract class Player {
         this._sprite.animations.stop();
     }
 
+    updateDirection(destination: IPoint): void {
+        let angleBetween = this.getAngleToDesiredPosition(destination);
+        let angleDegrees = (angleBetween * 180 / Math.PI);
+
+        if ((angleDegrees >= -45) && (angleDegrees <= 45)) {
+            this.direction = Directions.LEFT;
+        } else if ((angleDegrees >= 45) && (angleDegrees <= 135)) {
+            this.direction = Directions.UP;
+        } else if ((angleDegrees >= -135) && (angleDegrees <= -45)) {
+            this.direction = Directions.DOWN;
+        } else {
+            this.direction = Directions.RIGHT;
+        }
+    }
+
+    getAngleToDesiredPosition(destination: IPoint): number {
+        return Math.atan2(this.sprite.y - destination.y,
+            this.sprite.x - destination.x);
+    }
+
     abstract reflect(): void
 
     //This method can be overwritten in child classes
     protected onStateChange() {}
-
 
     private createSprite(): void {
         this._sprite = uiLayers.player.create(

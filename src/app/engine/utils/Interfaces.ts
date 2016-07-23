@@ -19,3 +19,10 @@ export interface IGoToSceneOptions {
     sceneId: string,
     relatedDoorId: string
 }
+
+export interface ITimeoutWithPromise {
+    timeoutId: number,
+    promise: Promise<any>,
+    resolveCallback: () => void,
+    rejectCallback: () => void
+}

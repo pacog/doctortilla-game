@@ -14,6 +14,26 @@ function cross(pointO: IPoint, pointA: IPoint, pointB: IPoint): number {
     return (pointA.x - pointO.x) * (pointB.y - pointO.y) - (pointA.y - pointO.y) * (pointB.x - pointO.x);
 }
 
+
+function lineSegmentsCross(a: IPoint, b: IPoint, c: IPoint, d: IPoint): Boolean {
+    let denominator = ((b.x - a.x) * (d.y - c.y)) - ((b.y - a.y) * (d.x - c.x));
+    if (denominator === 0){
+        return false;
+    }
+
+    let numerator1 = ((a.y - c.y) * (d.x - c.x)) - ((a.x - c.x) * (d.y - c.y));
+    let numerator2 = ((a.y - c.y) * (b.x - a.x)) - ((a.x - c.x) * (b.y - a.y));
+
+    if (numerator1 === 0 || numerator2 === 0) {
+        return false;
+    }
+
+    let r = numerator1 / denominator;
+    let s = numerator2 / denominator;
+
+    return (r > 0 && r < 1) && (s > 0 && s < 1);
+}
+
 export class Polygon {
 
     private convexHull: Polygon;
@@ -103,6 +123,30 @@ export class Polygon {
         }
 
         return closestSegment;
+    }
+
+    //http://www.david-gouveia.com/portfolio/pathfinding-on-a-2d-polygonal-map/
+    pointsCanSeeEachOther(pointA: IPoint, pointB: IPoint): Boolean {
+        //TODO: bug here when clicking in the upper part of the wall sometimes.
+        if(!this.isPointInside(pointA) || !this.isPointInside(pointB)) {
+            return false;
+        }
+        if((pointA.x === pointB.x) && (pointA.y === pointB.y)) {
+            return true;
+        }
+        for(let i = 0; i < this._points.length; i++) {
+            for(let j = i + 1; j < this._points.length; j++) {
+                if(lineSegmentsCross(
+                    pointA,
+                    pointB,
+                    this._points[i],
+                    this._points[i % this._points.length])) {
+                        return false;
+                }
+            }
+        }
+        let segment = new Segment(pointA, pointB);
+        return this.isPointInside(segment.getMiddlePoint());
     }
 
     // Using https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain

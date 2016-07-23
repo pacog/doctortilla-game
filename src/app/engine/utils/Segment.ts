@@ -1,5 +1,4 @@
 import { IPoint } from './Interfaces';
-// import { phaser } from '../../Phaser';
 
 function sqr(x: number): number {
     return x * x;
@@ -10,12 +9,11 @@ function distance2(pointA: IPoint, pointB: IPoint): number {
 }
 
 export class Segment {
-    // private pointA: Phaser.Point;
-    // private pointB: Phaser.Point;
 
-    constructor(private pointA: IPoint, private pointB: IPoint) {
-        // this.pointA = new Phaser.Point(pointA.x, pointA.y);
-        // this.pointB = new Phaser.Point(pointB.x, pointB.y);
+    constructor(private pointA: IPoint, private pointB: IPoint) {}
+
+    get length(): number {
+        return Math.sqrt(distance2(this.pointA, this.pointB));
     }
 
     //Based on http://stackoverflow.com/a/1501725/3493388
@@ -60,6 +58,13 @@ export class Segment {
             y: this.pointA.y + u * yDelta
         };
 
+    }
+
+    getMiddlePoint(): IPoint {
+        return {
+            x: (this.pointA.x + this.pointB.x) / 2,
+            y: (this.pointA.y + this.pointB.y) / 2
+        };
     }
 
 

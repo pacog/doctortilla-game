@@ -1,7 +1,8 @@
 import { uiLayers } from '../ui/UILayers.singleton';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
-import { IRectangle } from '../utils/Interfaces';
-import { SceneBoundaries, IBoundariesConfig } from './SceneBoundaries';
+import { IRectangle, IPoint } from '../utils/Interfaces';
+import { Polygon } from '../utils/Polygon';
+import { SceneBoundaries } from './SceneBoundaries';
 import { Thing } from './Thing';
 import { Player } from './Player';
 import { Door } from './Door';
@@ -10,7 +11,7 @@ import { Door } from './Door';
 interface ISceneOptions {
     id: string,
     backgroundId: string,
-    boundariesConfig: IBoundariesConfig,
+    boundariesConfig: Polygon,
     things: Array<Thing>
 }
 
@@ -40,6 +41,7 @@ export abstract class Scene {
     show(): void {
         this.createBackground();
         this.things.forEach(thing => thing.show());
+        this._boundaries.paint();
     }
 
     removeObject(objectToRemove: Thing): void {
@@ -66,6 +68,7 @@ export abstract class Scene {
     destroy(): void {
         this.background.destroy();
         this.things.forEach(thing => thing.destroy());
+        this._boundaries.unpaint();
     }
 
     private createBackground() {

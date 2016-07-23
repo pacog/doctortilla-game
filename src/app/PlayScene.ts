@@ -1,4 +1,5 @@
 import { DoctortillaGame } from './game/DoctortillaGame';
+import { phaserGame } from './engine/state/PhaserGame.singleton';
 
 class PlayScene {
 
@@ -10,6 +11,10 @@ class PlayScene {
 
     update() {
         this.gameModel.update();
+    }
+
+    render() {
+        // phaserGame.value.debug.inputInfo(32, 32);
     }
 }
 

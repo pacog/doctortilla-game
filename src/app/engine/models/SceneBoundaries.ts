@@ -13,17 +13,14 @@ export class SceneBoundaries {
     constructor(private config: Polygon) {}
 
     getPositionInside(point: IPoint): IPoint {
-        return point;
-        // let x = Math.max(this.config.minX, point.x);
-        // x = Math.min(this.config.maxX, x);
-        // let y = Math.max(this.config.minY, point.y);
-        // y = Math.min(this.config.maxY, y);
+        if(this.polygon.isPointInside(point)) {
+            return point;
+        }
+        return this.polygon.getClosestPointTo(point);
+    }
 
-        // return {
-        //     x: Math.round(x),
-        //     y: Math.round(y)
-        // };
-
+    get polygon(): Polygon {
+        return this.config;
     }
 
     paint(): void {

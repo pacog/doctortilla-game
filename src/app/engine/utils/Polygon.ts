@@ -1,4 +1,5 @@
 import { IPoint } from './Interfaces';
+import { Segment } from './Segment';
 
 function sorterByXThenY(pointA: IPoint, pointB: IPoint): number {
     if(pointA.x === pointB.x) {
@@ -16,6 +17,7 @@ function cross(pointO: IPoint, pointA: IPoint, pointB: IPoint): number {
 export class Polygon {
 
     private convexHull: Polygon;
+    private _segments: Array<Segment>;
 
     constructor(private _points: Array<IPoint>) {
         if(!_points.length || _points.length < 3) {
@@ -25,6 +27,13 @@ export class Polygon {
 
     get points(): Array<IPoint> {
         return this._points;
+    }
+
+    get segments(): Array<Segment> {
+        if(!this._segments) {
+            this.createSegments();
+        }
+        return this._segments;
     }
 
     getConvexHull(): Polygon {
@@ -57,6 +66,45 @@ export class Polygon {
         return false;
     }
 
+    isPointInside(point: IPoint): Boolean {
+        // ray-casting algorithm based on
+        // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+        var inside = false;
+        for (var i = 0, j = this._points.length - 1; i < this._points.length; j = i++) {
+            var xi = this._points[i].x, yi = this._points[i].y;
+            var xj = this._points[j].x, yj = this._points[j].y;
+            
+            var intersect = ((yi > point.y) != (yj > point.y))
+                && (point.x < (xj - xi) * (point.y - yi) / (yj - yi) + xi);
+            if (intersect) {
+                inside = !inside;
+            }
+        }
+        
+        return inside;
+    }
+
+    getClosestPointTo(point: IPoint): IPoint {
+        var closestSegment = this.getClosestSegment(point);
+        return closestSegment.getClosestPointTo(point);
+    }
+
+    getClosestSegment(point: IPoint): Segment {
+        let segments = this.segments;
+        let closestSegment = this.segments[0];
+        let minDistance = closestSegment.distance2ToPoint(point);
+        for(let i = 1; i<segments.length; i++) {
+            let nextSegment = segments[i];
+            let nextDistance = nextSegment.distance2ToPoint(point);
+            if(nextDistance < minDistance) {
+                closestSegment = nextSegment;
+                minDistance = nextDistance;
+            }
+        }
+
+        return closestSegment;
+    }
+
     // Using https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
     private calculateConvexHull(): Polygon {
         let orderedPoints = Array.from(this._points);
@@ -81,13 +129,15 @@ export class Polygon {
         lower.pop();
         return new Polygon(lower.concat(upper));
     }
+
+    private createSegments(): void {
+        this._segments = [];
+        for(let i=0; i < (this._points.length - 1); i++) {
+            this._segments.push(new Segment(this._points[i], this._points[i+1]));
+        }
+        this._segments.push(new Segment(this._points[this._points.length - 1], this._points[0]));
+    }
 }
-
-
-
-   
-
-   // 
 
 // Sort the points of P by x-coordinate (in case of a tie, sort by y-coordinate).
 

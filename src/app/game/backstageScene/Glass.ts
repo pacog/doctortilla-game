@@ -11,14 +11,14 @@ const POWDER_FILLED_FRAME = 3;
 
 const options = {
     id: 'glass',
-    x: 137,
-    y: 130,
-    spriteId: 'GLASS_SPRITE',
-    inventoryImageId: 'GLASS_SPRITE',
+    x: 641,
+    y: 128,
+    spriteId: 'GLASS',
+    inventoryImageId: 'GLASS_INV_SPRITE',
     name: 'glass',
     goToPosition: {
-        x: 167,
-        y: 180
+        x: 639,
+        y: 189
     },
     pickable: true
 };

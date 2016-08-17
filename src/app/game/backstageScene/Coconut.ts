@@ -7,16 +7,17 @@ import { Flowers } from '../backyardScene/Flowers';
 
 const options = {
     id: 'coconut',
-    x: 120,
-    y: 130,
+    x: 92,
+    y: 195,
     spriteId: 'COCONUT',
-    inventoryImageId: 'COCONUT',
+    inventoryImageId: 'COCONUT_INV',
     name: 'coconut',
     goToPosition: {
-        x: 150,
-        y: 180
+        x: 110,
+        y: 203
     },
-    pickable: true
+    pickable: true,
+    isForeground: true
 };
 
 export class Coconut extends Thing {

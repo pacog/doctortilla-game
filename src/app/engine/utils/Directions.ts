@@ -1,5 +1,5 @@
 export enum Directions {
-    UP,
+    UP = 1,
     DOWN,
     LEFT,
     RIGHT

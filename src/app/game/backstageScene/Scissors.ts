@@ -5,14 +5,14 @@ import { Broom } from './Broom';
 
 const options = {
     id: 'scissors',
-    x: 142,
-    y: 165,
+    x: 291,
+    y: 128,
     spriteId: 'SCISSORS',
-    inventoryImageId: 'SCISSORS',
+    inventoryImageId: 'SCISSORS_INV',
     name: 'scissors',
     goToPosition: {
-        x: 172,
-        y: 205
+        x: 300,
+        y: 180
     },
     pickable: true
 };

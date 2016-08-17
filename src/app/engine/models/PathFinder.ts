@@ -32,12 +32,14 @@ class PathFinder {
         var insideDestination = boundaries.getPositionInside(destination);
 
         if(boundaries.polygon.pointsCanSeeEachOther(origin, insideDestination)) {
+            console.log(origin);
+            console.log(destination);
             return [origin, insideDestination];
         }
-        var concaveVertex = boundaries.polygon.getConcaveVertex();
-        let graph = this.getGraphToSolve(origin, destination, concaveVertex, boundaries);
+        // var concaveVertex = boundaries.polygon.getConcaveVertex();
+        // let graph = this.getGraphToSolve(origin, destination, concaveVertex, boundaries);
 
-        return this.getSolutionToGraph(graph, destination);
+        // return this.getSolutionToGraph(graph, destination);
     }
 
     private getGraphToSolve(origin: IPoint, destination: IPoint, otherVertex: Array<IPoint>, boundaries: SceneBoundaries): PathNode {

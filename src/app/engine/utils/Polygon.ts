@@ -1,3 +1,4 @@
+/// <reference path="../../../vendor/delaunay/delaunay.d.ts"/>
 import { IPoint } from './Interfaces';
 import { Segment } from './Segment';
 
@@ -38,6 +39,7 @@ export class Polygon {
 
     private convexHull: Polygon;
     private _segments: Array<Segment>;
+    private _triangles: Array<Array<number> >;
 
     constructor(private _points: Array<IPoint>) {
         if(!_points.length || _points.length < 3) {
@@ -109,7 +111,7 @@ export class Polygon {
         return closestSegment.getClosestPointTo(point);
     }
 
-    getClosestSegment(point: IPoint): Segment {
+    private getClosestSegment(point: IPoint): Segment {
         let segments = this.segments;
         let closestSegment = this.segments[0];
         let minDistance = closestSegment.distance2ToPoint(point);
@@ -123,6 +125,30 @@ export class Polygon {
         }
 
         return closestSegment;
+    }
+
+    get triangles(): Array<Array<number> > {
+        if(!this._triangles) {
+            this.triangulate();
+        }
+        return this._triangles;
+    }
+
+    private triangulate(): void {
+        //Use http://gamedev.stackexchange.com/questions/31778/robust-line-of-sight-test-on-the-inside-of-a-polygon-with-tolerance
+        // for line of sight
+        //Create tests for edge cases
+
+        var rawVertices = this.getRawVertices();
+        Delaunay.triangulate(rawVertices, null);
+    }
+
+    private getRawVertices(): Array<Array<number> > {
+        let result: Array<Array<number> > = [];
+        this._points.forEach((point) => {
+            result.push([point.x, point.y]);
+        });
+        return result;
     }
 
     //http://www.david-gouveia.com/portfolio/pathfinding-on-a-2d-polygonal-map/

@@ -2,14 +2,18 @@ import { Scene } from '../../engine/models/Scene';
 import { Broom } from './Broom';
 import { VendingMachine } from './VendingMachine';
 import { BackstageDoorToBackyard } from './BackstageDoorToBackyard';
+import { BackstageDoorToStreet } from './BackstageDoorToStreet';
+import { BackstageDoorToStage } from './BackstageDoorToStage';
 import { BandInSofa } from './BandInSofa';
 import { Scissors } from './Scissors';
 import { Bocadillo } from './Bocadillo';
 import { Cable } from './Cable';
 import { Coconut } from './Coconut';
-import { Table } from './Table';
 import { Dust } from './DustInTable';
 import { Glass } from './Glass';
+import { LampLeft } from './LampLeft';
+import { LampRight } from './LampRight';
+import { FlyCase } from './FlyCase';
 import { Polygon } from '../../engine/utils/Polygon';
 
 const sceneOptions = {
@@ -22,17 +26,23 @@ const sceneOptions = {
         {x: 790, y: 218}
     ]),
     things: [
-        // new Broom(),
+        
         new BackstageDoorToBackyard(),
+        new BackstageDoorToStreet(),
+        new BackstageDoorToStage(),
         new Cable(),
         new VendingMachine(),
-        // new BandInSofa(),
+        new BandInSofa(),
+        new LampLeft(),
+        new LampRight(),
+        new FlyCase(),
+        // new Broom(),
         // new Scissors(),
         // new Bocadillo(),
-        // new Table(),
         // new Glass(),
         // new Dust(),
         // new Coconut()
+        
     ]
 };
 

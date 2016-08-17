@@ -5,6 +5,7 @@ import { Thing } from '../../engine/models/Thing';
 import { Player } from '../../engine/models/Player';
 import { ConversationWithBand } from './ConversationWithBand';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
+import { Directions } from '../../engine/utils/Directions';
 
 export class BandInSofa extends Thing {
 
@@ -13,14 +14,15 @@ export class BandInSofa extends Thing {
     constructor() {
         let options = {
             id: 'bandInSofa',
-            x: 434,
-            y: 116,
+            x: 481,
+            y: 105,
             spriteId: 'BAND_IN_SOFA_SPRITE',
             name: 'rest of the band',
             goToPosition: {
-                x: 410,
-                y: 186
-            }
+                x: 459,
+                y: 181
+            },
+            directionToLook: Directions.RIGHT
         };
         super(options);
         this.speechBubble = new SpeechBubble({

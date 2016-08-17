@@ -22,7 +22,7 @@ const SPRITES: ISpritesInfo = {
     // BACKSTAGE
     'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2],
     'VENDING_SPRITE': ['images/backstage/VENDING_SPRITE.png', 43, 65, 3],
-    'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 111, 79, 9],
+    'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 70, 78, 1],
     'GLASS_SPRITE': ['images/backstage/GLASS_SPRITE.png', 9, 9, 4],
     'COSTUME_SPRITE': ['images/backstage/COSTUME_SPRITE.png', 40, 28, 4],
     'BACKSTAGE_DOOR_TO_BACKYARD': ['images/backstage/BACKSTAGE_DOOR_TO_BACKYARD.png', 31, 104, 2],
@@ -50,7 +50,10 @@ const IMAGES: IImagesInfo = {
     'BACON': 'images/backstage/BACON.png',
     'COCONUT': 'images/backstage/COCONUT.png',
     'DUST': 'images/backstage/DUST.png',
-    'TABLE': 'images/backstage/TABLE.png',
+    'LAMP': 'images/backstage/LAMP.png',
+    'BACKSTAGE_DOOR_TO_STREET': 'images/backstage/BACKSTAGE_DOOR_TO_STREET.png',
+    'BACKSTAGE_DOOR_TO_STAGE': 'images/backstage/BACKSTAGE_DOOR_TO_STAGE.png',
+    'FLY_CASE': 'images/backstage/FLY_CASE.png',
 
     // Backyard:
     'FLOWERS': 'images/backyard/FLOWERS.png',

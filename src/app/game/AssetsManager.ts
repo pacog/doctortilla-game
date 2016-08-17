@@ -52,6 +52,7 @@ const IMAGES: IImagesInfo = {
     'BACON_INV': 'images/backstage/BACON_INV.png',
     'COCONUT': 'images/backstage/COCONUT.png',
     'DUST': 'images/backstage/DUST.png',
+    'DUST_INV': 'images/backstage/DUST_INV.png',
     'GLASS': 'images/backstage/GLASS.png',
     'LAMP': 'images/backstage/LAMP.png',
     'BACKSTAGE_DOOR_TO_STREET': 'images/backstage/BACKSTAGE_DOOR_TO_STREET.png',

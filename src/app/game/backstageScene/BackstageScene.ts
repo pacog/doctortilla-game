@@ -58,7 +58,7 @@ const sceneOptions = {
         new Scissors(),
         new Bocadillo(),
         new Glass(),
-        // new Dust(),
+        new Dust(),
         // new Coconut()
         
     ]

@@ -5,14 +5,14 @@ import { Glass } from './Glass';
 
 const options = {
     id: 'dust',
-    x: 102,
-    y: 135,
+    x: 247,
+    y: 128,
     spriteId: 'DUST',
-    inventoryImageId: 'DUST',
+    inventoryImageId: 'DUST_INV',
     name: 'dust',
     goToPosition: {
-        x: 132,
-        y: 185
+        x: 248,
+        y: 177
     },
     pickable: true
 };

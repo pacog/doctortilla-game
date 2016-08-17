@@ -1,9 +1,10 @@
 import { Thing } from '../../engine/models/Thing';
+import { Player } from '../../engine/models/Player';
 
 const options = {
     id: 'bacon',
     spriteId: 'BACON',
-    inventoryImageId: 'BACON',
+    inventoryImageId: 'BACON_INV',
     name: 'bacon',
     directlyInInventory: true
 }
@@ -11,5 +12,9 @@ const options = {
 export class Bacon extends Thing {
     constructor() {
         super(options);
+    }
+
+    lookAction(player: Player): void {
+        player.say('Delicious and GREASY!');
     }
 }

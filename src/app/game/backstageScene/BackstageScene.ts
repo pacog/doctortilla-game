@@ -54,7 +54,7 @@ const sceneOptions = {
         new LampLeft(),
         new LampRight(),
         new FlyCase(),
-        // new Broom(),
+        new Broom(),
         // new Scissors(),
         // new Bocadillo(),
         // new Glass(),

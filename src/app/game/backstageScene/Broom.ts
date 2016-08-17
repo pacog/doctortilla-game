@@ -7,17 +7,16 @@ import { Skirt } from './Skirt';
 
 const options = {
     id: 'broom',
-    x: 254,
-    y: 101,
+    x: 103,
+    y: 119,
     spriteId: 'BROOM',
     inventoryImageId: 'BROOM_INV',
     name: 'broom',
     goToPosition: {
-        x: 250,
-        y: 175
+        x: 117,
+        y: 176
     },
     pickable: true,
-    directionToLook: Directions.RIGHT,
     preferredAction: Verbs.TAKE,
     preferredInventoryAction: Verbs.LOOK
 };

@@ -5,14 +5,14 @@ import { Bacon } from './Bacon';
 
 const options = {
     id: 'bocadillo',
-    x: 354,
-    y: 151,
+    x: 705,
+    y: 145,
     spriteId: 'BOCADILLO',
-    inventoryImageId: 'BOCADILLO',
+    inventoryImageId: 'BOCADILLO_INV',
     name: 'bocadillo',
     goToPosition: {
-        x: 334,
-        y: 181
+        x: 692,
+        y: 190
     },
     pickable: true
 }

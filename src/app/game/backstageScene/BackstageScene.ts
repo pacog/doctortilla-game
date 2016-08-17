@@ -56,7 +56,7 @@ const sceneOptions = {
         new FlyCase(),
         new Broom(),
         new Scissors(),
-        // new Bocadillo(),
+        new Bocadillo(),
         // new Glass(),
         // new Dust(),
         // new Coconut()

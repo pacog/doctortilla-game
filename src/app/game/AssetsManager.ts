@@ -47,6 +47,7 @@ const IMAGES: IImagesInfo = {
     'SCISSORS': 'images/backstage/SCISSORS.png',
     'SCISSORS_INV': 'images/backstage/SCISSORS_INV.png',
     'BOCADILLO': 'images/backstage/BOCADILLO.png',
+    'BOCADILLO_INV': 'images/backstage/BOCADILLO_INV.png',
     'BREAD': 'images/backstage/BREAD.png',
     'BACON': 'images/backstage/BACON.png',
     'COCONUT': 'images/backstage/COCONUT.png',

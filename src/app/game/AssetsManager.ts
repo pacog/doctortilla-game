@@ -21,11 +21,11 @@ const SPRITES: ISpritesInfo = {
     
     // BACKSTAGE
     'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2],
-    'VENDING_SPRITE': ['images/backstage/VENDING_SPRITE.png', 33, 57, 3],
+    'VENDING_SPRITE': ['images/backstage/VENDING_SPRITE.png', 43, 65, 3],
     'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 111, 79, 9],
-    'CABLE_SPRITE': ['images/backstage/CABLE_SPRITE.png', 18, 13, 1],
     'GLASS_SPRITE': ['images/backstage/GLASS_SPRITE.png', 9, 9, 4],
     'COSTUME_SPRITE': ['images/backstage/COSTUME_SPRITE.png', 40, 28, 4],
+    'BACKSTAGE_DOOR_TO_BACKYARD': ['images/backstage/BACKSTAGE_DOOR_TO_BACKYARD.png', 31, 104, 2],
 };
 
 const IMAGES: IImagesInfo = {
@@ -37,6 +37,7 @@ const IMAGES: IImagesInfo = {
 
     // Backstage scene:
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
+    'CABLE': 'images/backstage/CABLE.png',
     'SKIRT': 'images/backstage/SKIRT.png',
     'BROOM': 'images/backstage/BROOM.png',
     'BROOM_INV': 'images/backstage/BROOM_INV.png',

@@ -16,32 +16,23 @@ const sceneOptions = {
     id: 'BACKSTAGE',
     backgroundId: 'BACKSTAGE_BG',
     boundariesConfig: new Polygon([
-        {x: 59, y: 216},
-        {x: 93, y: 169},
-        {x: 143, y: 169},
-        {x: 155, y: 155},
-        {x: 236, y: 153},
-        {x: 249, y: 172},
-        {x: 279, y: 171},
-        {x: 289, y: 152},
-        {x: 420, y: 155},
-        {x: 420, y: 171},
-        {x: 521, y: 200},
-        {x: 528, y: 200},
-        {x: 528, y: 220}
+        {x: 55, y: 218},
+        {x: 114, y: 158},
+        {x: 736, y: 158},
+        {x: 790, y: 218}
     ]),
     things: [
-        new Broom(),
+        // new Broom(),
         new BackstageDoorToBackyard(),
         new Cable(),
         new VendingMachine(),
-        new BandInSofa(),
-        new Scissors(),
-        new Bocadillo(),
-        new Table(),
-        new Glass(),
-        new Dust(),
-        new Coconut()
+        // new BandInSofa(),
+        // new Scissors(),
+        // new Bocadillo(),
+        // new Table(),
+        // new Glass(),
+        // new Dust(),
+        // new Coconut()
     ]
 };
 

@@ -4,14 +4,14 @@ import { scenes } from '../../engine/state/Scenes.singleton';
 
 const options = {
     id: 'cable',
-    x: 42,
-    y: 165,
-    spriteId: 'CABLE_SPRITE',
-    inventoryImageId: 'CABLE_SPRITE',
+    x: 187,
+    y: 125,
+    spriteId: 'CABLE',
+    inventoryImageId: 'CABLE',
     name: 'cable',
     goToPosition: {
-        x: 72,
-        y: 205
+        x: 219,
+        y: 165
     },
     pickable: true
 };

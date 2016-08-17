@@ -4,6 +4,7 @@ import { selectedThing } from '../../engine/state/SelectedObjects';
 import { SpeechBubble } from '../../engine/ui/SpeechBubble';
 import { Can } from './Can';
 import { uiBlocker } from '../../engine/ui/UIBlocker.singleton';
+import { Directions } from '../../engine/utils/Directions';
 
 const NORMAL_FRAME = 0;
 const GREASED_FRAME = 1;
@@ -16,14 +17,15 @@ export class VendingMachine extends Thing {
     constructor() {
         let options = {
             id: 'vending',
-            x: 54,
-            y: 131,
+            x: 155,
+            y: 98,
             spriteId: 'VENDING_SPRITE',
             name: 'vending machine',
             goToPosition: {
-                x: 80,
-                y: 185
-            }
+                x: 167,
+                y: 178
+            },
+            directionToLook: Directions.UP
         };
         super(options);
         this.speechBubble = new SpeechBubble({

@@ -23,7 +23,8 @@ interface IThingOptions {
     preferredInventoryAction? : Verbs,
     pickable?: Boolean,
     justDecoration?: Boolean,
-    directionToLook?: Directions
+    directionToLook?: Directions,
+    opacity?: number
 }
 
 export abstract class Thing {
@@ -234,6 +235,10 @@ export abstract class Thing {
             this.options.y,
             this.options.spriteId
         );
+
+        if(this.options.opacity) {
+            this.sprite.alpha = this.options.opacity;
+        }
 
         if(!this.options.justDecoration) {
             this.sprite.inputEnabled = true;

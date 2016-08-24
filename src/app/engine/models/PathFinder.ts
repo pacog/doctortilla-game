@@ -32,8 +32,6 @@ class PathFinder {
         var insideDestination = boundaries.getPositionInside(destination);
 
         if(boundaries.polygon.pointsCanSeeEachOther(origin, insideDestination)) {
-            console.log(origin);
-            console.log(destination);
             return [origin, insideDestination];
         }
         // var concaveVertex = boundaries.polygon.getConcaveVertex();

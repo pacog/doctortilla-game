@@ -3,7 +3,7 @@ import { Polygon } from '../utils/Polygon';
 import { phaserGame } from '../state/PhaserGame.singleton';
 
 
-const SHOULD_PAINT = true;
+const SHOULD_PAINT = false;
 
 export class SceneBoundaries {
 

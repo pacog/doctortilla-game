@@ -5,12 +5,12 @@ export class BackyardDoorToBackstage extends Door {
         let options = {
             id: 'BACKYARD_TO_BACKSTAGE',
             name: 'door to backstage',
-            x: 150,
+            x: 56,
             y: 95,
-            spriteId: 'DOOR_SPRITE',
+            spriteId: 'BACKYARD_DOOR_TO_BACKSTAGE',
             goToPosition: {
-                x: 175,
-                y: 165
+                x: 98,
+                y: 187
             },
             destinationSceneId: 'BACKSTAGE',
             relatedDoorId: 'BACKSTAGE_TO_BACKYARD'

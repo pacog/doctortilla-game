@@ -62,7 +62,11 @@ const IMAGES: IImagesInfo = {
 
     // Backyard:
     'FLOWERS': 'images/backyard/FLOWERS.png',
-    'BILI': 'images/backyard/BILI.png'
+    'BILI': 'images/backyard/BILI.png',
+    'BACKYARD_DOOR_TO_BACKSTAGE': 'images/backyard/BACKYARD_DOOR_TO_BACKSTAGE.png',
+    'LAMP_BACKYARD': 'images/backyard/LAMP_BACKYARD.png',
+    'MOON': 'images/backyard/MOON.png',
+    'STAR': 'images/backyard/STAR.png'
 };
 
 const FONTS: IFontsInfo = {

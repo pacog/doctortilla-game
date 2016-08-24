@@ -38,7 +38,17 @@ export class BackyardScene extends Scene {
 
     constructor() {
         super(sceneOptions);
+        
+    }
+
+    show() {
+        super.show();
         this.createSky();
+    }
+
+    destroy() {
+        super.destroy();
+        this.destroySky();
     }
 
     private createSky(): void {
@@ -52,6 +62,13 @@ export class BackyardScene extends Scene {
                 opacity: MIN_OPACITY + Math.random()*(MAX_OPACITY - MIN_OPACITY)
             });
             newStar.show();
+            this.stars.push(newStar);
         }
+    }
+
+    private destroySky(): void {
+        this.stars = this.stars || [];
+        this.stars.forEach(star => star.destroy());
+        this.stars = [];
     }
 }

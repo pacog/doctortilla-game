@@ -66,7 +66,9 @@ const IMAGES: IImagesInfo = {
     'BACKYARD_DOOR_TO_BACKSTAGE': 'images/backyard/BACKYARD_DOOR_TO_BACKSTAGE.png',
     'LAMP_BACKYARD': 'images/backyard/LAMP_BACKYARD.png',
     'MOON': 'images/backyard/MOON.png',
-    'STAR': 'images/backyard/STAR.png'
+    'STAR': 'images/backyard/STAR.png',
+    'BALLOON': 'images/backyard/BALLOON.png',
+    'CUT_FLOWERS': 'images/backyard/CUT_FLOWERS.png'
 };
 
 const FONTS: IFontsInfo = {

@@ -5,6 +5,8 @@ import { Bili } from './Bili';
 import { LampBackyard } from './LampBackyard';
 import { Moon } from './Moon';
 import { Star } from './Star';
+import { CutFlowers } from './CutFlowers';
+import { Balloon } from './Balloon';
 import { Polygon } from '../../engine/utils/Polygon';
 import { IPoint } from '../../engine/utils/Interfaces';
 
@@ -12,14 +14,18 @@ const sceneOptions = {
     id: 'BACKYARD',
     backgroundId: 'BACKYARD_BG',
     boundariesConfig: new Polygon([
-        {x: 55, y: 216},
-        {x: 117, y: 164},
-        {x: 415, y: 164},
+        {x: 60, y: 216},
+        {x: 117, y: 173},
+        {x: 243, y: 173},
+        {x: 243, y: 197},
+        {x: 415, y: 197},
         {x: 415, y: 216}
     ]),
     things: [
         new BackyardDoorToBackstage(),
+        new CutFlowers(),
         new Flowers(),
+        new Balloon(),
         new Bili(),
         new LampBackyard(),
         new Moon()

@@ -7,14 +7,14 @@ import { Coconut } from '../backstageScene/Coconut';
 
 const options = {
     id: 'flowers',
-    x: 104,
-    y: 161,
+    x: 127,
+    y: 148,
     spriteId: 'FLOWERS',
     inventoryImageId: 'FLOWERS',
     name: 'flowers',
     goToPosition: {
-        x: 120,
-        y: 185
+        x: 136,
+        y: 178
     },
     pickable: true
 };

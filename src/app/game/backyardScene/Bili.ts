@@ -2,17 +2,19 @@ import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { SpeechBubble } from '../../engine/ui/SpeechBubble';
 import { ConversationWithBili } from './ConversationWithBili';
+import { Directions } from '../../engine/utils/Directions';
 
 let options = {
     id: 'bili',
-    x: 274,
-    y: 151,
+    x: 265,
+    y: 121,
     spriteId: 'BILI',
     name: 'bili',
     goToPosition: {
-        x: 260,
-        y: 215
-    }
+        x: 239,
+        y: 185
+    },
+    directionToLook: Directions.RIGHT
 };
 
 export class Bili extends Thing {

@@ -1,11 +1,17 @@
-
-// var ConversationWithBand = require('./ConversationWithBand.js');
 import { SpeechBubble } from '../../engine/ui/SpeechBubble';
 import { Thing } from '../../engine/models/Thing';
 import { Player } from '../../engine/models/Player';
 import { ConversationWithBand } from './ConversationWithBand';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { Directions } from '../../engine/utils/Directions';
+import { style } from '../../engine/ui/Style';
+
+let spriteOptions = new Map();
+
+spriteOptions.set('quiet', { frames: [0]});
+spriteOptions.set('juan_talking', { frames: [1, 2, 3, 4, 5, 6]});
+spriteOptions.set('angel_talking', { frames: [7, 8, 9, 10, 11, 12]});
+spriteOptions.set('santi_talking', { frames: [13, 14, 15, 16, 17, 18]});
 
 export class BandInSofa extends Thing {
 
@@ -22,7 +28,9 @@ export class BandInSofa extends Thing {
                 x: 459,
                 y: 181
             },
-            directionToLook: Directions.RIGHT
+            directionToLook: Directions.RIGHT,
+            spriteOptions: spriteOptions,
+            animationSpeed: style.DEFAULT_ANIMATION_SPEED
         };
         super(options);
         this.speechBubble = new SpeechBubble({
@@ -40,7 +48,10 @@ export class BandInSofa extends Thing {
         );
     }
 
-    say(text: string): Promise<void> {
-        return this.speechBubble.say(text);
+    say(text: string, who: string): Promise<void> {
+        this.playAnimation(who + '_talking');
+        return this.speechBubble.say(text).then(() => {
+            this.playAnimation('quiet');
+        });
     }
 }

@@ -98,52 +98,52 @@ export class ConversationWithBand extends Conversation {
 }
 
 function sayProblemsIntro(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
-    return band.say('ANGEL: No es por alarmar pero está habiendo algunos contratiempos...')
+    return band.say('No es por alarmar pero está habiendo algunos contratiempos...', 'angel')
                 .then(() => {
-                    return band.say('SANTI: ...minucias sin importancia...');
+                    return band.say('...minucias sin importancia...', 'santi');
                 })
                 .then(() => {
-                    return band.say('JUAN: ...impedimentos BRUTALES.');
+                    return band.say('...impedimentos BRUTALES.', 'juan');
                 });
 }
 
 function sayListOfProblems(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
     player.changeAttr('TALKED_TO_BAND_ABOUT_PROBLEMS', true);
-    return band.say('ANGEL: Resulta que aquí el amigo Juan se ha olvidado su disfraz...')
+    return band.say('Resulta que aquí el amigo Juan se ha olvidado su disfraz...', 'angel')
                 .then(() => {
-                    return band.say('JUAN: Un disfraz BRUTAL, de cowboy vintage, siglo XIV, con espuelas de...');
+                    return band.say('Un disfraz BRUTAL, de cowboy vintage, siglo XIV, con espuelas de...', 'juan');
                 })
                 .then(() => {
-                    return band.say('ANGEL: Sí, sí... pero lo ha dejado en el local de ensayo, así que hay que buscarle otro.');
+                    return band.say('Sí, sí... pero lo ha dejado en el local de ensayo, así que hay que buscarle otro.', 'angel');
                 })
                 .then(() => {
-                    return band.say('JUAN: Y tu te has olvidado el cable de corriente, así que si quieres que se oiga algo...');
+                    return band.say('Y tu te has olvidado el cable de corriente, así que si quieres que se oiga algo...', 'juan');
                 })
                 .then(() => {
-                    return band.say('ANGEL: Me tendrás que conseguir uno.');
+                    return band.say('Me tendrás que conseguir uno.', 'angel');
                 })
                 .then(() => {
-                    return band.say('ANGEL: Y luego está el problema con Santi.');
+                    return band.say('Y luego está el problema con Santi.', 'angel');
                 })
                 .then(() => {
-                    return band.say('JUAN: El pobre está tímido y no se atrever a salir.');
+                    return band.say('El pobre está tímido y no se atrever a salir.', 'juan');
                 })
                 .then(() => {
-                    return band.say('ANGEL: Dice que no ensayamos nunca y se siente inseguro.');
+                    return band.say('Dice que no ensayamos nunca y se siente inseguro.', 'angel');
                 })
                 .then(() => {
-                    return band.say('JUAN: Ya sabes cómo son los zurdos con estas cosas...');
+                    return band.say('Ya sabes cómo son los zurdos con estas cosas...', 'juan');
                 });
 }
 
 function sayBiliSituation(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
-    return band.say('ANGEL: Está fuera fumando, pero como lo dejemos mucho tiempo se va a poner como las grecas.');
+    return band.say('Está fuera fumando, pero como lo dejemos mucho tiempo se va a poner como las grecas.', 'angel');
 }
 
 function sayCostumeIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
-    return band.say('JUAN: Vaya disfraz ridículo.')
+    return band.say('Vaya disfraz ridículo.', 'juan')
                 .then(() => {
-                    return band.say('JUAN: El mío era mejor');
+                    return band.say('El mío era mejor', 'juan');
                 })
                 .then(() => {
                     return player.say('Te lo pones, o te lo pongo.');
@@ -152,15 +152,15 @@ function sayCostumeIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<an
                     band.changeAttr('HAS_COSTUME', true);
                     player.changeAttr('DELIVERED_COSTUME', true);
                     player.removeCostume();
-                    return player.say('JUAN: Me lo pongo.');
+                    return player.say('Me lo pongo.');
                 });
 }
 
 
 function sayCableIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
-    return band.say('ANGEL: No voy a preguntar de dónde lo has sacado...')
+    return band.say('No voy a preguntar de dónde lo has sacado...', 'angel')
                 .then(() => {
-                    return band.say('SANTI: Lo has robado, ¿verdad?');
+                    return band.say('Lo has robado, ¿verdad?', 'santi');
                 })
                 .then(() => {
                     band.changeAttr('HAS_CABLE', true);
@@ -171,21 +171,21 @@ function sayCableIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any>
 }
 
 function sayDrinkIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
-    return band.say('SANTI: Mmm un refrescante refresco...')
+    return band.say('Mmm un refrescante refresco...', 'santi')
                 .then(() => {
-                    return band.say('SANTI: Glu glu glu');
+                    return band.say('Glu glu glu', 'santi');
                 })
                 .then(() => {
-                    return band.say('SANTI: ...');
+                    return band.say('...', 'santi');
                 })
                 .then(() => {
-                    return band.say('SANTI: (eructo)');
+                    return band.say('(eructo)', 'santi');
                 })
                 .then(() => {
-                    return band.say('SANTI: No sabía a droga ni nada');
+                    return band.say('No sabía a droga ni nada', 'santi');
                 })
                 .then(() => {
-                    return band.say('SANTI: Estoy empezando a sentirme listo para tocar');
+                    return band.say('Estoy empezando a sentirme listo para tocar', 'santi');
                 })
                 .then(() => {
                     band.changeAttr('HAS_DRINK', true);

@@ -7,7 +7,7 @@ const options = {
     x: 187,
     y: 125,
     spriteId: 'CABLE',
-    inventoryImageId: 'CABLE',
+    inventoryImageId: 'CABLE_INV',
     name: 'cable',
     goToPosition: {
         x: 219,

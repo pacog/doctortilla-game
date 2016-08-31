@@ -43,6 +43,7 @@ const IMAGES: IImagesInfo = {
     // Backstage scene:
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
     'CABLE': 'images/backstage/CABLE.png',
+    'CABLE_INV': 'images/backstage/CABLE_INV.png',
     'SKIRT': 'images/backstage/SKIRT.png',
     'BROOM': 'images/backstage/BROOM.png',
     'BROOM_INV': 'images/backstage/BROOM_INV.png',

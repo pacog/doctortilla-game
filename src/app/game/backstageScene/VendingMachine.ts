@@ -19,7 +19,7 @@ export class VendingMachine extends Thing {
             id: 'vending',
             x: 155,
             y: 98,
-            spriteId: 'VENDING_SPRITE',
+            spriteId: 'VENDING_MACHINE_SPRITE',
             name: 'vending machine',
             goToPosition: {
                 x: 167,

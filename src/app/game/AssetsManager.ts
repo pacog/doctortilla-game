@@ -21,7 +21,7 @@ const SPRITES: ISpritesInfo = {
     
     // BACKSTAGE
     'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2],
-    'VENDING_SPRITE': ['images/backstage/VENDING_SPRITE.png', 43, 65, 3],
+    'VENDING_MACHINE_SPRITE': ['images/backstage/VENDING_MACHINE_SPRITE.png', 49, 72, 3],
     'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 70, 78, 1],
     'GLASS_INV_SPRITE': ['images/backstage/GLASS_INV_SPRITE.png', 68, 26, 4],
     'COSTUME_SPRITE': ['images/backstage/COSTUME_SPRITE.png', 40, 28, 4],

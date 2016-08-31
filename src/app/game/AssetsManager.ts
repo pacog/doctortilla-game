@@ -26,6 +26,10 @@ const SPRITES: ISpritesInfo = {
     'GLASS_INV_SPRITE': ['images/backstage/GLASS_INV_SPRITE.png', 68, 26, 4],
     'COSTUME_SPRITE': ['images/backstage/COSTUME_SPRITE.png', 40, 28, 4],
     'BACKSTAGE_DOOR_TO_BACKYARD': ['images/backstage/BACKSTAGE_DOOR_TO_BACKYARD.png', 31, 104, 2],
+
+    //Backyard
+    'BACKYARD_DOOR_TO_BACKSTAGE_SPRITE': ['images/backyard/BACKYARD_DOOR_TO_BACKSTAGE_SPRITE.png', 31, 104, 2],
+    'BILI_SPRITE': ['images/backyard/BILI_SPRITE.png', 43, 66, 5]
 };
 
 const IMAGES: IImagesInfo = {
@@ -62,8 +66,6 @@ const IMAGES: IImagesInfo = {
 
     // Backyard:
     'FLOWERS': 'images/backyard/FLOWERS.png',
-    'BILI': 'images/backyard/BILI.png',
-    'BACKYARD_DOOR_TO_BACKSTAGE': 'images/backyard/BACKYARD_DOOR_TO_BACKSTAGE.png',
     'LAMP_BACKYARD': 'images/backyard/LAMP_BACKYARD.png',
     'MOON': 'images/backyard/MOON.png',
     'STAR': 'images/backyard/STAR.png',

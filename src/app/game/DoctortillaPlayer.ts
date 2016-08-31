@@ -3,6 +3,7 @@ import { randomText } from '../engine/utils/RandomText';
 import { Coin } from './BackstageScene/Coin';
 import { Costume } from './BackstageScene/Costume';
 import { activeInventory } from '../engine/state/ActiveInventory.singleton';
+import { style } from '../engine/ui/Style';
 
 let spriteOptions = new Map();
 
@@ -25,7 +26,7 @@ const options = {
     initialY: 200,
     xSpeed: 80, //px/s
     ySpeed: 55, //px/s
-    animationSpeed: 6,
+    animationSpeed: style.DEFAULT_ANIMATION_SPEED,
     spriteOptions: spriteOptions
 };
 

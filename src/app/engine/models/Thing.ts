@@ -1,5 +1,5 @@
 /// <reference path="../../../../my-typings/lib.es6.d.ts" />
-import { IPoint } from '../utils/Interfaces';
+import { IPoint, ISpriteInfo } from '../utils/Interfaces';
 import { Directions } from '../utils/Directions';
 import { uiLayers } from '../ui/UILayers.singleton';
 import { actionDispatcher, Actions } from '../utils/ActionDispatcher';
@@ -7,6 +7,7 @@ import { activeInventory } from '../state/ActiveInventory.singleton';
 import { Verbs } from '../stores/Verbs.store';
 import { phaserGame } from '../state/PhaserGame.singleton';
 import { Player } from './Player';
+
 
 
 interface IThingOptions {
@@ -24,7 +25,9 @@ interface IThingOptions {
     pickable?: Boolean,
     justDecoration?: Boolean,
     directionToLook?: Directions,
-    opacity?: number
+    opacity?: number,
+    spriteOptions?: Map<string, ISpriteInfo>,
+    animationSpeed?: number
 }
 
 export abstract class Thing {
@@ -44,6 +47,7 @@ export abstract class Thing {
         this.createSprite();
         this.onStateChange();
         this.applyModifier();
+        this.addSpriteAnimations();
     }
 
     get state(): Map<string, any> {
@@ -164,6 +168,15 @@ export abstract class Thing {
         return 0;
     }
 
+    //TODO: change to return promise, or create to play animation N times
+    playAnimation(animationName: string): void {
+        if(this.options.spriteOptions.has(animationName)) {
+            this.sprite.animations.play(animationName);
+        } else {
+            throw 'ERROR: trying to play animation that doesn\'t exist';
+        }
+    };
+
     protected onStateChange(): void {};
     protected applyModifier(): void {};
 
@@ -261,5 +274,13 @@ export abstract class Thing {
 
     private onInputOut() {
         actionDispatcher.execute(Actions.CURSOR_OUT_THING, this);
+    }
+
+    private addSpriteAnimations(): void {
+        if(this.options.spriteOptions) {
+            this.options.spriteOptions.forEach( (spritePosition, key) => {
+                this.sprite.animations.add(key, spritePosition.frames, this.options.animationSpeed, true);
+            });
+        }
     }
 }

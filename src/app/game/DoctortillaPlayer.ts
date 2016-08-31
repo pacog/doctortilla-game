@@ -9,16 +9,16 @@ let spriteOptions = new Map();
 
 spriteOptions.set('stand_right', { frames: [0]});
 spriteOptions.set('walk_right', { frames: [1, 2, 3, 4, 5, 6]});
-spriteOptions.set('talk_right', { frames: [1, 2, 3, 4, 5, 6]});
+spriteOptions.set('talk_right', { frames: [21, 22, 23, 24, 25, 26]});
 spriteOptions.set('stand_left', { frames: [0], inverse: true});
 spriteOptions.set('walk_left', { frames: [1, 2, 3, 4, 5, 6], inverse: true});
-spriteOptions.set('talk_left', { frames: [1, 2, 3, 4, 5, 6], inverse: true});
+spriteOptions.set('talk_left', { frames: [21, 22, 23, 24, 25, 26], inverse: true});
 spriteOptions.set('stand_up', { frames: [14]});
 spriteOptions.set('walk_up', { frames: [15, 16, 17, 18, 19, 20]});
-spriteOptions.set('talk_up', { frames: [15, 16, 17, 18, 19, 20]});
+spriteOptions.set('talk_up', { frames: [14]});
 spriteOptions.set('stand_down', { frames: [7]});
 spriteOptions.set('walk_down', { frames: [8, 9, 10, 11, 12, 13]});
-spriteOptions.set('talk_down', { frames: [8, 9, 10, 11, 12, 13]});
+spriteOptions.set('talk_down', { frames: [27, 28, 29, 30, 31, 32]});
 
 const options = {
     spriteId: 'DOCTORTILLA_PLAYER_SPRITE',

@@ -17,7 +17,7 @@ const SPRITES: ISpritesInfo = {
     'PAGINATION_BUTTON_UP': ['images/ui/PAGINATION_BUTTON_UP.png', 16, 25, 4],
 
     // PLAYER
-    'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 21],
+    'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 33],
     
     // BACKSTAGE
     'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2],

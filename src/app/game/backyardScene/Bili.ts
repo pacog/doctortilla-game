@@ -7,7 +7,10 @@ import { style } from '../../engine/ui/Style';
 
 let spriteOptions = new Map();
 
-spriteOptions.set('smoking', { frames: [1, 2, 3, 4, 5]});
+spriteOptions.set('quiet', { frames: [0, 1, 2, 3, 4, 5]});
+spriteOptions.set('smoking', { frames: [6, 7, 8, 9, 10, 11, 12]});
+spriteOptions.set('drinking', { frames: [13, 14, 15, 16, 17, 18]});
+spriteOptions.set('talking', { frames: [19, 20, 21, 22, 23]});
 
 let options = {
     id: 'bili',
@@ -24,9 +27,14 @@ let options = {
     animationSpeed: style.DEFAULT_ANIMATION_SPEED
 };
 
+const MIN_TIME_FOR_ANIMATION = 1000;
+const MAX_TIME_FOR_ANIMATION = 5000;
+
 export class Bili extends Thing {
 
     private speechBubble: SpeechBubble;
+    private isTalking: Boolean = false;
+    private currentTimeout: number;
 
     constructor() {
         super(options);
@@ -47,11 +55,41 @@ export class Bili extends Thing {
     }
 
     say(text: string): Promise<void> {
-        return this.speechBubble.say(text);
+        this.isTalking = true;
+        if(this.currentTimeout) {
+            window.clearTimeout(this.currentTimeout);
+        }
+        this.playAnimation('talking');
+        return this.speechBubble.say(text).then(() => {
+            this.isTalking = false;
+            this.playAnimationSometime();
+        });
     }
 
     show(): void {
         super.show();
-        this.playAnimation('smoking');
+        this.playAnimationSometime();
+    }
+
+    //Duplicated in Balloon, if we add more objects like this, consider moving to Thing model
+    private playAnimationSometime(): void {
+        this.playAnimation('quiet');
+        this.currentTimeout = setTimeout(() => {
+            this.playAnimationOnce(this.getRandomAnimation()).then(() => {
+                this.playAnimationSometime();
+            });
+        }, this.getTimeForNextAnimation());
+    }
+
+    private getTimeForNextAnimation(): number {
+        return MIN_TIME_FOR_ANIMATION + Math.random()*(MAX_TIME_FOR_ANIMATION - MIN_TIME_FOR_ANIMATION);
+    }
+
+    private getRandomAnimation(): string {
+        if(Math.random() > 0.5) {
+            return 'smoking';
+        } else {
+            return 'drinking';
+        }
     }
 }

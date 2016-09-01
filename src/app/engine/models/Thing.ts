@@ -168,14 +168,27 @@ export abstract class Thing {
         return 0;
     }
 
-    //TODO: change to return promise, or create to play animation N times
     playAnimation(animationName: string): void {
         if(this.options.spriteOptions.has(animationName)) {
             this.sprite.animations.play(animationName);
         } else {
             throw 'ERROR: trying to play animation that doesn\'t exist';
         }
-    };
+    }
+
+    playAnimationOnce(animationName: string): Promise<any> {
+        let promise = new Promise((resolve, reject) => {
+            if(this.options.spriteOptions.has(animationName)) {
+                this.sprite.animations.play(animationName, null, false); //False so it does not loop
+                this.sprite.animations.currentAnim.onComplete.add(() => {
+                    resolve();
+                });
+            } else {
+                reject();
+            }
+        });
+        return promise;
+    }
 
     protected onStateChange(): void {};
     protected applyModifier(): void {};

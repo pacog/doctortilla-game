@@ -9,6 +9,7 @@ import { style } from '../../engine/ui/Style';
 
 let spriteOptions = new Map();
 
+spriteOptions.set('quiet', { frames: [1]});
 spriteOptions.set('floating', { frames: [1, 2, 3, 4, 5, 6]});
 
 const options = {
@@ -26,6 +27,9 @@ const options = {
     animationSpeed: style.DEFAULT_ANIMATION_SPEED
 };
 
+const MIN_TIME_FOR_ANIMATION = 300;
+const MAX_TIME_FOR_ANIMATION = 5000;
+
 export class Balloon extends Thing {
 
     constructor() {
@@ -34,7 +38,20 @@ export class Balloon extends Thing {
 
     show(): void {
         super.show();
-        this.playAnimation('floating');
+        this.playAnimationSometime();
+    }
+
+    private playAnimationSometime(): void {
+        this.playAnimation('quiet');
+        setTimeout(() => {
+            this.playAnimationOnce('floating').then(() => {
+                this.playAnimationSometime();
+            });
+        }, this.getTimeForNextAnimation());
+    }
+
+    private getTimeForNextAnimation(): number {
+        return MIN_TIME_FOR_ANIMATION + Math.random()*(MAX_TIME_FOR_ANIMATION - MIN_TIME_FOR_ANIMATION);
     }
 
 }

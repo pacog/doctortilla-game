@@ -20,11 +20,10 @@ const SPRITES: ISpritesInfo = {
     'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 33],
     
     // BACKSTAGE
-    'DOOR_SPRITE': ['images/backstage/DOOR_SPRITE.png', 40, 60, 2],
     'VENDING_MACHINE_SPRITE': ['images/backstage/VENDING_MACHINE_SPRITE.png', 49, 72, 3],
     'BAND_IN_SOFA_SPRITE': ['images/backstage/BAND_IN_SOFA_SPRITE.png', 70, 78, 19],
     'GLASS_INV_SPRITE': ['images/backstage/GLASS_INV_SPRITE.png', 68, 26, 4],
-    'COSTUME_SPRITE': ['images/backstage/COSTUME_SPRITE.png', 40, 28, 4],
+    'COSTUME_INV_SPRITE': ['images/backstage/COSTUME_INV_SPRITE.png', 68, 26, 4],
     'BACKSTAGE_DOOR_TO_BACKYARD_SPRITE': ['images/backstage/BACKSTAGE_DOOR_TO_BACKYARD_SPRITE.png', 61, 104, 2],
 
     //Backyard
@@ -44,7 +43,7 @@ const IMAGES: IImagesInfo = {
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',
     'CABLE': 'images/backstage/CABLE.png',
     'CABLE_INV': 'images/backstage/CABLE_INV.png',
-    'SKIRT': 'images/backstage/SKIRT.png',
+    'SKIRT': 'images/backstage/SKIRT_INV.png',
     'BROOM': 'images/backstage/BROOM.png',
     'BROOM_INV': 'images/backstage/BROOM_INV.png',
     'BACKYARD_BG': 'images/backyard/BACKYARD_BG.png',
@@ -68,6 +67,7 @@ const IMAGES: IImagesInfo = {
 
     // Backyard:
     'FLOWERS': 'images/backyard/FLOWERS.png',
+    'FLOWERS_INV': 'images/backyard/FLOWERS_INV.png',
     'LAMP_BACKYARD': 'images/backyard/LAMP_BACKYARD.png',
     'MOON': 'images/backyard/MOON.png',
     'STAR': 'images/backyard/STAR.png',

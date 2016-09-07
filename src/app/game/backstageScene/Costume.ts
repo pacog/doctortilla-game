@@ -11,8 +11,8 @@ const options = {
     id: 'costume',
     x: 137,
     y: 130,
-    spriteId: 'COSTUME_SPRITE',
-    inventoryImageId: 'COSTUME_SPRITE',
+    spriteId: 'COSTUME_INV_SPRITE',
+    inventoryImageId: 'COSTUME_INV_SPRITE',
     name: 'costume',
     directlyInInventory: true
 };

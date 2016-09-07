@@ -8,7 +8,7 @@ const options = {
     x: 127,
     y: 148,
     spriteId: 'FLOWERS',
-    inventoryImageId: 'FLOWERS',
+    inventoryImageId: 'FLOWERS_INV',
     name: 'flowers',
     goToPosition: {
         x: 136,

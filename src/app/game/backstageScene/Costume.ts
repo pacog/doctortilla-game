@@ -28,11 +28,14 @@ export class Costume extends Thing {
             return;
         }
         if (selectedThing.thing.id === 'coconut') {
-            this.addCoconut(selectedThing.thing);
+            this.addCoconut(player);
+            selectedThing.thing.destroy();
         } else if (selectedThing.thing.id === 'flowers') {
-            this.addFlowers(selectedThing.thing);
+            this.addFlowers(player);
+            selectedThing.thing.destroy();
         } else if (selectedThing.thing.id === 'skirt') {
-            this.addSkirt(selectedThing.thing);
+            this.addSkirt(player);
+            selectedThing.thing.destroy();
         } else {
             player.say('I don\t know how to do that...');
         }
@@ -59,23 +62,29 @@ export class Costume extends Thing {
         return FULL_FRAME;
     }
 
-    addCoconut(coconut: Thing): void {
+    addCoconut(player: DoctortillaPlayer): void {
         this.changeAttr('HAS_COCONUT', true);
-        coconut.destroy();
+        this.informPlayerIfComplete(player);
     }
 
-    addFlowers(flowers: Thing): void {
+    addFlowers(player: DoctortillaPlayer): void {
         this.changeAttr('HAS_FLOWERS', true);
-        flowers.destroy();
+        this.informPlayerIfComplete(player);
     }
 
-    addSkirt(skirt: Thing) {
+    addSkirt(player: DoctortillaPlayer) {
         this.changeAttr('HAS_SKIRT', true);
-        skirt.destroy();
+        this.informPlayerIfComplete(player);
     }
 
-    isComplete(): Boolean {
+    private isComplete(): Boolean {
         return this.getAttr('HAS_COCONUT') && this.getAttr('HAS_FLOWERS') && this.getAttr('HAS_SKIRT');
+    }
+
+    private informPlayerIfComplete(player: DoctortillaPlayer): void {
+        if(this.isComplete()) {
+            player.changeAttr('COSTUME_COMPLETE', true);
+        }
     }
 
 }

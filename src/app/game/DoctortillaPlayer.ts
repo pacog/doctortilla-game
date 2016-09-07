@@ -1,7 +1,6 @@
 import { Player } from '../engine/models/Player';
 import { randomText } from '../engine/utils/RandomText';
 import { Coin } from './BackstageScene/Coin';
-import { Costume } from './BackstageScene/Costume';
 import { activeInventory } from '../engine/state/ActiveInventory.singleton';
 import { style } from '../engine/ui/Style';
 
@@ -45,10 +44,7 @@ export class DoctortillaPlayer extends Player {
     }
 
     hasCompleteCostume(): Boolean {
-        let inventory = activeInventory.getActiveInventory();
-        let costume = <Costume> inventory.getById('costume');
-
-        return costume && costume.isComplete();
+        return this.getAttr('COSTUME_COMPLETE');
     }
 
     hasCable(): Boolean {

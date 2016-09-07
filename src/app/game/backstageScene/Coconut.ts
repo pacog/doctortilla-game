@@ -1,9 +1,7 @@
 import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
-import { Costume } from '../backstageScene/Costume';
-import { Skirt } from '../backstageScene/Skirt';
-import { Flowers } from '../backyardScene/Flowers';
+import { costumeCreator } from '../utils/CostumeCreator';
 
 const options = {
     id: 'coconut',
@@ -26,20 +24,6 @@ export class Coconut extends Thing {
         super(options);
     }
 
-    createCostumeFromSkirt(player: DoctortillaPlayer, skirt: Skirt): void {
-        if (!this.isInInventory()) {
-            player.say('I have to pick it up first');
-            return;
-        }
-        let costume = new Costume();
-        costume.addSkirt(skirt);
-        costume.addCoconut(this);
-    }
-
-    addCoconutToCostume(player: DoctortillaPlayer, costume: Costume) {
-        costume.addCoconut(this);
-    }
-
     protected lookAction(player: DoctortillaPlayer): void {
         if (this.isInInventory()) {
             player.say('Does it look like a pair of tits?');
@@ -50,12 +34,18 @@ export class Coconut extends Thing {
 
     protected useAction(player: DoctortillaPlayer): void {
         if (selectedThing.thing.id === 'flowers') {
-            let flowers = <Flowers> selectedThing.thing;
-            flowers.createCostumeFromCoconut(player, this);
+            costumeCreator.addFlowers(player);
+            costumeCreator.addCoconut(player);
+            selectedThing.thing.destroy();
+            this.destroy();
         } else if (selectedThing.thing.id === 'skirt') {
-            this.createCostumeFromSkirt(player, <Skirt> selectedThing.thing);
+            costumeCreator.addSkirt(player);
+            costumeCreator.addCoconut(player);
+            selectedThing.thing.destroy();
+            this.destroy();
         } else if (selectedThing.thing.id === 'costume') {
-            this.addCoconutToCostume(player, <Costume> selectedThing.thing);
+            costumeCreator.addCoconut(player);
+            this.destroy();
         } else {
             player.say('I don\'t know how to do that');
         }

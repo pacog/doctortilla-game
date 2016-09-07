@@ -29,7 +29,7 @@ const SPRITES: ISpritesInfo = {
 
     //Backyard
     'BACKYARD_DOOR_TO_BACKSTAGE_SPRITE': ['images/backyard/BACKYARD_DOOR_TO_BACKSTAGE_SPRITE.png', 31, 104, 2],
-    'BILI_SPRITE': ['images/backyard/BILI_SPRITE.png', 43, 66, 24],
+    'BILI_SPRITE': ['images/backyard/BILI_SPRITE.png', 43, 70, 24],
     'BALLOON_SPRITE': ['images/backyard/BALLOON_SPRITE.png', 28, 59, 6]
 };
 

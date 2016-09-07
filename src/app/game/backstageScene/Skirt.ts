@@ -1,9 +1,7 @@
 import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
-import { Costume } from './Costume';
-import { Coconut } from './Coconut';
-import { Flowers } from '../backyardScene/Flowers';
+import { costumeCreator } from '../utils/CostumeCreator';
 
 const options = {
     id: 'skirt',
@@ -25,20 +23,21 @@ export class Skirt extends Thing {
 
     protected useAction(player: DoctortillaPlayer): void {
         if (selectedThing.thing.id === 'flowers') {
-            let flowers = <Flowers> selectedThing.thing;
-            flowers.createCostumeFromSkirt(player, this);
+            costumeCreator.addSkirt(player);
+            costumeCreator.addFlowers(player);
+            selectedThing.thing.destroy();
+            this.destroy();
         } else if (selectedThing.thing.id === 'coconut') {
-            let coconut = <Coconut> selectedThing.thing;
-            coconut.createCostumeFromSkirt(player, this);
+            costumeCreator.addSkirt(player);
+            costumeCreator.addCoconut(player);
+            selectedThing.thing.destroy();
+            this.destroy();
         } else if (selectedThing.thing.id === 'costume') {
-            this.addSkirtToCostume(player, <Costume> selectedThing.thing);
+            costumeCreator.addSkirt(player);
+            this.destroy();
         } else {
             player.say('I don\'t know how to do that');
         }
-    }
-
-    addSkirtToCostume(player: DoctortillaPlayer, costume: Costume): void {
-        costume.addSkirt(this);
     }
 
 }

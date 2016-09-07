@@ -1,9 +1,4 @@
 import { Thing } from '../../engine/models/Thing';
-import { DoctortillaPlayer } from '../DoctortillaPlayer';
-import { selectedThing } from '../../engine/state/SelectedObjects';
-import { Costume } from '../backstageScene/Costume';
-import { Skirt } from '../backstageScene/Skirt';
-import { Coconut } from '../backstageScene/Coconut';
 import { Directions } from '../../engine/utils/Directions';
 import { style } from '../../engine/ui/Style';
 

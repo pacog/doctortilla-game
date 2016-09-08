@@ -1,6 +1,7 @@
 import { IPoint } from '../utils/Interfaces';
 import { Segment } from '../utils/Segment';
 import { SceneBoundaries } from './SceneBoundaries';
+import { phaserGame } from '../state/PhaserGame.singleton';
 
 interface IPathNodeOptions {
     point: IPoint,
@@ -15,6 +16,10 @@ class PathNode {
         this.connections = [];
     }
 
+    get id(): string {
+        return this.options.point.x + '_' + this.options.point.y;
+    }
+
     get point(): IPoint {
         return this.options.point;
     }
@@ -25,19 +30,62 @@ class PathNode {
 
 }
 
+const SHOULD_PAINT = false;
+const COLOR = 0x0033FF;
+class PathFinderPainter {
+
+    private paintedNodes: Map<string, Boolean>;
+
+    paint(firstNode: PathNode, destination: IPoint): void {
+        if(!SHOULD_PAINT) {
+            return;
+        }
+        this.deleteCurrentGraphics();
+        this.paintedNodes = new Map();
+        this.paintNodeAndConnections(firstNode);
+        let point1 = new Phaser.Circle(firstNode.point.x, firstNode.point.y, 4);
+        phaserGame.value.debug.geom(point1, '#0000ff');
+        let point2 = new Phaser.Circle(destination.x, destination.y, 4);
+        phaserGame.value.debug.geom(point2, '#00ff00');
+    }
+
+    private deleteCurrentGraphics(): void {
+        phaserGame.value.debug.destroy();
+    }
+
+    private paintNodeAndConnections(node: PathNode): void {
+        if(this.paintedNodes.get(node.id)) {
+            return;
+        }
+        this.paintedNodes.set(node.id, true);
+        for(let i=0; i < node.connections.length; i++) {
+            this.paintLine(node, node.connections[i])
+            this.paintNodeAndConnections(node.connections[i]);
+        }
+    }
+
+    private paintLine(node1: PathNode, node2: PathNode) {
+        let line = new Phaser.Line(node1.point.x, node1.point.y, node2.point.x, node2.point.y);
+        phaserGame.value.debug.geom(line, '#ff0000');
+    }
+}
+
+const pathFinderPainter = new PathFinderPainter();
+
 
 class PathFinder {
 
     getPath(origin: IPoint, destination: IPoint, boundaries: SceneBoundaries): Array<IPoint> {
+        var insideOrigin = boundaries.getPositionInside(origin);
         var insideDestination = boundaries.getPositionInside(destination);
 
-        if(boundaries.polygon.pointsCanSeeEachOther(origin, insideDestination)) {
-            return [origin, insideDestination];
+        if(boundaries.polygon.pointsCanSeeEachOther(insideOrigin, insideDestination)) {
+            return [insideOrigin, insideDestination];
         }
-        // var concaveVertex = boundaries.polygon.getConcaveVertex();
-        // let graph = this.getGraphToSolve(origin, destination, concaveVertex, boundaries);
+        var concaveVertex = boundaries.polygon.getConcaveVertex();
+        let graph = this.getGraphToSolve(insideOrigin, destination, concaveVertex, boundaries);
 
-        // return this.getSolutionToGraph(graph, destination);
+        return this.getSolutionToGraph(graph, destination);
     }
 
     private getGraphToSolve(origin: IPoint, destination: IPoint, otherVertex: Array<IPoint>, boundaries: SceneBoundaries): PathNode {
@@ -77,6 +125,7 @@ class PathFinder {
 
     //https://en.wikipedia.org/wiki/A*_search_algorithm#Algorithm_description
     private getSolutionToGraph(firstNode: PathNode, destination: IPoint): Array<IPoint> {
+        pathFinderPainter.paint(firstNode, destination);
         let closedSet: Set<PathNode> = new Set();
         let openSet: Set<PathNode> = new Set();
         openSet.add(firstNode);
@@ -121,7 +170,6 @@ class PathFinder {
                 fScore.set(neighbor, newFScore);
             }
         }
-
         throw 'ERROR, could not find a path';
     }
 

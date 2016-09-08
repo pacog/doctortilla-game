@@ -10,7 +10,7 @@ function distance2(pointA: IPoint, pointB: IPoint): number {
 
 export class Segment {
 
-    constructor(private pointA: IPoint, private pointB: IPoint) {}
+    constructor(public pointA: IPoint, public pointB: IPoint) {}
 
     get length(): number {
         return Math.sqrt(distance2(this.pointA, this.pointB));
@@ -60,12 +60,51 @@ export class Segment {
 
     }
 
-    getMiddlePoint(): IPoint {
-        return {
-            x: (this.pointA.x + this.pointB.x) / 2,
-            y: (this.pointA.y + this.pointB.y) / 2
-        };
+    isCrossedBy(segment: Segment): Boolean {
+        if(this.isEqual(segment)) {
+            return false;
+        }
+        let line1 = new Phaser.Line(this.pointA.x, this.pointA.y, this.pointB.x, this.pointB.y);
+        let line2 = new Phaser.Line(segment.pointA.x, segment.pointA.y, segment.pointB.x, segment.pointB.y);
+
+        var otherSegmentInsideThis = line1.pointOnSegment(segment.pointA.x, segment.pointA.y) || line1.pointOnSegment(segment.pointB.x, segment.pointB.y);
+        if(otherSegmentInsideThis) {
+            return false;
+        }
+        var thisSegmentInsideOther = line2.pointOnSegment(this.pointA.x, this.pointA.y) || line2.pointOnSegment(this.pointB.x, this.pointB.y);
+        if(thisSegmentInsideOther) {
+            return false;
+        }
+
+        let intersection = line1.intersects(line2, true);
+
+        return !!intersection;
     }
+
+    // private lineToString(line: Phaser.Line): string {
+    //     return '[(' + line.start.x + ',' + line.start.y + ')-(' + line.end.x + ',' + line.end.y + ')]';
+    // }
+
+    isEqual(segment: Segment): Boolean {
+        if(this.pointsAreEqual(this.pointA, segment.pointA) && this.pointsAreEqual(this.pointB, segment.pointB)) {
+            return true;
+        }
+        if(this.pointsAreEqual(this.pointB, segment.pointA) && this.pointsAreEqual(this.pointA, segment.pointB)) {
+            return true;
+        }
+        return false;
+    }
+
+    private pointsAreEqual(pointA: IPoint, pointB: IPoint): Boolean {
+        return (pointA.x === pointB.x) && (pointA.y === pointB.y);
+    }
+
+    // getMiddlePoint(): IPoint {
+    //     return {
+    //         x: (this.pointA.x + this.pointB.x) / 2,
+    //         y: (this.pointA.y + this.pointB.y) / 2
+    //     };
+    // }
 
 
 }

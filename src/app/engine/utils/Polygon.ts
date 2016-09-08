@@ -1,6 +1,8 @@
-/// <reference path="../../../vendor/delaunay/delaunay.d.ts"/>
 import { IPoint } from './Interfaces';
 import { Segment } from './Segment';
+
+const MIDDLE_POINTS_TO_CHECK = 10;
+const MIN_DISTANCE_TO_BE_IN_LINE = 1;
 
 function sorterByXThenY(pointA: IPoint, pointB: IPoint): number {
     if(pointA.x === pointB.x) {
@@ -39,7 +41,6 @@ export class Polygon {
 
     private convexHull: Polygon;
     private _segments: Array<Segment>;
-    private _triangles: Array<Array<number> >;
 
     constructor(private _points: Array<IPoint>) {
         if(!_points.length || _points.length < 3) {
@@ -89,22 +90,21 @@ export class Polygon {
     }
 
     isPointInside(point: IPoint): Boolean {
-        // ray-casting algorithm based on
-        // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-        var inside = false;
-        for (var i = 0, j = this._points.length - 1; i < this._points.length; j = i++) {
-            var xi = this._points[i].x, yi = this._points[i].y;
-            var xj = this._points[j].x, yj = this._points[j].y;
-            
-            var intersect = ((yi > point.y) != (yj > point.y))
-                && (point.x < (xj - xi) * (point.y - yi) / (yj - yi) + xi);
-            if (intersect) {
-                inside = !inside;
+        if(this.hasPoint(point)) {
+            return true;
+        }
+        for(let i=0; i<this.segments.length; i++) {
+            if(this.segments[i].distanceToPoint(point) < MIN_DISTANCE_TO_BE_IN_LINE) {
+                return true;
             }
         }
-        
-        return inside;
+        let phaserPolygon = new Phaser.Polygon(this.points.map((eachPoint) => {
+            return new Phaser.Point(eachPoint.x, eachPoint.y);
+        }));
+        return phaserPolygon.contains(point.x, point.y);
     }
+
+
 
     getClosestPointTo(point: IPoint): IPoint {
         var closestSegment = this.getClosestSegment(point);
@@ -127,52 +127,39 @@ export class Polygon {
         return closestSegment;
     }
 
-    get triangles(): Array<Array<number> > {
-        if(!this._triangles) {
-            this.triangulate();
-        }
-        return this._triangles;
-    }
-
-    private triangulate(): void {
-        //Use http://gamedev.stackexchange.com/questions/31778/robust-line-of-sight-test-on-the-inside-of-a-polygon-with-tolerance
-        // for line of sight
-        //Create tests for edge cases
-
-        var rawVertices = this.getRawVertices();
-        Delaunay.triangulate(rawVertices, null);
-    }
-
-    private getRawVertices(): Array<Array<number> > {
-        let result: Array<Array<number> > = [];
-        this._points.forEach((point) => {
-            result.push([point.x, point.y]);
-        });
-        return result;
-    }
-
-    //http://www.david-gouveia.com/portfolio/pathfinding-on-a-2d-polygonal-map/
     pointsCanSeeEachOther(pointA: IPoint, pointB: IPoint): Boolean {
-        //TODO: bug here when clicking in the upper part of the wall sometimes.
+        // debugger;
+
         if(!this.isPointInside(pointA) || !this.isPointInside(pointB)) {
             return false;
         }
-        if((pointA.x === pointB.x) && (pointA.y === pointB.y)) {
-            return true;
+        if(!this.middlePointsAreInside(pointA, pointB)) {
+            return false;
         }
-        for(let i = 0; i < this._points.length; i++) {
-            for(let j = i + 1; j < this._points.length; j++) {
-                if(lineSegmentsCross(
-                    pointA,
-                    pointB,
-                    this._points[i],
-                    this._points[i % this._points.length])) {
-                        return false;
-                }
+
+        let segments = this.segments;
+        let segmentBetweenPoints = new Segment(pointA, pointB);
+        for(let i=0; i<segments.length; i++) {
+            if(segments[i].isCrossedBy(segmentBetweenPoints)) {
+                return false;
             }
         }
-        let segment = new Segment(pointA, pointB);
-        return this.isPointInside(segment.getMiddlePoint());
+        return true;
+    }
+
+    private middlePointsAreInside(pointA: IPoint, pointB: IPoint, pointsToCheck: number = MIDDLE_POINTS_TO_CHECK): Boolean {
+        let point1 = new Phaser.Point(pointA.x, pointA.y);
+        let point2 = new Phaser.Point(pointB.x, pointB.y);
+
+        for(let i=1; i<=pointsToCheck; i++) {
+            let ratio = i/(pointsToCheck + 1);
+            let pointInBetween = Phaser.Point.interpolate(point1, point2, ratio);
+            if(!this.isPointInside({ x: pointInBetween.x, y: pointInBetween.y})) {
+                return false;
+            }
+        }
+        return true;
+        
     }
 
     // Using https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
@@ -208,24 +195,3 @@ export class Polygon {
         this._segments.push(new Segment(this._points[this._points.length - 1], this._points[0]));
     }
 }
-
-// Sort the points of P by x-coordinate (in case of a tie, sort by y-coordinate).
-
-// Initialize U and L as empty lists.
-// The lists will hold the vertices of upper and lower hulls respectively.
-
-// for i = 1, 2, ..., n:
-//     while L contains at least two points and the sequence of last two points
-//             of L and the point P[i] does not make a counter-clockwise turn:
-//         remove the last point from L
-//     append P[i] to L
-
-// for i = n, n-1, ..., 1:
-//     while U contains at least two points and the sequence of last two points
-//             of U and the point P[i] does not make a counter-clockwise turn:
-//         remove the last point from U
-//     append P[i] to U
-
-// Remove the last point of each list (it's the same as the first point of the other list).
-// Concatenate L and U to obtain the convex hull of P.
-// Points in the result will be listed in counter-clockwise order.

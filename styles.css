@@ -8,8 +8,9 @@ body {
   margin: 0;
   font-family: Courier, 'Courier New', monospace;
   font-size: 1.6rem;
-  background: #fff;
-  color: #000;
+  background: black;
+  color: #eef;
+  padding-top: 20px;
 }
 
 a {
@@ -22,9 +23,17 @@ main {
 }
 
 #game {
-  border: 1px solid #333;
   width: 1066px;
   height: 600px;
+  margin: 0 auto;
+  
+}
+#game canvas {
+  cursor: url('images/ui/custom-cursor.png') 16 16, auto !important;
+  cursor: -webkit-image-set(
+    url('images/ui/custom-cursor.png') 1x,
+    url('images/ui/custom-cursor@2x.png') 2x
+  ) 16 16, auto !important;
 }
 
 footer {

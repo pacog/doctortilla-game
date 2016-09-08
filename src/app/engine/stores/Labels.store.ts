@@ -20,6 +20,10 @@ class LabelsStore {
         this.currentLanguage = DEFAULT_LANGUAGE;
     }
 
+    setLanguage(newLanguage: string): void {
+        this.currentLanguage = newLanguage;
+    }
+
     addLabels(labelsToAdd: ILabels): void {
         for(let key in labelsToAdd) {
             this.addLabelsForLanguage(key, labelsToAdd[key]);

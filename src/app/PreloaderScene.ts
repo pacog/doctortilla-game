@@ -10,6 +10,6 @@ export const PreloaderScene = {
     },
 
     create: function () {
-        this.game.state.start('play');
+        this.game.state.start('startMenu');
     }
 };

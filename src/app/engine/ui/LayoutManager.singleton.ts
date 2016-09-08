@@ -20,6 +20,19 @@ const CONVERSATION_LINE_HEIGHT = CURRENT_ACTION_INFO_HEIGHT;
 const CONVERSATION_LINE_PADDING_X = 5;
 const CONVERSATION_LINE_PADDING_Y = 6;
 
+const LOGO_SIZE: IPoint = {
+    x: 502,
+    y: 175
+};
+const THE_GAME_SIZE: IPoint = {
+    x: 150,
+    y: 43
+};
+const LANGUAGE_BUTTON_SIZE: IPoint = {
+    x: 136,
+    y: 27
+};
+
 class LayoutManager {
 
     LAYOUT_WIDTH: number = 1066;
@@ -135,6 +148,38 @@ class LayoutManager {
 
     get CONVERSATION_LINE_PADDING_Y(): number {
         return CONVERSATION_LINE_PADDING_Y;
+    }
+
+    get LOGO_POSITION(): IPoint {
+        return {
+            x: Math.round((this.WIDTH - LOGO_SIZE.x)/2),
+            y: 20
+        };
+    }
+
+    get THE_GAME_POSITION(): IPoint {
+        return {
+            x: Math.round((this.WIDTH - THE_GAME_SIZE.x)/2),
+            y: 155
+        };
+    }
+
+    get ENGLISH_BUTTON_POSITION(): IPoint {
+        let x = Math.round(this.WIDTH/2) - LANGUAGE_BUTTON_SIZE.x - 5;
+        let y = this.HEIGHT - LANGUAGE_BUTTON_SIZE.y - 30;
+        return {
+            x: x,
+            y: y
+        };
+    }
+
+    get SPANISH_BUTTON_POSITION(): IPoint {
+        let x = Math.round(this.WIDTH/2) + 5;
+        let y = this.HEIGHT - LANGUAGE_BUTTON_SIZE.y - 30;
+        return {
+            x: x,
+            y: y
+        };
     }
 
     getPositionForConversationLine(index: number): IPoint {

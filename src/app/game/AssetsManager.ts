@@ -15,6 +15,8 @@ const SPRITES: ISpritesInfo = {
     'BUTTON_BG': ['images/ui/BUTTON_BG_SPRITE.png',75, 18, 3],
     'CONVERSATION_LINE_BG': ['images/ui/CONVERSATION_LINE_BG.png', 529, 20],
     'PAGINATION_BUTTON_UP': ['images/ui/PAGINATION_BUTTON_UP.png', 16, 25, 4],
+    'ENGLISH_BUTTON': ['images/ui/ENGLISH_BUTTON.png', 136, 27, 3],
+    'SPANISH_BUTTON': ['images/ui/SPANISH_BUTTON.png', 136, 27, 3],
 
     // PLAYER
     'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 33],
@@ -38,6 +40,8 @@ const IMAGES: IImagesInfo = {
     'UI_INV_BG': 'images/ui/UI_INV_BG.png',
     'UI_CONVERSATION_BG': 'images/ui/UI_CONVERSATION_BG.png',
     'CONVERSATION_LINE_BG': 'images/ui/CONVERSATION_LINE_BG.png',
+    'LOGO': 'images/ui/LOGO.png',
+    'THE_GAME': 'images/ui/THE_GAME.png',
 
     // Backstage scene:
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',

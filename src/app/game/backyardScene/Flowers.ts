@@ -9,7 +9,7 @@ const options = {
     y: 148,
     spriteId: 'FLOWERS',
     inventoryImageId: 'FLOWERS_INV',
-    name: 'flowers',
+    name: 'FLOWERS',
     goToPosition: {
         x: 136,
         y: 178
@@ -25,9 +25,9 @@ export class Flowers extends Thing {
 
     protected lookAction(player: DoctortillaPlayer) {
         if (this.isInInventory()) {
-            player.say('I bet I could do a beautiful costume with this');
+            player.say('I_BET_I_COULD_DO_A_BEAUTIFUL_COSTUME_WITH_IT');
         } else {
-            player.say('Nice flowers');
+            player.say('VERY_BEAUTIFUL_FLOWERS');
         }
     }
 
@@ -46,7 +46,7 @@ export class Flowers extends Thing {
             costumeCreator.addFlowers(player);
             this.destroy();
         } else {
-            player.say('I don\'t know how to do that');
+            super.useAction(player);
         }
     }
 

@@ -13,7 +13,7 @@ const options = {
     x: 252,
     y: 96,
     spriteId: 'BALLOON_SPRITE',
-    name: 'balloon',
+    name: 'BALLOON',
     goToPosition: {
         x: 239,
         y: 185

@@ -8,7 +8,7 @@ const options = {
     y: 125,
     spriteId: 'CABLE',
     inventoryImageId: 'CABLE_INV',
-    name: 'cable',
+    name: 'CABLE',
     goToPosition: {
         x: 219,
         y: 165
@@ -29,19 +29,19 @@ export class Cable extends Thing {
             }
 
             if (vendingMachine.getAttr('PUSHED')) {
-                player.say('Finally, I have the $%# cable!');
+                player.say('FINALLY_I_GOT_THE_CABLE');
                 this.letPlayerComeAndTakeIt(player);
             } else {
-                player.say('It is stuck behind the vending machine, I need to move it somehow.');
+                player.say('IT_IS_STUCK_BEHIND_THE_VENDING_MACHINE');
             }
         });
     }
 
     protected lookAction(player: DoctortillaPlayer): void {
         if (this.isInInventory()) {
-            player.say('Cool, now I should give that to the guys');
+            player.say('COOL_NOW_I_SHOULD_GIVE_IT_TO_THE_GUYS');
         } else {
-            player.say('This is the cable I need!');
+            player.say('THIS_CABLE_COULD_BE_USEFUL');
         }
     }
 

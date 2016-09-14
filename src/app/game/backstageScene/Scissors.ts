@@ -2,6 +2,7 @@ import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { Broom } from './Broom';
+import { randomText } from '../../engine/utils/RandomText';
 
 const options = {
     id: 'scissors',
@@ -9,7 +10,7 @@ const options = {
     y: 128,
     spriteId: 'SCISSORS',
     inventoryImageId: 'SCISSORS_INV',
-    name: 'scissors',
+    name: 'SCISSORS',
     goToPosition: {
         x: 300,
         y: 180
@@ -25,9 +26,12 @@ export class Scissors extends Thing {
 
     protected lookAction(player: DoctortillaPlayer) {
         if (this.isInInventory()) {
-            player.say('Shiny and sharp!');
+            player.say('SHINY_AND_SHARP');
         } else {
-            player.say('Not safe having scissors around musicians');
+            player.say(randomText(
+                'SHINY_AND_SHARP',
+                'NOT_SAFE_HAVING_SCISSORS_AROUND_MUSICIANS'
+            ));
         }
     }
 
@@ -37,7 +41,7 @@ export class Scissors extends Thing {
             let broom = <Broom> otherObject;
             broom.cutWithScissors();
         } else {
-            player.say('I don\'t know how to do that');
+            super.useAction(player);
         }
     }
 

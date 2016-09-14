@@ -15,7 +15,7 @@ const options = {
     y: 128,
     spriteId: 'GLASS',
     inventoryImageId: 'GLASS_INV_SPRITE',
-    name: 'glass',
+    name: 'GLASS',
     goToPosition: {
         x: 639,
         y: 189
@@ -30,7 +30,7 @@ export class Glass extends Thing {
 
     protected useAction(player: DoctortillaPlayer): void {
         if (!this.isInInventory()) {
-            player.say('I have to pick it up first');
+            player.say('I_HAVE_TO_PICK_IT_UP_FIRST');
             return;
         }
         if (selectedThing.thing.id === 'dust') {
@@ -40,15 +40,15 @@ export class Glass extends Thing {
             let can = <Can> selectedThing.thing;
             this.fillWithDrink(player, can);
         } else {
-            player.say('I don\t know how to do that...');
+            super.useAction(player);
         }
     }
 
     protected lookAction(player: DoctortillaPlayer): void {
         if (this.isInInventory()) {
-            player.say('Really useful to put liquids or other substances inside');
+            player.say('REALLY_USEFUL_TO_PUT_LIQUIDS_INSIDE');
         } else {
-            player.say('It is indeed a glass');
+            player.say('IT_IS_INDEED_A_GLASS');
         }
     }
 
@@ -62,7 +62,7 @@ export class Glass extends Thing {
             this.changeAttr('FILLED', true);
             activeInventory.refresh();
         } else {
-            player.say('It is already full');
+            player.say('IT_IS_ALREADY_FULL');
         }
     }
 

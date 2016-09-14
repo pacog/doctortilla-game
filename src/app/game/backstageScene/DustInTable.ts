@@ -9,7 +9,7 @@ const options = {
     y: 128,
     spriteId: 'DUST',
     inventoryImageId: 'DUST_INV',
-    name: 'dust',
+    name: 'SUSPICIOUS_DUST',
     goToPosition: {
         x: 248,
         y: 177
@@ -25,24 +25,24 @@ export class Dust extends Thing {
 
     protected lookAction(player: DoctortillaPlayer): void {
         if (this.isInInventory()) {
-            player.say('I bet this "dust" can make "somebody" less shy');
+            player.say('I_BET_THIS_DUST_CAN_MAKE_SOMEBODY_LESS_SHY');
         } else {
-            player.say('That\'s some highly suspicious white powder');
+            player.say('THAT_S_SOME_HIGHLY_SUSPICIOUS_WHITE_POWDER');
         }
     }
 
     protected useAction(player: DoctortillaPlayer): void {
         if (!this.isInInventory()) {
-            player.say('I have to pick it up first');
+            player.say('I_HAVE_TO_PICK_IT_UP_FIRST');
             return;
         }
         if (selectedThing.thing.id === 'glass') {
             let glass = <Glass> selectedThing.thing;
             glass.fillWithDust(player, this);
         } else if (selectedThing.thing.id === 'can') {
-            player.say('I should probably mix it in a glass');
+            player.say('I_SHOULD_PROBABLY_MIX_IT_IN_A_GLASS');
         } else {
-            player.say('I don\t know how to do that...');
+            super.useAction(player);
         }
     }
 

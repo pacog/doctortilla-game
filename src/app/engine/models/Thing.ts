@@ -7,7 +7,7 @@ import { activeInventory } from '../state/ActiveInventory.singleton';
 import { Verbs } from '../stores/Verbs.store';
 import { phaserGame } from '../state/PhaserGame.singleton';
 import { Player } from './Player';
-
+import { randomText } from '../utils/RandomText';
 
 
 interface IThingOptions {
@@ -201,7 +201,7 @@ export abstract class Thing {
         if (!this.options.pickable) {
             
         } else if(this.isInInventory()) {
-            player.say('I already have it');
+            player.say('I_ALREADY_HAVE_IT');
         } else {
             this.letPlayerComeAndTakeIt(player);
         }
@@ -215,32 +215,40 @@ export abstract class Thing {
     }
 
     protected lookAction(player: Player): void  {
-        //TODO: check if there are look options
-        player.say('That is pretty neat');
+        player.say(randomText(
+                'OH_LOOK_AT_THAT',
+                'NICE_OBJECT',
+                'BEAUTIFUL_SOMETHING'
+            )
+        );
     }
 
     protected openAction(player: Player): void  {
-        player.say('That cannot be opened');
+        player.say('THAT_CANNOT_BE_OPENED');
     }
 
     protected closeAction(player: Player): void  {
-        player.say('That cannot be closed');
+        player.say('THAT_CANNOT_BE_CLOSED');
     }
 
     protected pushAction(player: Player): void  {
-        player.say('I cannot move that');
+        player.say('I_CANT_MOVE_THAT');
     }
 
     protected useAction(player: Player): void  {
-        player.say('I do not know how to use that');
+        player.say('I_DONT_KNOW_HOW_TO_DO_THAT');
     }
 
     protected speakAction(player: Player): void  {
-        player.say('I wouldn\'t know what to say');
+        player.say(randomText(
+            'I_WOULDNT_KNOW_WHAT_TO_SAY',
+            'I_HAVE_BETTER_THINGS_TO_DO_THAN_TALKING',
+            'HI_THERE'
+        ));
     }
 
     protected giveAction(player: Player): void  {
-        player.say('I cannot do that');
+        player.say('I_CANT_DO_THAT');
     }
 
 

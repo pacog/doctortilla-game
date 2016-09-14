@@ -14,7 +14,7 @@ class PlayScene {
     }
 
     render() {
-        phaserGame.value.debug.inputInfo(32, 32);
+        // phaserGame.value.debug.inputInfo(32, 32);
         // phaserGame.value.debug.pointer( phaserGame.value.input.activePointer );
     }
 }

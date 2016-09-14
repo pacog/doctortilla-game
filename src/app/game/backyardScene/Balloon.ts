@@ -1,6 +1,7 @@
 import { Thing } from '../../engine/models/Thing';
 import { Directions } from '../../engine/utils/Directions';
 import { style } from '../../engine/ui/Style';
+import { DoctortillaPlayer } from '../DoctortillaPlayer';
 
 let spriteOptions = new Map();
 
@@ -34,6 +35,14 @@ export class Balloon extends Thing {
     show(): void {
         super.show();
         this.playAnimationSometime();
+    }
+
+    protected lookAction(player: DoctortillaPlayer): void {
+        player.say('THAT_IS_A_HUGE_BALLOON_QUITE_SCARY_IF_IT_EXPLODES');
+    }
+
+    protected takeAction(player: DoctortillaPlayer): void  {
+        player.say('NOPE_I_DONT_WANT_TO_TAKE_BILIS_BALLOON');
     }
 
     private playAnimationSometime(): void {

@@ -4,6 +4,7 @@ import { selectedThing } from '../../engine/state/SelectedObjects';
 import { Verbs } from '../../engine/stores/Verbs.store';
 import { Directions } from '../../engine/utils/Directions';
 import { Skirt } from './Skirt';
+import { randomText } from '../../engine/utils/RandomText';
 
 const options = {
     id: 'broom',
@@ -11,7 +12,7 @@ const options = {
     y: 119,
     spriteId: 'BROOM',
     inventoryImageId: 'BROOM_INV',
-    name: 'broom',
+    name: 'BROOM',
     goToPosition: {
         x: 117,
         y: 176
@@ -29,9 +30,12 @@ export class Broom extends Thing {
 
     protected lookAction(player: DoctortillaPlayer): void {
         if (this.isInInventory()) {
-            player.say('Awesome, now I have a broom');
+            player.say('I_COULD_MAKE_A_WIG_WITH_THIS');
         } else {
-            player.say('Si yo tuviera una escoba...');
+            player.say(randomText(
+                'A_BROOM_THE_PERFECT_CLEANING_INSTRUMENT',
+                'I_COULD_MAKE_A_WIG_WITH_THIS'
+            ));
         }
     }
 
@@ -39,7 +43,7 @@ export class Broom extends Thing {
         if (selectedThing.thing.id === 'scissors') {
             this.cutWithScissors();
         } else {
-            player.say('I don\'t know how to do that');
+            player.say('I_DONT_KNOW_HOW_TO_DO_THAT');
         }
     }
 

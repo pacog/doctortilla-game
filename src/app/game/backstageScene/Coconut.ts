@@ -2,6 +2,7 @@ import { Thing } from '../../engine/models/Thing';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { costumeCreator } from '../utils/CostumeCreator';
+import { randomText } from '../../engine/utils/RandomText';
 
 const options = {
     id: 'coconut',
@@ -9,7 +10,7 @@ const options = {
     y: 195,
     spriteId: 'COCONUT',
     inventoryImageId: 'COCONUT_INV',
-    name: 'coconut',
+    name: 'COCONUT',
     goToPosition: {
         x: 110,
         y: 203
@@ -26,9 +27,9 @@ export class Coconut extends Thing {
 
     protected lookAction(player: DoctortillaPlayer): void {
         if (this.isInInventory()) {
-            player.say('Does it look like a pair of tits?');
+            player.say('DOES_IT_LOOK_LIKE_A_PAIR_OF_TITS');
         } else {
-            player.say('Compare cómprame un coco');
+            player.say('COMPARE_COMPRAME_UN_COCO');
         }
     }
 
@@ -47,7 +48,7 @@ export class Coconut extends Thing {
             costumeCreator.addCoconut(player);
             this.destroy();
         } else {
-            player.say('I don\'t know how to do that');
+            super.useAction(player);
         }
     }
 

@@ -9,7 +9,7 @@ const options = {
     y: 145,
     spriteId: 'BOCADILLO',
     inventoryImageId: 'BOCADILLO_INV',
-    name: 'bocadillo',
+    name: 'BOCADILLO',
     goToPosition: {
         x: 692,
         y: 190
@@ -24,9 +24,9 @@ export class Bocadillo extends Thing {
 
     protected lookAction(player: DoctortillaPlayer): void {
         if (this.isInInventory()) {
-            player.say('I think I can open it and take the bacon');
+            player.say('I_THINK_I_CAN_OPEN_IT_AND_TAKE_THE_BACON');
         } else {
-            player.say('A rancid and GREASY sandwhich');
+            player.say('A_RANCID_AND_GREASY_SANDWHICH');
         }
     }
 
@@ -36,7 +36,7 @@ export class Bocadillo extends Thing {
             new Bread();
             this.destroy();
         } else {
-            player.say('I have to pick it up first');
+            player.say('I_HAVE_TO_PICK_IT_UP_FIRST');
         }
     }
 

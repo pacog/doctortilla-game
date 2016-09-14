@@ -5,6 +5,7 @@ import { ConversationWithBand } from './ConversationWithBand';
 import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { Directions } from '../../engine/utils/Directions';
 import { style } from '../../engine/ui/Style';
+import { randomText } from '../../engine/utils/RandomText';
 
 let spriteOptions = new Map();
 
@@ -23,7 +24,7 @@ export class BandInSofa extends Thing {
             x: 481,
             y: 105,
             spriteId: 'BAND_IN_SOFA_SPRITE',
-            name: 'rest of the band',
+            name: 'REST_OF_THE_BAND',
             goToPosition: {
                 x: 459,
                 y: 181
@@ -39,7 +40,11 @@ export class BandInSofa extends Thing {
     }
 
     lookAction(player: DoctortillaPlayer): void {
-        player.say('There is my band.');
+        player.say(randomText(
+            'THAT_IS_MY_BAND_1',
+            'THAT_IS_MY_BAND_2',
+            'THAT_IS_MY_BAND_3'
+        ));
     }
 
     speakAction(player: DoctortillaPlayer): void {

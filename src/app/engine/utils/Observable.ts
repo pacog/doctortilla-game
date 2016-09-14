@@ -18,6 +18,10 @@ export class Observable {
         this.observers.delete(callback);
     }
 
+    removeAllObservers(): void {
+        this.observers.clear();
+    }
+
     notifyObservers (value : any) : void {
         this.observers.forEach((observer: ICallback)=> {
             observer(value);

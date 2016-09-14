@@ -183,7 +183,7 @@ class LayoutManager {
     }
 
     getPositionForConversationLine(index: number): IPoint {
-        let marginY = (index + 1) * this.LAYOUT_DEFAULT_MARGIN;
+        let marginY = 8 + ((index + 1) * this.LAYOUT_DEFAULT_MARGIN);
         let positionY = this.CONVERSATION_LINE_HEIGHT * index;
         return {
             x: this.LAYOUT_DEFAULT_MARGIN,

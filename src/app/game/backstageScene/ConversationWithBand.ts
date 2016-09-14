@@ -60,18 +60,18 @@ export class ConversationWithBand extends Conversation {
         if (this.player.hasCompleteCostume()) {
             dialogPart.unshift(new ConversationLine(
                 'GOT_THE_COSTUME',
-                'INITIAL_AFTER_FIRST_TALK',
+                () => { return this.getStateIfPlayerDeliveredEverything(); },
                 sayCostumeIsOk
             ));
         } else if(!this.player.getAttr('DELIVERED_COSTUME')) {
             dialogPart.unshift(new ConversationLine(
                 'WHY_COSTUMES',
-                () => { return this.getStateIfPlayerDeliveredEverything(); },
+                'INITIAL_AFTER_FIRST_TALK',
                 sayWhyCostumes
             ));
             dialogPart.unshift(new ConversationLine(
                 'ASK_ABOUT_COSTUME',
-                () => { return this.getStateIfPlayerDeliveredEverything(); },
+                'INITIAL_AFTER_FIRST_TALK',
                 talkAboutCostume
             ));
         }
@@ -84,6 +84,12 @@ export class ConversationWithBand extends Conversation {
                 () => { return this.getStateIfPlayerDeliveredEverything(); },
                 sayCableIsOk
             ));
+        } else if(!this.player.getAttr('DELIVERED_CABLE')) {
+            dialogPart.unshift(new ConversationLine(
+                'ASK_ABOUT_CABLE',
+                'INITIAL_AFTER_FIRST_TALK',
+                talkAboutCable
+            ));
         }
     }
 
@@ -93,6 +99,12 @@ export class ConversationWithBand extends Conversation {
                 'HAVE_A_DRINK_SANTI',
                 () => { return this.getStateIfPlayerDeliveredEverything(); },
                 sayDrinkIsOk
+            ));
+        } else if(!this.player.getAttr('DELIVERED_DRINK')) {
+            dialogPart.unshift(new ConversationLine(
+                'ASK_ABOUT_SANTI',
+                'INITIAL_AFTER_FIRST_TALK',
+                talkAboutSanti
             ));
         }
     }
@@ -164,6 +176,44 @@ function talkAboutCostume(player: DoctortillaPlayer, band: BandInSofa): Promise<
                 })
                 .then(() => {
                     return player.say('SURE_BOSS');
+                });
+}
+
+function talkAboutCable(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
+    return band.say('JUST_STEAL_ONE', 'juan')
+                .then(() => {
+                    return band.say('I_WOULD_DO_IT_MYSELF', 'juan');
+                })
+                .then(() => {
+                    return band.say('IS_SOMEHOW_DANGEROUS', 'angel');
+                })
+                .then(() => {
+                    return band.say('IMPLIES_MOVEMENT', 'santi');
+                });
+}
+
+function talkAboutSanti(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
+    return band.say('WE_DONT_REHEARSE_ENOUGH', 'santi')
+                .then(() => {
+                    return band.say('WE_HAVENT_PRACTISED_SINCE_2012', 'santi');
+                })
+                .then(() => {
+                    return player.say('YOU_ARE_A_COWARD_MAN_WE_HAVE_COSTUMES');
+                })
+                .then(() => {
+                    return player.say('WHAT_CAN_WE_DO_GUYS');
+                })
+                .then(() => {
+                    return band.say('SOME_CULTURES_USED_DRUGS', 'angel');
+                })
+                .then(() => {
+                    return band.say('NOT_SAYING_WE_SHOULD_USE_THEM', 'angel');
+                })
+                .then(() => {
+                    return band.say('DRUGS_ARE_BAD', 'juan');
+                })
+                .then(() => {
+                    return band.say('AND_EXPENSIVE', 'angel');
                 });
 }
 

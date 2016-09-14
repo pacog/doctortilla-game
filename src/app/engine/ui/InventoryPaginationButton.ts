@@ -12,7 +12,8 @@ export enum PaginationButtonType {
 };
 
 interface IInventoryPaginationButtonOptions {
-    type: PaginationButtonType
+    type: PaginationButtonType,
+    layer?: Phaser.Group
 }
 
 export class InventoryPaginationButton {
@@ -22,11 +23,17 @@ export class InventoryPaginationButton {
 
     constructor(private options: IInventoryPaginationButtonOptions) {
         this.clickObservable = new Observable();
+        this.options.layer = this.options.layer || uiLayers.verbButtons;
         this.createButton();
     }
 
     subscribeToClick(callback: ICallback) {
         this.clickObservable.registerObserver(callback);
+    }
+
+    destroy(): void {
+        this.clickObservable.removeAllObservers();
+        this.button.destroy();
     }
 
     private createButton(): void {
@@ -51,7 +58,7 @@ export class InventoryPaginationButton {
             this.button.scale.y = -1;
             this.button.anchor.setTo(0, 1);
         }
-        uiLayers.verbButtons.add(this.button);
+        this.options.layer.add(this.button);
         this.button.fixedToCamera = true;
     }
 

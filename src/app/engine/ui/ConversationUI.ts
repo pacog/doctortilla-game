@@ -4,14 +4,21 @@ import { Conversation } from '../models/Conversation';
 import { ConversationLine } from '../models/ConversationLine';
 import { ConversationLineUI } from './ConversationLineUI';
 import { uiLayers } from './UILayers.singleton';
+import { PaginationButtonType, InventoryPaginationButton } from './InventoryPaginationButton';
+
+const LINES_PER_PAGE = 3;
 
 export class ConversationUI {
 
     private background: Phaser.Sprite;
     private lines: Array<ConversationLineUI>;
     private uiBlockerWasBlockedBefore: Boolean;
+    private firstLineShown: number;
+    private paginationButtonUp: InventoryPaginationButton;
+    private paginationButtonDown: InventoryPaginationButton;
 
     constructor(private conversation: Conversation) {
+        this.firstLineShown = 0;
         this.uiBlockerWasBlockedBefore = uiBlocker.isBlocked();
         uiBlocker.block();
         this.lines = [];
@@ -42,13 +49,17 @@ export class ConversationUI {
     }
 
     private update(newState: string): void {
+        this.firstLineShown = 0;
         this.destroyOldLines();
         this.createNewLines();
     }
 
     private createNewLines(): void {
         let newLines = this.conversation.getLines();
-        newLines.forEach((newLine, index) => this.createLine(newLine, index));
+        for(let i=this.firstLineShown; i<(this.firstLineShown + LINES_PER_PAGE) && (i<newLines.length); i++) {
+            this.createLine(newLines[i], i - this.firstLineShown);
+        }
+        this.createPaginationButtons();
     }
 
     private createLine(line: ConversationLine, index: number): void {
@@ -68,6 +79,53 @@ export class ConversationUI {
     private destroyOldLines(): void {
         this.lines.forEach(line => line.destroy());
         this.lines = [];
+        this.destroyPaginationButtons();
+    }
+
+    private createPaginationButtons(): void {
+        this.destroyPaginationButtons();
+        if(this.firstLineShown > 0) {
+            this.paginationButtonUp = new InventoryPaginationButton({
+                type: PaginationButtonType.UP,
+                layer: uiLayers.conversation
+            });
+            this.paginationButtonUp.subscribeToClick(() => {
+                this.goToPrevPage();
+            });
+        }
+        if((this.firstLineShown + LINES_PER_PAGE) < this.conversation.getLines().length) {
+            this.paginationButtonDown = new InventoryPaginationButton({
+                type: PaginationButtonType.DOWN,
+                layer: uiLayers.conversation
+            });
+            this.paginationButtonDown.subscribeToClick(() => {
+                this.goToNextPage();
+            });
+        }
+    }
+
+    private goToPrevPage(): void {
+        this.firstLineShown--;
+        this.destroyOldLines();
+        this.createNewLines();
+    }
+
+    private goToNextPage(): void {
+        this.firstLineShown++;
+        this.destroyOldLines();
+        this.createNewLines();
+    }
+
+    private destroyPaginationButtons(): void {
+        if(this.paginationButtonUp) {
+            this.paginationButtonUp.destroy();
+            this.paginationButtonUp = null;
+        }
+
+        if(this.paginationButtonDown) {
+            this.paginationButtonDown.destroy();
+            this.paginationButtonDown = null;
+        }
     }
 
     

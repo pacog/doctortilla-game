@@ -1,6 +1,7 @@
 import { Player } from '../models/Player';
 import { Thing } from '../models/Thing';
 import { TextInScene } from './TextInScene';
+import { label } from '../stores/Labels.store';
 
 interface ISpeechBubbleOptions {
     owner: Player | Thing
@@ -13,10 +14,9 @@ export class SpeechBubble {
     constructor(private options: ISpeechBubbleOptions) {}
 
     say(text: string): Promise<void> {
-        //TODO handle animations
         this.destroyPrevText();
         this.textBeingSaid = new TextInScene({
-            text: text,
+            text: label(text),
             position: this.options.owner.getPositionOnTop(),
             autoDestroy: true
         });

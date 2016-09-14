@@ -42,11 +42,17 @@ export abstract class Game {
         this.updateWorldBounds();
         this.camera = new GameCamera(this.player);
         this.graphicUI = new GraphicUI();
+        if(this.onStart) {
+            this.onStart();
+        }
     }
 
     update(): void {
         this.camera.updatePosition();
     }
+
+    //To override in child classes
+    protected onStart(): void {}
 
     private createScenes(options: IGameOptions): void {
         scenes.init(options.scenes);

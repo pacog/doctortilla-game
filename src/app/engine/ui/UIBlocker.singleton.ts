@@ -5,9 +5,14 @@ import { uiLayers } from './UILayers.singleton';
 
 class UIBlocker {
 
-    overlay: Phaser.Image;
+    private overlay: Phaser.Image;
+    private blocked: Boolean;
 
-    block() {
+    constructor() {
+        this.blocked = false;
+    }
+
+    block(): void {
         let graphicOverlay = new Phaser.Graphics(phaserGame.value, 0, 0);
         graphicOverlay.beginFill(0x000000, 0.0);
         graphicOverlay.drawRect(0, 0, layout.WIDTH, layout.UI_START_POSITION.y);
@@ -20,8 +25,12 @@ class UIBlocker {
         uiLayers.uiBlocker.add(this.overlay);
     }
 
-    unblock() {
+    unblock(): void {
         this.overlay.destroy();
+    }
+
+    isBlocked(): Boolean {
+        return this.blocked;
     }
 }
 

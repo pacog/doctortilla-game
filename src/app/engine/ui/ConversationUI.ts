@@ -9,8 +9,10 @@ export class ConversationUI {
 
     private background: Phaser.Sprite;
     private lines: Array<ConversationLineUI>;
+    private uiBlockerWasBlockedBefore: Boolean;
 
     constructor(private conversation: Conversation) {
+        this.uiBlockerWasBlockedBefore = uiBlocker.isBlocked();
         uiBlocker.block();
         this.lines = [];
         this.createBackground();
@@ -20,7 +22,9 @@ export class ConversationUI {
     destroy(): void {
         this.destroyOldLines();
         this.background.destroy();
-        uiBlocker.unblock();
+        if(!this.uiBlockerWasBlockedBefore) {
+            uiBlocker.unblock();
+        }
     }
 
     private createBackground(): void {

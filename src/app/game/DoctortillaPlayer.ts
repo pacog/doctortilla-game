@@ -21,8 +21,8 @@ spriteOptions.set('talk_down', { frames: [27, 28, 29, 30, 31, 32]});
 
 const options = {
     spriteId: 'DOCTORTILLA_PLAYER_SPRITE',
-    initialX: 200,
-    initialY: 200,
+    initialX: 93,
+    initialY: 184,
     xSpeed: 80, //px/s
     ySpeed: 55, //px/s
     animationSpeed: style.DEFAULT_ANIMATION_SPEED,

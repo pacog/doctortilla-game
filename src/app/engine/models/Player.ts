@@ -91,6 +91,15 @@ export abstract class Player {
         });
     }
 
+    wait(timeMs = 1000): Promise<any> {
+        let deferred = new Promise((resolveCallback) => {
+            setTimeout(() => {
+                resolveCallback();
+            }, timeMs);
+        });
+        return deferred;
+    }
+
     getPositionOnTop(): IPoint{
         var result = {
             x: this.sprite.x,

@@ -6,6 +6,7 @@ import { IPoint } from '../utils/Interfaces';
 import { phaserGame } from '../state/PhaserGame.singleton';
 import { uiLayers } from './UILayers.singleton';
 import { TextWithShadow } from './TextWithShadow';
+import { label } from '../stores/Labels.store';
 
 export class ConversationLineUI {
 
@@ -66,7 +67,7 @@ export class ConversationLineUI {
             y: this.position.y + layout.CONVERSATION_LINE_PADDING_Y
         };
         this.text = new TextWithShadow({
-            initialText: this.lineText,
+            initialText: label(this.lineText),
             position: position,
             fixedToCamera: true,
             layer: uiLayers.conversation

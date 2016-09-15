@@ -180,9 +180,13 @@ export abstract class Thing {
         let promise = new Promise((resolve, reject) => {
             if(this.options.spriteOptions.has(animationName)) {
                 this.sprite.animations.play(animationName, null, false); //False so it does not loop
-                this.sprite.animations.currentAnim.onComplete.add(() => {
+                if(this.sprite.animations.currentAnim && this.sprite.animations.currentAnim.onComplete) {
+                    this.sprite.animations.currentAnim.onComplete.add(() => {
+                        resolve();
+                    });
+                } else {
                     resolve();
-                });
+                }
             } else {
                 reject();
             }

@@ -93,6 +93,13 @@ export class Bili extends Thing {
         this.playAnimationSometime();
     }
 
+    protected giveAction(player: DoctortillaPlayer): void {
+        player.say('THE_ONLY_THING_HE_WANTS_RIGHT_NOW_IS_BEER')
+            .then(() => {
+                return player.say('AND_I_AM_NOT_GOING_TO_GIVE_HIM_ANY');
+            });
+    }
+
     //Duplicated in Balloon, if we add more objects like this, consider moving to Thing model
     private playAnimationSometime(): void {
         this.playAnimation('quiet');

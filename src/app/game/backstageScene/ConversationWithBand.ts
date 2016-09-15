@@ -159,7 +159,7 @@ function sayCostumeIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<an
                     band.changeAttr('HAS_COSTUME', true);
                     player.changeAttr('DELIVERED_COSTUME', true);
                     player.removeCostume();
-                    return player.say('OK_I_LL_PUT_IT_ON');
+                    return band.say('OK_I_LL_PUT_IT_ON', 'juan');
                 });
 }
 

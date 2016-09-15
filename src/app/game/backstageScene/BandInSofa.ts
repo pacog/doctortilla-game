@@ -6,6 +6,7 @@ import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { Directions } from '../../engine/utils/Directions';
 import { style } from '../../engine/ui/Style';
 import { randomText } from '../../engine/utils/RandomText';
+import { selectedThing } from '../../engine/state/SelectedObjects';
 
 let spriteOptions = new Map();
 
@@ -48,9 +49,7 @@ export class BandInSofa extends Thing {
     }
 
     speakAction(player: DoctortillaPlayer): void {
-        player.goToThing(this).then(
-            () => new ConversationWithBand(player, this)
-        );
+        this.startConversation(player);
     }
 
     say(text: string, who: string): Promise<void> {
@@ -58,5 +57,32 @@ export class BandInSofa extends Thing {
         return this.speechBubble.say(text).then(() => {
             this.playAnimation('quiet');
         });
+    }
+
+    protected giveAction(player: DoctortillaPlayer): void {
+        var thing = selectedThing.thing;
+        if (thing.id === 'cable') {
+            this.startConversation(player);
+        } else if (thing.id === 'glass') {
+            if(thing.getAttr('FILLED') && thing.getAttr('POWDER_INSIDE')) {
+                this.startConversation(player);
+            } else {
+                player.say('I_SHOULD_PUT_SOMETHING_MORE_INTERESTING_IN_THE_GLASS');
+            }
+        } else if (thing.id === 'costume') {
+            if(player.getAttr('COSTUME_COMPLETE')) {
+                this.startConversation(player);
+            } else {
+                player.say('I_HAVE_TO_FINISH_THE_COSTUME_FIRST');
+            }
+        } else {
+            super.useAction(player);
+        }
+    }
+
+    private startConversation(player: DoctortillaPlayer) : void {
+        player.goToThing(this).then(
+            () => new ConversationWithBand(player, this)
+        );
     }
 }

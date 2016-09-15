@@ -16,5 +16,4 @@ export class Coin extends Thing {
         player.say('I_AM_NOT_RICH_BUT_IT_IS_A_START');
     }
 
-
 }

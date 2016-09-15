@@ -3,6 +3,7 @@ import { randomText } from '../engine/utils/RandomText';
 import { Coin } from './BackstageScene/Coin';
 import { activeInventory } from '../engine/state/ActiveInventory.singleton';
 import { style } from '../engine/ui/Style';
+import { scenes } from '../engine/state/Scenes.singleton';
 
 let spriteOptions = new Map();
 
@@ -79,6 +80,13 @@ export class DoctortillaPlayer extends Player {
 
     deliveredEverything(): Boolean {
         return this.getAttr('DELIVERED_CABLE') && this.getAttr('DELIVERED_COSTUME') && this.getAttr('DELIVERED_DRINK');
+    }
+
+    protected onStateChange() {
+        if(this.deliveredEverything()) {
+            let bili = scenes.getSceneById('BACKYARD').getThingById('bili');
+            bili.changeAttr('DRUNK', true);
+        }
     }
 
 }

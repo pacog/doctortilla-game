@@ -4,6 +4,7 @@ import { SpeechBubble } from '../../engine/ui/SpeechBubble';
 import { ConversationWithBili } from './ConversationWithBili';
 import { Directions } from '../../engine/utils/Directions';
 import { style } from '../../engine/ui/Style';
+import { randomText } from '../../engine/utils/RandomText';
 
 let spriteOptions = new Map();
 
@@ -17,7 +18,7 @@ let options = {
     x: 265,
     y: 121,
     spriteId: 'BILI_SPRITE',
-    name: 'bili',
+    name: 'BILI',
     goToPosition: {
         x: 239,
         y: 185
@@ -44,8 +45,29 @@ export class Bili extends Thing {
         
     }
 
+    get name() {
+        if (this.getAttr('DRUNK')) {
+            return 'DRUNK_BILI';
+        } else {
+            return 'BILI';
+        }
+    }
+
     protected lookAction(player: DoctortillaPlayer): void {
-        player.say('El bili!');
+        if (this.getAttr('DRUNK')) {
+            player.say(randomText(
+                'HE_IS_DRUNK_AS_A_SKUNK',
+                'PROBABLY_IF_I_SCARE_HIM_HE_WILL_WAKE_UP',
+                'I_HAVE_TO_FIND_A_WAY_TO_SOBER_HIM_UP'
+            ));
+        } else {
+            player.say(randomText(
+                'HE_IS_DRINKING_LIKE_A_MANIAC',
+                'ALL_IN_ALL_HE_IS_A_GOOD_GUY',
+                'NICE_COSTUME_HE_MADE'
+            ));
+        }
+        
     }
 
     protected speakAction(player: DoctortillaPlayer): void {

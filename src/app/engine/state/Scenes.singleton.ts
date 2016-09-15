@@ -15,6 +15,10 @@ class ScenesSet {
         return this._currentScene;
     }
 
+    getSceneById(id: string): Scene {
+        return this.scenes.get(id);
+    }
+
     setCurrentSceneById(newCurrentSceneId: string): void {
         this.destroyCurrentScene();
         let scene = this.scenes.get(newCurrentSceneId);

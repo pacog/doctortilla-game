@@ -7,7 +7,7 @@ export class Can extends Thing {
         let options = {
             id: 'can',
             inventoryImageId: 'CAN_INV',
-            name: 'can',
+            name: 'CAN',
             directlyInInventory: true
         };
         super(options);
@@ -15,13 +15,12 @@ export class Can extends Thing {
 
     protected useAction(player: Player): void {
         if (selectedThing.thing.id === 'glass') {
-            // TODO: glass class and casting
-            // let glass = selectedThing.thing;
-            // glass.fillWithDrink(player, this);
+            let glass = <any> selectedThing.thing;
+            glass.fillWithDrink(player, this);
         } else if (selectedThing.thing.id === 'dust') {
-            player.say('I should probably mix it in a glass');
+            player.say('I_SHOULD_PROBABLY_MIX_IT_IN_A_GLASS');
         } else {
-            player.say('I don\t know how to do that...');
+            super.useAction(player);
         }
     }
 

@@ -7,7 +7,7 @@ const options = {
     id: 'skirt',
     spriteId: 'skirt',
     inventoryImageId: 'SKIRT',
-    name: 'skirt',
+    name: 'SKIRT',
     directlyInInventory: true
 };
 
@@ -18,7 +18,7 @@ export class Skirt extends Thing {
     }
 
     protected lookAction(player: DoctortillaPlayer): void {
-        player.say('I am sensing some costume here');
+        player.say('YEP_I_COULD_BUILD_A_COSTUME_WITH_THIS');
     }
 
     protected useAction(player: DoctortillaPlayer): void {
@@ -36,7 +36,7 @@ export class Skirt extends Thing {
             costumeCreator.addSkirt(player);
             this.destroy();
         } else {
-            player.say('I don\'t know how to do that');
+            super.useAction(player);
         }
     }
 

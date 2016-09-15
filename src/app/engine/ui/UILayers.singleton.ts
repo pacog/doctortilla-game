@@ -83,7 +83,6 @@ class UILayersManager {
     private createLayers(game: Phaser.Game): void {
         this.groups = new Map();
 
-        //TODO: do this with a loop
         this.groups.set(UILayers.BACKGROUND, game.add.group());
         this.groups.set(UILayers.BACKGROUND_OBJECTS, game.add.group());
         this.groups.set(UILayers.PLAYER, game.add.group());

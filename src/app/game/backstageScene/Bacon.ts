@@ -5,7 +5,7 @@ const options = {
     id: 'bacon',
     spriteId: 'BACON',
     inventoryImageId: 'BACON_INV',
-    name: 'bacon',
+    name: 'BACON',
     directlyInInventory: true
 }
 
@@ -15,6 +15,6 @@ export class Bacon extends Thing {
     }
 
     lookAction(player: Player): void {
-        player.say('Delicious and GREASY!');
+        player.say('DELICIOUS_AND_GREASY');
     }
 }

@@ -13,7 +13,7 @@ const options = {
     y: 130,
     spriteId: 'COSTUME_INV_SPRITE',
     inventoryImageId: 'COSTUME_INV_SPRITE',
-    name: 'costume',
+    name: 'COSTUME',
     directlyInInventory: true
 };
 
@@ -24,7 +24,7 @@ export class Costume extends Thing {
 
     protected useAction(player: DoctortillaPlayer): void {
         if (!this.isInInventory()) {
-            player.say('I have to pick it up first');
+            player.say('I_HAVE_TO_PICK_IT_UP_FIRST');
             return;
         }
         if (selectedThing.thing.id === 'coconut') {
@@ -37,13 +37,26 @@ export class Costume extends Thing {
             this.addSkirt(player);
             selectedThing.thing.destroy();
         } else {
-            player.say('I don\t know how to do that...');
+            super.useAction(player);
         }
     }
 
     protected lookAction(player: DoctortillaPlayer): void {
-        //TODO: check different states
-        player.say('Almost done!');
+        if (this.isComplete()) {
+            player.say('I_THINK_MY_MASTERPIECE_IS_COMPLETE')
+                .then(() => {
+                    return player.say('TIME_TO_GIVE_IT_TO_JUAN');
+                });
+        }
+        if (this.getAttr('HAS_COCONUT') && this.getAttr('HAS_FLOWERS')) {
+            player.say('I_SHOULD_ADD_A_SKIRT_TO_IT');
+        }
+        if (this.getAttr('HAS_COCONUT') && this.getAttr('HAS_SKIRT')) {
+            player.say('SOME_FLOWERS_WOULD_BE_NICE');
+        }
+        if (this.getAttr('HAS_SKIRT') && this.getAttr('HAS_FLOWERS')) {
+            player.say('IF_I_ADD_SOME_BOOBS_IT_WILL_LOOK_LIKE_A_HAWAIIAN_DRESS');
+        }
     }
 
     getFrameForInventory(): number {

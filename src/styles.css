@@ -39,3 +39,25 @@ main {
 footer {
   text-align: center;
 }
+
+.mobile-warning {
+    display: none;
+    padding: 20px;
+}
+@media only screen and (max-width: 400px) {
+    .mobile-warning {
+        display: block;
+    }
+    #game {
+        display: none;
+    }
+}
+@media only screen and (max-height: 400px) {
+    .mobile-warning {
+        display: block;
+    }
+    #game {
+        display: none;
+    }
+}
+

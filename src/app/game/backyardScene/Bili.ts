@@ -40,9 +40,10 @@ export class Bili extends Thing {
     constructor() {
         super(options);
         this.speechBubble = new SpeechBubble({
-            owner: this
+            owner: this,
+            foregroundTextStyle: 'FONT_32_YELLOW',
+            shadowTextStyle: 'FONT_32_BLACK'
         });
-        
     }
 
     get name() {

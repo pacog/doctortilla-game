@@ -8,16 +8,18 @@ import { scenes } from '../state/Scenes.singleton';
 interface ITextInSceneOptions {
     text: string,
     position: IPoint,
-    timePerLetter?: number,
+    wordsPerMinute?: number,
     minDestroyTime?: number,
     width?: number,
     autoDestroy?: Boolean,
     anchor?: IPoint,
-    paddingInScreen?: number
+    paddingInScreen?: number,
+    foregroundTextStyle?: string,
+    shadowTextStyle?: string
 }
 
 const DEFAULT_TEXT_OPTIONS = Object.freeze({
-    timePerLetter: 50,
+    wordsPerMinute: 120,
     minDestroyTime: 2000,
     text: '',
     position: { x: 100, y: 100},
@@ -84,9 +86,12 @@ export class TextInScene {
             layer: uiLayers.textInScene,
             initialText: this.textInLines,
             align: 'center',
-            anchor: this.options.anchor
+            anchor: this.options.anchor,
+            foregroundTextStyle: this.options.foregroundTextStyle,
+            shadowTextStyle: this.options.shadowTextStyle
         });
     }
+
 
     private addLinesSeparators(text: string, maxLineLength: number): string {
 
@@ -147,7 +152,8 @@ export class TextInScene {
     }
 
     private getTimeToDestroyFromText(text: string): number {
-        let timeToDestroy = this.options.timePerLetter * text.length;
+        let wordsInText = text.split(' ').length;
+        let timeToDestroy = (1000 * wordsInText * 60) / this.options.wordsPerMinute;
         return Math.max(this.options.minDestroyTime, timeToDestroy);
     }
 

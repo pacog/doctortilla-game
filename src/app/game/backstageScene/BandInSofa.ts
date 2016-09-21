@@ -7,6 +7,7 @@ import { Directions } from '../../engine/utils/Directions';
 import { style } from '../../engine/ui/Style';
 import { randomText } from '../../engine/utils/RandomText';
 import { selectedThing } from '../../engine/state/SelectedObjects';
+import { IPoint } from '../../engine/utils/Interfaces';
 
 let spriteOptions = new Map();
 
@@ -19,6 +20,7 @@ spriteOptions.set('santi_drinking', { frames: [19, 20, 21, 22]});
 export class BandInSofa extends Thing {
 
     private speechBubble: SpeechBubble;
+    private lastPersonTalking: string;
 
     constructor() {
         let options = {
@@ -53,11 +55,32 @@ export class BandInSofa extends Thing {
         this.startConversation(player);
     }
 
-    say(text: string, who: string): Promise<void> {
-        this.playAnimation(who + '_talking');
+    say(text: string, whoTalks: string): Promise<void> {
+        this.playAnimation(whoTalks + '_talking');
+        this.updateSpeechBubbleStyle(whoTalks);
+
         return this.speechBubble.say(text).then(() => {
             this.playAnimation('quiet');
         });
+    }
+
+    getPositionOnTop(): IPoint {
+        var result = {
+            x: this.sprite.x,
+            y: Math.round(this.sprite.getBounds().y) - 10
+        };
+        if(this.lastPersonTalking === 'santi') {
+            result.x += 70;
+            result.y += 10;
+        }
+        if(this.lastPersonTalking === 'angel') {
+            result.x += 30;
+        }
+        if(this.lastPersonTalking === 'juan') {
+            result.x -= 20;
+            result.y += 10;
+        }
+        return result;
     }
 
     protected giveAction(player: DoctortillaPlayer): void {
@@ -80,6 +103,23 @@ export class BandInSofa extends Thing {
             super.useAction(player);
         }
     }
+
+    private updateSpeechBubbleStyle(whoTalks: string): void {
+        this.lastPersonTalking = whoTalks;
+        if(whoTalks === 'santi') {
+            this.speechBubble.setForegroundTextStyle('FONT_32_BLUE');
+            this.speechBubble.setShadowTextStyle('FONT_32_BLACK');
+        }
+        if(whoTalks === 'juan') {
+            this.speechBubble.setForegroundTextStyle('FONT_32_ORANGE');
+            this.speechBubble.setShadowTextStyle('FONT_32_BLACK');
+        }
+        if(whoTalks === 'angel') {
+            this.speechBubble.setForegroundTextStyle('FONT_32_YELLOW');
+            this.speechBubble.setShadowTextStyle('FONT_32_BLACK');
+        }
+    }
+    
 
     private startConversation(player: DoctortillaPlayer) : void {
         player.goToThing(this).then(

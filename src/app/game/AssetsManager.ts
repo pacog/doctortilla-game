@@ -80,7 +80,11 @@ const IMAGES: IImagesInfo = {
 const FONTS: IFontsInfo = {
     'FONT_32_BLACK': ['images/fonts/font_32_black.png', 'images/fonts/font_32_black.fnt'],
     'FONT_32_WHITE': ['images/fonts/font_32_white.png', 'images/fonts/font_32_white.fnt'],
-    'FONT_32_ORANGE': ['images/fonts/font_32_orange.png', 'images/fonts/font_32_orange.fnt']
+    'FONT_32_ORANGE': ['images/fonts/font_32_orange.png', 'images/fonts/font_32_orange.fnt'],
+    'FONT_32_BLUE': ['images/fonts/font_32_blue.png', 'images/fonts/font_32_blue.fnt'],
+    'FONT_32_RED': ['images/fonts/font_32_red.png', 'images/fonts/font_32_red.fnt'],
+    'FONT_32_YELLOW': ['images/fonts/font_32_yellow.png', 'images/fonts/font_32_yellow.fnt'],
+    'FONT_32_PURPLE': ['images/fonts/font_32_purple.png', 'images/fonts/font_32_purple.fnt']
 };
 
 class AssetsManager {

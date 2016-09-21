@@ -8,8 +8,14 @@ interface ITextWithShadowOptions {
     initialText?: string,
     fixedToCamera?: Boolean,
     anchor?: IPoint,
-    align?: string
+    align?: string,
+    foregroundTextStyle?: string,
+    shadowTextStyle?: string
 }
+
+const DEFAULT_FOREGROUND_TEXT = 'FONT_32_WHITE';
+const DEFAULT_SHADOW_TEXT = 'FONT_32_BLACK';
+
 
 export class TextWithShadow {
     private shadowText: Phaser.BitmapText;
@@ -23,7 +29,7 @@ export class TextWithShadow {
         this.shadowText = phaserGame.value.add.bitmapText(
             1 + options.position.x,
             1 + options.position.y,
-            'FONT_32_BLACK',
+            this.shadowTextStyle,
             this.options.initialText || '',
             style.DEFAULT_FONT_SIZE
         );
@@ -39,7 +45,7 @@ export class TextWithShadow {
         this.text = phaserGame.value.add.bitmapText(
             options.position.x,
             options.position.y,
-            'FONT_32_WHITE',
+            this.foregroundTextStyle,
             this.options.initialText || '',
             style.DEFAULT_FONT_SIZE
         );
@@ -65,6 +71,14 @@ export class TextWithShadow {
             this.shadowText.x = newPosition.x + 1;
             this.shadowText.y = newPosition.y + 1;
         }
+    }
+
+    private get foregroundTextStyle(): string {
+        return this.options.foregroundTextStyle || DEFAULT_FOREGROUND_TEXT;
+    }
+
+    private get shadowTextStyle(): string {
+        return this.options.shadowTextStyle || DEFAULT_SHADOW_TEXT;
     }
 
     destroy(): void {

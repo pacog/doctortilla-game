@@ -30,7 +30,9 @@ export class VendingMachine extends Thing {
         };
         super(options);
         this.speechBubble = new SpeechBubble({
-            owner: this
+            owner: this,
+            foregroundTextStyle: 'FONT_32_BLACK',
+            shadowTextStyle: 'FONT_32_PURPLE'
         });
     }
 

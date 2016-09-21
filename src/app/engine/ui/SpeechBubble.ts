@@ -4,7 +4,9 @@ import { TextInScene } from './TextInScene';
 import { label } from '../stores/Labels.store';
 
 interface ISpeechBubbleOptions {
-    owner: Player | Thing
+    owner: Player | Thing,
+    foregroundTextStyle?: string,
+    shadowTextStyle?: string
 }
 
 export class SpeechBubble {
@@ -18,7 +20,9 @@ export class SpeechBubble {
         this.textBeingSaid = new TextInScene({
             text: label(text),
             position: this.options.owner.getPositionOnTop(),
-            autoDestroy: true
+            autoDestroy: true,
+            foregroundTextStyle: this.options.foregroundTextStyle,
+            shadowTextStyle: this.options.shadowTextStyle
         });
         return this.textBeingSaid.promise;
     }
@@ -32,6 +36,14 @@ export class SpeechBubble {
             return;
         }
         this.textBeingSaid.setPosition(this.options.owner.getPositionOnTop());
+    }
+
+    setForegroundTextStyle(newStyle: string): void {
+        this.options.foregroundTextStyle = newStyle;
+    }
+
+    setShadowTextStyle(newStyle: string): void {
+        this.options.shadowTextStyle = newStyle;
     }
 
     private destroyPrevText():void {

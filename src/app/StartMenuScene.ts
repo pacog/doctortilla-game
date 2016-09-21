@@ -1,6 +1,7 @@
 import { layout } from './engine/ui/LayoutManager.singleton';
 import { phaser } from './Phaser';
 import { labelsStore } from './engine/stores/Labels.store';
+import { analytics } from './engine/utils/analytics';
 
 export const StartMenuScene = {
     preload: function() {},
@@ -59,11 +60,15 @@ export const StartMenuScene = {
     },
 
     onEnglishButtonClick: function() {
+        analytics.sendEvent('start_menu', 'select_language', 'english');
+        analytics.sendEvent('game', 'start_game');
         labelsStore.setLanguage('en');
         this.game.state.start('play');
     },
 
     onSpanishButtonClick: function() {
+        analytics.sendEvent('start_menu', 'select_language', 'spanish');
+        analytics.sendEvent('game', 'start_game');
         labelsStore.setLanguage('es');
         this.game.state.start('play');
     }

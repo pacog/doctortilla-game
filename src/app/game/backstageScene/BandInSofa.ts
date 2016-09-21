@@ -8,6 +8,7 @@ import { style } from '../../engine/ui/Style';
 import { randomText } from '../../engine/utils/RandomText';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { IPoint } from '../../engine/utils/Interfaces';
+import { analytics } from '../../engine/utils/Analytics';
 
 let spriteOptions = new Map();
 
@@ -52,6 +53,7 @@ export class BandInSofa extends Thing {
     }
 
     speakAction(player: DoctortillaPlayer): void {
+        analytics.sendEvent('game', 'talk_to_band');
         this.startConversation(player);
     }
 

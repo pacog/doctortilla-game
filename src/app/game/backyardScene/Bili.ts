@@ -5,6 +5,7 @@ import { ConversationWithBili } from './ConversationWithBili';
 import { Directions } from '../../engine/utils/Directions';
 import { style } from '../../engine/ui/Style';
 import { randomText } from '../../engine/utils/RandomText';
+import { analytics } from '../../engine/utils/Analytics';
 
 let spriteOptions = new Map();
 
@@ -72,6 +73,7 @@ export class Bili extends Thing {
     }
 
     protected speakAction(player: DoctortillaPlayer): void {
+        analytics.sendEvent('game', 'talk_to_bili');
         player.goToThing(this).then(
             () => new ConversationWithBili(player, this)
         );

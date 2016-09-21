@@ -7,6 +7,7 @@ import { scenes } from '../../engine/state/Scenes.singleton';
 import { Bili } from './Bili';
 import { uiBlocker } from '../../engine/ui/UIBlocker.singleton';
 import { phaserGame } from '../../engine/state/PhaserGame.singleton';
+import { analytics } from '../../engine/utils/Analytics';
 
 let spriteOptions = new Map();
 
@@ -83,6 +84,8 @@ export class Balloon extends Thing {
     }
 
     private explodeBalloon(player: DoctortillaPlayer, bili: Bili): void {
+        analytics.sendEvent('game', 'explode_balloon');
+        analytics.sendEvent('game', 'end_game');
         uiBlocker.block();
         player.goToThing(this)
             .then(() => {
@@ -128,6 +131,7 @@ export class Balloon extends Thing {
                 return player.say('SEE_YOU_SOON');
             })
             .then(() => {
+                analytics.sendEvent('game', 'end_game');
                 uiBlocker.unblock();
                 phaserGame.value.state.start('credits');
             });

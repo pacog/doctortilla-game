@@ -3,6 +3,7 @@ import { layout } from './engine/ui/LayoutManager.singleton';
 import { BootScene } from './BootScene';
 import { PreloaderScene } from './PreloaderScene';
 import { StartMenuScene } from './StartMenuScene';
+import { CreditsScene } from './CreditsScene';
 import { playScene } from './PlayScene';
 import { phaserGame } from './engine/state/PhaserGame.singleton';
 
@@ -15,6 +16,7 @@ window.onload = function() {
     game.state.add('preloader', PreloaderScene);
     game.state.add('startMenu', StartMenuScene);
     game.state.add('play', playScene);
+    game.state.add('credits', CreditsScene);
 
     game.state.start('boot');
 };

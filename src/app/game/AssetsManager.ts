@@ -41,6 +41,7 @@ const IMAGES: IImagesInfo = {
     'UI_CONVERSATION_BG': 'images/ui/UI_CONVERSATION_BG.png',
     'LOGO': 'images/ui/LOGO.png',
     'THE_GAME': 'images/ui/THE_GAME.png',
+    'CREDITS': 'images/ui/CREDITS.png',
 
     // Backstage scene:
     'BACKSTAGE_BG': 'images/backstage/BACKSTAGE_BG.png',

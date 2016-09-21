@@ -6,6 +6,7 @@ import { selectedThing } from '../../engine/state/SelectedObjects';
 import { scenes } from '../../engine/state/Scenes.singleton';
 import { Bili } from './Bili';
 import { uiBlocker } from '../../engine/ui/UIBlocker.singleton';
+import { phaserGame } from '../../engine/state/PhaserGame.singleton';
 
 let spriteOptions = new Map();
 
@@ -92,6 +93,7 @@ export class Balloon extends Thing {
             })
             .then(() => {
                 this.changeAttr('EXPLODED', true);
+                this.explode();
                 return bili.say('I_AM_AWAKE');
             })
             .then(() => {
@@ -127,24 +129,19 @@ export class Balloon extends Thing {
             })
             .then(() => {
                 uiBlocker.unblock();
-                //TODO Go to credits
+                phaserGame.value.state.start('credits');
             });
     }
 
-    protected onStateChange(): void {
-        if (!this.sprite) {
-            return null;
+    private explode(): void {
+        if(this.lastTimeout) {
+            window.clearTimeout(this.lastTimeout);
         }
-        if (this.getAttr('EXPLODED')) {
-            if(this.lastTimeout) {
-                window.clearTimeout(this.lastTimeout);
-            }
-            if(this.sprite.animations.currentAnim) {
-                this.sprite.animations.currentAnim.stop();
-            }
-            this.sprite.frame = EXPLODED_FRAME;
-            this.sprite.animations.stop();
+        if(this.sprite.animations.currentAnim) {
+            this.sprite.animations.currentAnim.stop();
         }
+        this.sprite.frame = EXPLODED_FRAME;
+        this.sprite.animations.stop();
     }
 
 }

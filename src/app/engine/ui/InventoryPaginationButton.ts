@@ -27,6 +27,14 @@ export class InventoryPaginationButton {
         this.createButton();
     }
 
+    hide(): void {
+        this.button.alpha = 0;
+    }
+
+    show(): void {
+        this.button.alpha = 1;
+    }
+
     subscribeToClick(callback: ICallback) {
         this.clickObservable.registerObserver(callback);
     }

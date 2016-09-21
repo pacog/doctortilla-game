@@ -58,8 +58,8 @@ export class InventoryUI {
     }
 
     private createItems(): void {
-
         this.destroyPrevItems();
+        this.makeSurePageIsInsideInv();
 
         let index = 0;
         let arrayOfThings = Array.from(this.currentInventory.items);
@@ -74,6 +74,22 @@ export class InventoryUI {
             );
             index += 1;
         }
+
+        this.showOrHideNavButtons();
+    }
+
+    private showOrHideNavButtons(): void {
+        if(this.canGoToPrevPage()) {
+            this.paginationButtonUp.show();
+        } else {
+            this.paginationButtonUp.hide();
+        }
+
+        if(this.canGoToNextPage()) {
+            this.paginationButtonDown.show();
+        } else {
+            this.paginationButtonDown.hide();
+        }
     }
 
     private destroyPrevItems(): void {
@@ -82,15 +98,29 @@ export class InventoryUI {
     }
 
     private goToNextPage(): void {
-        if(this.currentInventory.items.size >= (ITEMS_PER_PAGE * (this.currentPage + 1))) {
+        if(this.canGoToNextPage()) {
             this.currentPage++;
             this.createItems();
         }
-        
+    }
+
+    private canGoToPrevPage(): Boolean {
+        return this.currentPage > 0;
+    }
+
+    private canGoToNextPage(): Boolean {
+        return this.currentInventory.items.size > (ITEMS_PER_PAGE * (this.currentPage + 1));
+    }
+
+    private makeSurePageIsInsideInv(): void {
+        let firstPageElement = ITEMS_PER_PAGE * this.currentPage;
+        if(firstPageElement >= this.currentInventory.items.size) {
+            this.currentPage = 0;
+        }
     }
 
     private goToPrevPage(): void {
-        if(this.currentPage > 0) {
+        if(this.canGoToPrevPage()) {
             this.currentPage--;
             this.createItems();
         }

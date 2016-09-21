@@ -10,7 +10,6 @@ body {
   font-size: 1.6rem;
   background: black;
   color: #eef;
-  padding-top: 20px;
 }
 
 a {
@@ -20,6 +19,14 @@ a {
 main {
   margin: 2rem 0;
   text-align: center;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 #game {
@@ -44,12 +51,50 @@ footer {
     display: none;
     padding: 20px;
 }
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+  .social-links a {
+      color: #f5b824;
+  }
+  .social-links a:hover {
+    background: #d19c1f;
+    color: white;
+  }
+  .social-links a:hover:visited {
+    background: #d19c1f;
+    color: white;
+  }
+  .social-links a:active {
+      color: #bd8d1c;
+  }
+  .social-links a:visited {
+      color: #d19c1f;
+  }
+  .social-link {
+    padding: 0 15px;
+    border-right: 1px solid white;
+  }
+  .social-link:last-child {
+    border-right: 0;
+  }
+
 @media only screen and (max-width: 400px) {
     .mobile-warning {
         display: block;
     }
     #game {
         display: none;
+    }
+    .social-links {
+      flex-direction: column;
+    }
+    .social-link {
+      border-right: 0;
     }
 }
 @media only screen and (max-height: 400px) {
@@ -58,6 +103,12 @@ footer {
     }
     #game {
         display: none;
+    }
+    .social-links {
+      flex-direction: column;
+    }
+    .social-link {
+      border-right: 0;
     }
 }
 

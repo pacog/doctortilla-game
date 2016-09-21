@@ -241,8 +241,12 @@ function sayCableIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any>
 }
 
 function sayDrinkIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
-    return band.say('MMM_A_REFRESHING_BEVERAGE', 'santi')
+    return player.playAnimationOnce('give_glass')
                 .then(() => {
+                    return band.say('MMM_A_REFRESHING_BEVERAGE', 'santi');
+                })
+                .then(() => {
+                    //TODO: play drinking animation, Q.all so both finish
                     return band.say('GULP_GULP_GULP', 'santi');
                 })
                 .then(() => {

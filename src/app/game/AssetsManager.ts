@@ -19,7 +19,7 @@ const SPRITES: ISpritesInfo = {
     'SPANISH_BUTTON': ['images/ui/SPANISH_BUTTON.png', 136, 27, 3],
 
     // PLAYER
-    'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 33],
+    'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 41],
     
     // BACKSTAGE
     'VENDING_MACHINE_SPRITE': ['images/backstage/VENDING_MACHINE_SPRITE.png', 49, 72, 3],
@@ -31,7 +31,7 @@ const SPRITES: ISpritesInfo = {
     //Backyard
     'BACKYARD_DOOR_TO_BACKSTAGE_SPRITE': ['images/backyard/BACKYARD_DOOR_TO_BACKSTAGE_SPRITE.png', 31, 104, 2],
     'BILI_SPRITE': ['images/backyard/BILI_SPRITE.png', 43, 70, 24],
-    'BALLOON_SPRITE': ['images/backyard/BALLOON_SPRITE.png', 28, 59, 6]
+    'BALLOON_SPRITE': ['images/backyard/BALLOON_SPRITE.png', 28, 59, 10]
 };
 
 const IMAGES: IImagesInfo = {

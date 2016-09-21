@@ -9,8 +9,10 @@ import { uiBlocker } from '../../engine/ui/UIBlocker.singleton';
 
 let spriteOptions = new Map();
 
-spriteOptions.set('quiet', { frames: [1]});
-spriteOptions.set('floating', { frames: [1, 2, 3, 4, 5, 6]});
+spriteOptions.set('quiet', { frames: [0]});
+spriteOptions.set('floating', { frames: [0, 1, 2, 3, 4, 5]});
+spriteOptions.set('explode', { frames: [6, 8, 9]});
+const EXPLODED_FRAME = 9;
 
 const options = {
     id: 'balloon',
@@ -31,6 +33,8 @@ const MIN_TIME_FOR_ANIMATION = 300;
 const MAX_TIME_FOR_ANIMATION = 5000;
 
 export class Balloon extends Thing {
+
+    private lastTimeout: number;
 
     constructor() {
         super(options);
@@ -63,12 +67,14 @@ export class Balloon extends Thing {
     }
 
     private playAnimationSometime(): void {
-        this.playAnimation('quiet');
-        setTimeout(() => {
-            this.playAnimationOnce('floating').then(() => {
-                this.playAnimationSometime();
-            });
-        }, this.getTimeForNextAnimation());
+        if (!this.getAttr('EXPLODED')) {
+            this.playAnimation('quiet');
+            this.lastTimeout = setTimeout(() => {
+                this.playAnimationOnce('floating').then(() => {
+                    this.playAnimationSometime();
+                });
+            }, this.getTimeForNextAnimation());
+        }
     }
 
     private getTimeForNextAnimation(): number {
@@ -78,12 +84,12 @@ export class Balloon extends Thing {
     private explodeBalloon(player: DoctortillaPlayer, bili: Bili): void {
         uiBlocker.block();
         player.goToThing(this)
-            // .then(() => {
-            //     return player.playAnimationOnce('explode_balloon');
-            // })
-            // .then(() => {
-            //     return this.playAnimationOnce('explode');
-            // })
+            .then(() => {
+                return player.playAnimationOnce('pierce_balloon');
+            })
+            .then(() => {
+                return this.playAnimationOnce('explode');
+            })
             .then(() => {
                 this.changeAttr('EXPLODED', true);
                 return bili.say('I_AM_AWAKE');
@@ -125,7 +131,20 @@ export class Balloon extends Thing {
             });
     }
 
-    //TODO: create animation
-    //TODO: react to state change
+    protected onStateChange(): void {
+        if (!this.sprite) {
+            return null;
+        }
+        if (this.getAttr('EXPLODED')) {
+            if(this.lastTimeout) {
+                window.clearTimeout(this.lastTimeout);
+            }
+            if(this.sprite.animations.currentAnim) {
+                this.sprite.animations.currentAnim.stop();
+            }
+            this.sprite.frame = EXPLODED_FRAME;
+            this.sprite.animations.stop();
+        }
+    }
 
 }

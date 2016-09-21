@@ -19,6 +19,8 @@ spriteOptions.set('talk_up', { frames: [14]});
 spriteOptions.set('stand_down', { frames: [7]});
 spriteOptions.set('walk_down', { frames: [8, 9, 10, 11, 12, 13]});
 spriteOptions.set('talk_down', { frames: [27, 28, 29, 30, 31, 32]});
+spriteOptions.set('give_glass', { frames: [34, 35, 36, 37]});
+spriteOptions.set('pierce_balloon', { frames: [38, 39, 40, 41]});
 
 const options = {
     spriteId: 'DOCTORTILLA_PLAYER_SPRITE',

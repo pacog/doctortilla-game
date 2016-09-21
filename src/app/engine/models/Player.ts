@@ -150,6 +150,24 @@ export abstract class Player {
         this.flipXIfNeeded(spriteState);
     }
 
+    playAnimationOnce(animationName: string): Promise<any> {
+        let promise = new Promise((resolve, reject) => {
+            if(this.options.spriteOptions.has(animationName)) {
+                this.sprite.animations.play(animationName, null, false); //False so it does not loop
+                if(this.sprite.animations.currentAnim && this.sprite.animations.currentAnim.onComplete) {
+                    this.sprite.animations.currentAnim.onComplete.add(() => {
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            } else {
+                reject();
+            }
+        });
+        return promise;
+    }
+
     updateOnTweenMove(): void {
         if(this.speechBubble.isShown()) {
             this.speechBubble.updatePosition();

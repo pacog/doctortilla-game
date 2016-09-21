@@ -3,7 +3,6 @@ import { DoctortillaPlayer } from '../DoctortillaPlayer';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { costumeCreator } from '../utils/CostumeCreator';
 import { randomText } from '../../engine/utils/RandomText';
-import { scenes } from '../../engine/state/Scenes.singleton';
 
 const options = {
     id: 'coconut',
@@ -27,10 +26,6 @@ export class Coconut extends Thing {
     }
 
     protected lookAction(player: DoctortillaPlayer): void {
-
-        let bili = scenes.getSceneById('BACKYARD').getThingById('bili');
-        bili.changeAttr('DRUNK', true);
-
         if (this.isInInventory()) {
             player.say('DOES_IT_LOOK_LIKE_A_PAIR_OF_TITS');
         } else {

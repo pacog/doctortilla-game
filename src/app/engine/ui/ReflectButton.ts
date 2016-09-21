@@ -21,7 +21,7 @@ export class ReflectButton {
         let button = phaserGame.value.add.button(
             this.position.x,
             this.position.y,
-            'BUTTON_BG',
+            'REFLECT_BUTTON_BG',
             this.onClick,
             this,
             1,
@@ -29,7 +29,6 @@ export class ReflectButton {
             2,
             1
         );
-        button.scale.y = 3;
         uiLayers.verbButtons.add(button);
         button.fixedToCamera = true;
     }

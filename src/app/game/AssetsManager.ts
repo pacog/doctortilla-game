@@ -13,6 +13,7 @@ interface IFontsInfo {
 const SPRITES: ISpritesInfo = {
     // UI
     'BUTTON_BG': ['images/ui/BUTTON_BG_SPRITE.png',75, 18, 3],
+    'REFLECT_BUTTON_BG': ['images/ui/REFLECT_BUTTON_BG_SPRITE.png', 75, 56, 3],
     'CONVERSATION_LINE_BG': ['images/ui/CONVERSATION_LINE_BG.png', 508, 20],
     'PAGINATION_BUTTON_UP': ['images/ui/PAGINATION_BUTTON_UP.png', 16, 25, 4],
     'ENGLISH_BUTTON': ['images/ui/ENGLISH_BUTTON.png', 136, 27, 3],

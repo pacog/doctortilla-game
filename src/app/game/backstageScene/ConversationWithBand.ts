@@ -243,11 +243,11 @@ function sayCableIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any>
 function sayDrinkIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
     return player.playAnimationOnce('give_glass')
                 .then(() => {
+                    player.playStandAnimation();
                     return band.say('MMM_A_REFRESHING_BEVERAGE', 'santi');
                 })
                 .then(() => {
-                    //TODO: play drinking animation, Q.all so both finish
-                    return band.say('GULP_GULP_GULP', 'santi');
+                    return band.playAnimationOnce('santi_drinking');
                 })
                 .then(() => {
                     return player.wait(2000);

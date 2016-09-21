@@ -14,6 +14,7 @@ spriteOptions.set('quiet', { frames: [0]});
 spriteOptions.set('juan_talking', { frames: [1, 2, 3, 4, 5, 6]});
 spriteOptions.set('angel_talking', { frames: [7, 8, 9, 10, 11, 12]});
 spriteOptions.set('santi_talking', { frames: [13, 14, 15, 16, 17, 18]});
+spriteOptions.set('santi_drinking', { frames: [19, 20, 21, 22]});
 
 export class BandInSofa extends Thing {
 

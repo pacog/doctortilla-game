@@ -2,6 +2,10 @@ interface IImagesInfo {
     [index : string] : string;
 };
 
+interface IAudioInfo {
+    [index : string] : string;
+};
+
 interface ISpritesInfo {
     [index : string] : (string|number)[];
 };
@@ -89,12 +93,17 @@ const FONTS: IFontsInfo = {
     'FONT_32_PURPLE': ['images/fonts/font_32_purple.png', 'images/fonts/font_32_purple.fnt']
 };
 
+const AUDIO: IAudioInfo = {
+    'SONG1': 'sounds/alli_donde_game.ogg'
+};
+
 class AssetsManager {
 
     loadAssets(game: Phaser.Game): void {
         this.loadImages(game);
         this.loadSprites(game);
         this.loadFonts(game);
+        this.loadSounds(game);
     }
 
     private loadImages(game: Phaser.Game): void {
@@ -122,6 +131,12 @@ class AssetsManager {
                 FONTS[fontKey][0],
                 FONTS[fontKey][1]
             );
+        }
+    }
+
+    private loadSounds(game: Phaser.Game): void {
+        for (let soundKey in AUDIO) {
+            game.load.audio(soundKey, AUDIO[soundKey]);
         }
     }
 

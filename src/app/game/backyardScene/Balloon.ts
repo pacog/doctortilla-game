@@ -7,7 +7,7 @@ import { scenes } from '../../engine/state/Scenes.singleton';
 import { Bili } from './Bili';
 import { uiBlocker } from '../../engine/ui/UIBlocker.singleton';
 import { phaserGame } from '../../engine/state/PhaserGame.singleton';
-import { analytics } from '../../engine/utils/Analytics';
+import { analytics } from '../../engine/utils/analytics';
 
 let spriteOptions = new Map();
 

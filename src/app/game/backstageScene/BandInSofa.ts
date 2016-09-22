@@ -8,7 +8,7 @@ import { style } from '../../engine/ui/Style';
 import { randomText } from '../../engine/utils/RandomText';
 import { selectedThing } from '../../engine/state/SelectedObjects';
 import { IPoint } from '../../engine/utils/Interfaces';
-import { analytics } from '../../engine/utils/Analytics';
+import { analytics } from '../../engine/utils/analytics';
 
 let spriteOptions = new Map();
 

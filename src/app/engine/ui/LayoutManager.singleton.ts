@@ -33,6 +33,11 @@ const LANGUAGE_BUTTON_SIZE: IPoint = {
     y: 27
 };
 
+const SOUND_BUTTON_SIZE: IPoint = {
+    x: 36,
+    y: 36
+};
+
 class LayoutManager {
 
     LAYOUT_WIDTH: number = 1066;
@@ -124,7 +129,7 @@ class LayoutManager {
         return this.getInventoryPositionFromRowAndColumn(row, column);
     }
 
-    getReflectButtonPosition() {
+    getReflectButtonPosition(): IPoint {
         return {
             x: this.LAYOUT_DEFAULT_MARGIN,
             y: this.VERBS_Y_START + this.LAYOUT_DEFAULT_MARGIN
@@ -135,6 +140,13 @@ class LayoutManager {
         return {
             height: this.VERBS_HEIGHT,
             width: this.REFLECT_BUTTON_WIDTH
+        };
+    }
+
+    getSoundButtonPosition(): IPoint {
+        return {
+            x: this.WIDTH - SOUND_BUTTON_SIZE.x - this.LAYOUT_DEFAULT_MARGIN,
+            y: this.LAYOUT_DEFAULT_MARGIN
         };
     }
 

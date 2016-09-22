@@ -4,6 +4,7 @@ import { VerbsUI } from './VerbsUI';
 import { CurrentActionUI } from './CurrentActionUI';
 import { InventoryUI } from './InventoryUI';
 import { ReflectButton } from './ReflectButton';
+import { SoundButtonsUI } from './SoundButtons';
 
 export class GraphicUI {
 
@@ -13,6 +14,7 @@ export class GraphicUI {
         new CurrentActionUI();
         new InventoryUI();
         new ReflectButton();
+        new SoundButtonsUI();
     }
 
     private createBackground(): void {

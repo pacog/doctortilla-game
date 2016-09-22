@@ -12,7 +12,8 @@ enum UILayers {
     GUI_BACKGROUND,
     VERB_BUTTONS,
     CONVERSATION,
-    UI_BLOCKER
+    UI_BLOCKER,
+    SOUND_BUTTONS
 }
 
 class UILayersManager {
@@ -80,6 +81,11 @@ class UILayersManager {
         return this.groups.get(UILayers.UI_BLOCKER);
     }
 
+    get soundButtons(): Phaser.Group {
+        this.init();
+        return this.groups.get(UILayers.SOUND_BUTTONS);
+    }
+
     private createLayers(game: Phaser.Game): void {
         this.groups = new Map();
 
@@ -93,6 +99,7 @@ class UILayersManager {
         this.groups.set(UILayers.VERB_BUTTONS, game.add.group());
         this.groups.set(UILayers.CONVERSATION, game.add.group());
         this.groups.set(UILayers.UI_BLOCKER, game.add.group());
+        this.groups.set(UILayers.SOUND_BUTTONS, game.add.group());
     }
 }
 

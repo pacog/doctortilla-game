@@ -22,6 +22,8 @@ const SPRITES: ISpritesInfo = {
     'PAGINATION_BUTTON_UP': ['images/ui/PAGINATION_BUTTON_UP.png', 16, 25, 4],
     'ENGLISH_BUTTON': ['images/ui/ENGLISH_BUTTON.png', 136, 27, 3],
     'SPANISH_BUTTON': ['images/ui/SPANISH_BUTTON.png', 136, 27, 3],
+    'ENABLE_BUTTON_BG': ['images/ui/ENABLE_SOUND_BUTTON.png', 36, 36, 3],
+    'DISABLE_BUTTON_BG': ['images/ui/DISABLE_SOUND_BUTTON.png', 36, 36, 3],
 
     // PLAYER
     'DOCTORTILLA_PLAYER_SPRITE': ['images/player/DOCTORTILLA_PLAYER_SPRITE.png', 44, 61, 41],

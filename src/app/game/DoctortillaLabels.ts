@@ -102,6 +102,7 @@ export const DOCTORTILLA_LABELS: ILabels = {
         'I_SHOULD_PROBABLY_MIX_IT_IN_A_GLASS': 'I should probably mix it in a glass.',
         'I_SHOULD_PUT_SOMETHING_MORE_INTERESTING_IN_THE_GLASS': 'I should put something more interesting in the glass before giving it to them.',
         'I_SHOULD_SOBER_BILI_UP': 'I should sober Bili up so we can play.',
+        'I_SHOULD_TAKE_THE_BACON_OUT_OF_THE_BREAD_FIRST': 'I should take the bacon out of the bread first',
         'I_THINK_I_CAN_OPEN_IT_AND_TAKE_THE_BACON': 'I think I can open it and take the bacon.',
         'I_THINK_MY_MASTERPIECE_IS_COMPLETE': 'I think my masterpiece is complete.',
         'I_WILL_WAIT_FOR_THEM_TO_BE_SOLVED': 'I will wait for them to be solved automagically.',

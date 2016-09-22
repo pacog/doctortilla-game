@@ -61,6 +61,8 @@ export class VendingMachine extends Thing {
             this.greaseWithBacon(player);
         } else if (selectedThing.thing.id === 'coin') {
             this.getCan(player, selectedThing.thing);
+        } else if (selectedThing.thing.id === 'bocadillo') {
+            player.say('I_SHOULD_TAKE_THE_BACON_OUT_OF_THE_BREAD_FIRST');
         } else {
             player.say('I_DONT_KNOW_HOW_TO_USE_THAT_WITH_VENDING_MACHINE');
         }

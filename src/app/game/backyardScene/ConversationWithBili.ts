@@ -43,7 +43,7 @@ const script: IConversationScript = {
     'drunk': [
         new ConversationLine(
             () => {
-                return 'HEY_BILI_HOW_IS_IT_GOING';
+                return 'HEY_BILI_READY_TO_PLAY';
             },
             'drunk',
             (player: DoctortillaPlayer, bili: Bili) => {

@@ -73,10 +73,14 @@ export class Bili extends Thing {
     }
 
     protected speakAction(player: DoctortillaPlayer): void {
-        analytics.sendEvent('game', 'talk_to_bili');
+        if(this.getAttr('DRUNK')) {
+            player.changeAttr('TALKED_TO_DRUNK_BILI', true);
+        }
+        
         player.goToThing(this).then(
             () => new ConversationWithBili(player, this)
         );
+        analytics.sendEvent('game', 'talk_to_bili');
     }
 
     say(text: string): Promise<void> {

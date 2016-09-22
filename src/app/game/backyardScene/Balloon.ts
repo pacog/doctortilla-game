@@ -13,7 +13,7 @@ let spriteOptions = new Map();
 
 spriteOptions.set('quiet', { frames: [0]});
 spriteOptions.set('floating', { frames: [0, 1, 2, 3, 4, 5]});
-spriteOptions.set('explode', { frames: [6, 8, 9]});
+spriteOptions.set('explode', { frames: [6, 7, 8, 9]});
 const EXPLODED_FRAME = 9;
 
 const options = {
@@ -92,10 +92,11 @@ export class Balloon extends Thing {
                 return player.playAnimationOnce('pierce_balloon');
             })
             .then(() => {
+                this.changeAttr('EXPLODED', true);
+                this.stopEverything();
                 return this.playAnimationOnce('explode');
             })
             .then(() => {
-                this.changeAttr('EXPLODED', true);
                 this.explode();
                 return bili.say('I_AM_AWAKE');
             })
@@ -138,13 +139,17 @@ export class Balloon extends Thing {
     }
 
     private explode(): void {
+        this.sprite.frame = EXPLODED_FRAME;
+        this.sprite.animations.stop();
+    }
+
+    private stopEverything(): void {
         if(this.lastTimeout) {
             window.clearTimeout(this.lastTimeout);
         }
         if(this.sprite.animations.currentAnim) {
             this.sprite.animations.currentAnim.stop();
         }
-        this.sprite.frame = EXPLODED_FRAME;
         this.sprite.animations.stop();
     }
 

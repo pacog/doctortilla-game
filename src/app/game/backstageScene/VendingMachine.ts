@@ -92,6 +92,18 @@ export class VendingMachine extends Thing {
             });
     }
 
+    public lookAction(player: Player): void  {
+        if(!this.getAttr('GREASED')) {
+            player.say('THERE_IS_A_CABLE_STUCK_BEHIND_THE_MACHINE');
+        } else {
+            if (this.getAttr('PUSHED')) {
+                player.say('THIS_IS_YOUR_STANDARD_VENDING_MACHINE');
+            } else {
+                player.say('NOW_I_COULD_PUSH_THIS_MACHINE');
+            }
+        }
+    }
+
     protected onStateChange(): void {
         if (!this.sprite) {
             return null;

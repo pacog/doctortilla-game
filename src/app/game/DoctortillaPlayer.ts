@@ -19,8 +19,8 @@ spriteOptions.set('talk_up', { frames: [14]});
 spriteOptions.set('stand_down', { frames: [7]});
 spriteOptions.set('walk_down', { frames: [8, 9, 10, 11, 12, 13]});
 spriteOptions.set('talk_down', { frames: [27, 28, 29, 30, 31, 32]});
-spriteOptions.set('give_glass', { frames: [34, 35, 36, 37]});
-spriteOptions.set('pierce_balloon', { frames: [38, 39, 40, 41]});
+spriteOptions.set('give_glass', { frames: [33, 34, 35, 36]});
+spriteOptions.set('pierce_balloon', { frames: [37, 38, 39, 40]});
 
 const options = {
     spriteId: 'DOCTORTILLA_PLAYER_SPRITE',
@@ -32,6 +32,7 @@ const options = {
     spriteOptions: spriteOptions
 };
 
+const MIN_REFLECT_ANSWERS = 4;
 
 export class DoctortillaPlayer extends Player {
     constructor() {
@@ -40,10 +41,8 @@ export class DoctortillaPlayer extends Player {
     }
 
     reflect(): void {
-        this.say(randomText('Now I should say something smart that helps',
-            'This is a pretty nice room',
-            'Man, I really want to play that concert',
-            'Probably I should find the rest of the band...'));
+        let possibleReflections = this.getPossibleReflections();
+        this.say(randomText.apply(this, possibleReflections));
     }
 
     hasCompleteCostume(): Boolean {
@@ -91,4 +90,73 @@ export class DoctortillaPlayer extends Player {
         }
     }
 
+    private getPossibleReflections(): Array<string> {
+
+        const FILLERS = [
+            'NOW_I_SHOULD_SAY_SOMETHING_SMART_THAT_HELPS',
+            'WHY_IS_EVERYTHING_SO_PIXELY',
+            'ONE_CONCERT_A_YEAR_IS_TOO_MUCH_PRESSURE',
+            'THINK_PACO_THINK'
+        ];
+
+        let thingsToSay = this.getThingsToSayForSituation();
+
+        return fillArrayWithFillers(thingsToSay, FILLERS);
+    }
+
+    private getThingsToSayForSituation(): Array<string> {
+
+
+        if(!this.getAttr('TALKED_TO_THE_BAND')) {
+            return ['FIRST_OF_ALL_I_SHOULD_TALK_TO_THE_BAND', 'I_WONDER_IF_THE_GUYS_HAVE_EVERYTHING_READY'];
+        }
+
+        if(!this.deliveredEverything()) {
+            let result: Array<string> = [];
+            if(!this.getAttr('DELIVERED_CABLE')) {
+                result.push('WHERE_COULD_I_FIND_A_CABLE');
+                result.push('IS_THAT_A_CABLE_BEHIND_THE_VENDING_MACHINE');
+            }
+            if(!this.getAttr('DELIVERED_COSTUME')) {
+                result.push('MY_GRANDFATHER_SAID_A_COSTUME_MUST_HAVE_3_THINGS');
+                result.push('MAYBE_I_CAN_BUILD_A_COSTUME_MYSELF');
+                result.push('I_COULD_MAKE_A_HAWAIIAN_COSTUME');
+            }
+            if(!this.getAttr('DELIVERED_DRINK')) {
+                result.push('MAYBE_SANTI_NEEDS_SOMETHING_TO_DRINK');
+                result.push('I_BET_THAT_SUSPICIOS_WHITE_POWDER_FROM_THE_TABLE_CAN_MAKE_SOMEBODY_LESS_SHY');
+            }
+            return result;
+        } else {
+            if(this.getAttr('TALKED_TO_DRUNK_BILI')) {
+                return ['I_SHOULD_SOBER_BILI_UP', 'MAYBE_I_CAN_SCARE_HIM_SO_HE_GETS_SOBER'];
+            } else {
+                return ['I_SHOULD_GO_FIND_BILI'];
+            }
+        }
+
+    }
+}
+
+
+function fillArrayWithFillers(arrayToFill: Array<string>, fillers: Array<string>, minSize: number = MIN_REFLECT_ANSWERS): Array<string> {
+    let result = arrayToFill.slice();
+    if((result.length + fillers.length) < minSize) {
+        throw 'ERROR there are not enough fillers.';
+    }
+    let fillersCopy = fillers.slice();
+    while(result.length < minSize) {
+        result.push(extractRandomMemberOfArray(fillersCopy));
+    }
+    return result;
+}
+
+function extractRandomMemberOfArray(mutableArray: Array<string>): string {
+    if(!mutableArray || !mutableArray.length) {
+        throw 'ERROR trying to extract element from empty array';
+    }
+    let randomIndex = Math.floor(Math.random() * mutableArray.length);
+    let result = mutableArray[randomIndex];
+    mutableArray.splice(randomIndex, 1);
+    return result;
 }

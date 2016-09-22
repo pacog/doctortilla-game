@@ -53,6 +53,7 @@ export class BandInSofa extends Thing {
     }
 
     speakAction(player: DoctortillaPlayer): void {
+        player.changeAttr('TALKED_TO_THE_BAND', true);
         analytics.sendEvent('game', 'talk_to_band');
         this.startConversation(player);
     }

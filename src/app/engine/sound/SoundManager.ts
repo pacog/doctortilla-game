@@ -53,7 +53,6 @@ class SoundManager {
         this.destroyCurrentMusic();
         this.music = phaserGame.value.add.audio(songName);
         this.music.onStop.add(() => {
-            console.log('on stop!');
             let nextSong = restOfSongs.shift();
             this.playSong(nextSong, restOfSongs);
         });

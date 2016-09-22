@@ -141,9 +141,11 @@ export class Balloon extends Thing {
     private explode(): void {
         this.sprite.frame = EXPLODED_FRAME;
         this.sprite.animations.stop();
+        this.sprite.frame = EXPLODED_FRAME;
     }
 
     private stopEverything(): void {
+       
         if(this.lastTimeout) {
             window.clearTimeout(this.lastTimeout);
         }

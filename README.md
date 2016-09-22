@@ -3,11 +3,14 @@
 Doctortilla game by
 [pacog](https://github.com/pacog).
 
-[Latest demo deployed](http://pacog.github.io/doctortilla-game/)
+[Play the game](http://pacog.github.io/doctortilla-game/)
 
-Initial scaffolding generated with [generator-gamejam](https://github.com/belen-albeza/generator-gamejam/).
+Initial scaffolding generated with [generator-gamejam](https://github.com/belen-albeza/generator-gamejam/) by [Belén Albeza](https://belenalbeza.com/).
 
-## Installation
+
+
+
+## Running it locally
 
 ### Requirements
 
@@ -29,42 +32,9 @@ cd doctortilla-game
 npm install
 ```
 
-To **build** the game, run the `dist` task from the project root:
+To **run** the game (will detect changes in files and reload the browser):
 
 ```
-gulp dist
-```
-
-The `dist` folder will contain a build of the game. You can then start a local server that serves this directory statically to play the game in local:
-
-```
-npm install -g http-server
-http-server dist
-```
-
-You can **clean up** the temporary files and the `dist` folder by running:
-
-```
-gulp clean
-```
-
-## Development
-
-This project uses [Browserify](http://browserify.org) to handle JavaScript modules.
-
-There is a task that will automatically run Browserify when a JavaScript file changes, and it will also reload the browser.
-
-```
-gulp run
-```
-
-
-
-
-
-You can deploy to **Github Pages** with the `deploy:ghpages` task, which will build the project and then push the `dist` folder in the `gh-pages` branch.
-
-```
-gulp deploy:ghpages
+gulp
 ```
 

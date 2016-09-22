@@ -73,7 +73,6 @@ export class Bili extends Thing {
     }
 
     protected speakAction(player: DoctortillaPlayer): void {
-        debugger;
         analytics.sendEvent('game', 'talk_to_bili');
         player.goToThing(this).then(
             () => new ConversationWithBili(player, this)

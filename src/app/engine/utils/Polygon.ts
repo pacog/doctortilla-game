@@ -128,8 +128,6 @@ export class Polygon {
     }
 
     pointsCanSeeEachOther(pointA: IPoint, pointB: IPoint): Boolean {
-        // debugger;
-
         if(!this.isPointInside(pointA) || !this.isPointInside(pointB)) {
             return false;
         }

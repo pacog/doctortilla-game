@@ -12,14 +12,15 @@ import { VerbsInfo } from '../stores/Verbs.store';
 import { selectedThing } from '../state/SelectedObjects';
 import { scenes } from '../state/Scenes.singleton';
 import { IGoToSceneOptions } from '../utils/Interfaces';
-
+import { sound } from '../sound/SoundManager';
 import { ILabels  } from '../stores/Labels.store';
 
 export interface IGameOptions {
     labels: ILabels,
     player: Player,
     scenes: Array<Scene>,
-    initialSceneId: string
+    initialSceneId: string,
+
 }
 
 interface ISelectThingOptions {
@@ -42,6 +43,7 @@ export abstract class Game {
         this.updateWorldBounds();
         this.camera = new GameCamera(this.player);
         this.graphicUI = new GraphicUI();
+        sound.playMusic();
         if(this.onStart) {
             this.onStart();
         }

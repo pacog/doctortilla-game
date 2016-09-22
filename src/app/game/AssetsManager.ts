@@ -96,7 +96,8 @@ const FONTS: IFontsInfo = {
 };
 
 const AUDIO: IAudioInfo = {
-    'SONG1': 'sounds/alli_donde_game.ogg'
+    'SUBETE': 'sounds/subete_el_midi.ogg',
+    'ALLI_DONDE': 'sounds/alli_donde_game.ogg'
 };
 
 class AssetsManager {

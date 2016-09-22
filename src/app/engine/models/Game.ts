@@ -20,7 +20,7 @@ export interface IGameOptions {
     player: Player,
     scenes: Array<Scene>,
     initialSceneId: string,
-
+    songs?: Array<string>
 }
 
 interface ISelectThingOptions {
@@ -43,7 +43,9 @@ export abstract class Game {
         this.updateWorldBounds();
         this.camera = new GameCamera(this.player);
         this.graphicUI = new GraphicUI();
-        sound.playMusic();
+        if(this.options.songs) {
+            sound.playMusic(this.options.songs);
+        }
         if(this.onStart) {
             this.onStart();
         }

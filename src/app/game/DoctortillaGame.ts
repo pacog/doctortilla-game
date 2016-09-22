@@ -15,7 +15,8 @@ export class DoctortillaGame extends Game {
                 new BackstageScene(),
                 new BackyardScene()
             ],
-            initialSceneId: 'BACKSTAGE'
+            initialSceneId: 'BACKSTAGE',
+            songs: ['ALLI_DONDE', 'SUBETE']
         };
         super(options);
     }

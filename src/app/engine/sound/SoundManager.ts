@@ -12,6 +12,7 @@ class SoundManager {
     private currentVolume: number;
     private on: Boolean;
     private music: Phaser.Sound;
+    private songs: Array<string>;
 
     constructor() {
         this.onChange = new Observable();
@@ -38,14 +39,37 @@ class SoundManager {
         return this.on;
     }
 
-    playMusic(): void {
-        //TODO: receive from params in game
-        this.music = phaserGame.value.add.audio('SONG1');
+    playMusic(songs: Array<string>): void {
+        this.songs = songs.slice();
+        let currentSongs = this.songs.slice();
+        let nextSong :string = currentSongs.shift();
+        this.playSong(nextSong, currentSongs);
+    }
+
+    private playSong(songName: string, restOfSongs: Array<string>): void {
+        if(restOfSongs.length === 0) {
+            restOfSongs = this.songs.slice();
+        }
+        this.destroyCurrentMusic();
+        this.music = phaserGame.value.add.audio(songName);
+        this.music.onStop.add(() => {
+            console.log('on stop!');
+            let nextSong = restOfSongs.shift();
+            this.playSong(nextSong, restOfSongs);
+        });
         let volume = 0;
         if(this.on) {
             volume = 1;
         }
-        this.music.play('', 0, volume, true);
+        this.music.play('', 0, volume);
+    }
+
+    private destroyCurrentMusic(): void {
+        if(this.music) {
+            this.music.onStop.removeAll();
+            this.music.destroy();
+            this.music = null;
+        }
     }
 
     private updateSoundVolume(): void {

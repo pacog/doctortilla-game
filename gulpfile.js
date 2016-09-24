@@ -18,13 +18,13 @@ var paths = {
     pages: ['src/*.html'],
     styles: ['src/styles.css'],
     vendor: ['src/vendor/**'],
-    assets: ['src/images/**'],
+    assets: ['src/assets/**'],
 };
 
 const DEV_BUILD_PATH = '.tmp';
 const PROD_BUILD_PATH = 'dist';
 const VENDOR_PATH = '/vendor';
-const ASSETS_PATH = '/images';
+const ASSETS_PATH = '/assets';
 const ROOT_FILE = 'src/app/main.ts';
 
 const browserifyOptions = {

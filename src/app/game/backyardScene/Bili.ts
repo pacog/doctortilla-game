@@ -85,9 +85,7 @@ export class Bili extends Thing {
 
     say(text: string): Promise<void> {
         this.isTalking = true;
-        if(this.currentTimeout) {
-            window.clearTimeout(this.currentTimeout);
-        }
+        this.destroyCurrentTimeout();
         this.playAnimation('talking');
         return this.speechBubble.say(text).then(() => {
             this.isTalking = false;
@@ -98,6 +96,11 @@ export class Bili extends Thing {
     show(): void {
         super.show();
         this.playAnimationSometime();
+    }
+
+    destroy(): void {
+        super.destroy();
+        this.destroyCurrentTimeout();
     }
 
     protected giveAction(player: DoctortillaPlayer): void {
@@ -126,6 +129,12 @@ export class Bili extends Thing {
             return 'smoking';
         } else {
             return 'drinking';
+        }
+    }
+
+    private destroyCurrentTimeout(): void {
+        if(this.currentTimeout) {
+            window.clearTimeout(this.currentTimeout);
         }
     }
 }

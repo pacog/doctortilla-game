@@ -47,6 +47,11 @@ export class Balloon extends Thing {
         this.playAnimationSometime();
     }
 
+    destroy(): void {
+        this.stopEverything();
+        super.destroy();
+    }
+
     protected useAction(player: DoctortillaPlayer): void {
         if (selectedThing.thing.id === 'scissors') {
             let bili = <Bili> scenes.getSceneById('BACKYARD').getThingById('bili');

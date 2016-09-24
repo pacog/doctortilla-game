@@ -36,10 +36,10 @@ main {
   
 }
 #game canvas {
-  cursor: url('images/ui/custom-cursor.png') 16 16, auto !important;
+  cursor: url('assets/images/ui/custom-cursor.png') 16 16, auto !important;
   cursor: -webkit-image-set(
-    url('images/ui/custom-cursor.png') 1x,
-    url('images/ui/custom-cursor@2x.png') 2x
+    url('assets/images/ui/custom-cursor.png') 1x,
+    url('assets/images/ui/custom-cursor@2x.png') 2x
   ) 16 16, auto !important;
 }
 

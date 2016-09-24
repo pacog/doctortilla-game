@@ -64,16 +64,21 @@ export class ConversationWithBand extends Conversation {
                 sayCostumeIsOk
             ));
         } else if(!this.player.getAttr('DELIVERED_COSTUME')) {
-            dialogPart.unshift(new ConversationLine(
-                'WHY_COSTUMES',
-                'INITIAL_AFTER_FIRST_TALK',
-                sayWhyCostumes
-            ));
-            dialogPart.unshift(new ConversationLine(
-                'ASK_ABOUT_COSTUME',
-                'INITIAL_AFTER_FIRST_TALK',
-                talkAboutCostume
-            ));
+            if(!this.player.getAttr('ASKED_WHY_COSTUMES')) {
+                dialogPart.unshift(new ConversationLine(
+                    'WHY_COSTUMES',
+                    'INITIAL_AFTER_FIRST_TALK',
+                    sayWhyCostumes
+                ));
+            }
+            
+            if(!this.player.getAttr('ASKED_ABOUT_COSTUME')) {
+                dialogPart.unshift(new ConversationLine(
+                    'ASK_ABOUT_COSTUME',
+                    'INITIAL_AFTER_FIRST_TALK',
+                    talkAboutCostume
+                ));
+            }
         }
     }
 
@@ -85,11 +90,13 @@ export class ConversationWithBand extends Conversation {
                 sayCableIsOk
             ));
         } else if(!this.player.getAttr('DELIVERED_CABLE')) {
-            dialogPart.unshift(new ConversationLine(
-                'ASK_ABOUT_CABLE',
-                'INITIAL_AFTER_FIRST_TALK',
-                talkAboutCable
-            ));
+            if(!this.player.getAttr('ASKED_ABOUT_CABLE')) {
+                dialogPart.unshift(new ConversationLine(
+                    'ASK_ABOUT_CABLE',
+                    'INITIAL_AFTER_FIRST_TALK',
+                    talkAboutCable
+                ));
+            }
         }
     }
 
@@ -101,11 +108,13 @@ export class ConversationWithBand extends Conversation {
                 sayDrinkIsOk
             ));
         } else if(!this.player.getAttr('DELIVERED_DRINK')) {
-            dialogPart.unshift(new ConversationLine(
-                'ASK_ABOUT_SANTI',
-                'INITIAL_AFTER_FIRST_TALK',
-                talkAboutSanti
-            ));
+            if(!this.player.getAttr('ASKED_ABOUT_SANTI')) {
+                dialogPart.unshift(new ConversationLine(
+                    'ASK_ABOUT_SANTI',
+                    'INITIAL_AFTER_FIRST_TALK',
+                    talkAboutSanti
+                ));
+            }
         }
     }
 
@@ -164,6 +173,7 @@ function sayCostumeIsOk(player: DoctortillaPlayer, band: BandInSofa): Promise<an
 }
 
 function talkAboutCostume(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
+    player.changeAttr('ASKED_ABOUT_COSTUME', true);
     return band.say('WELL_I_HAD_AN_AWESOME_COSTUME', 'juan')
                 .then(() => {
                     return band.say('IT_WAS_COWBOY_COSTUME', 'juan');
@@ -180,6 +190,7 @@ function talkAboutCostume(player: DoctortillaPlayer, band: BandInSofa): Promise<
 }
 
 function talkAboutCable(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
+    player.changeAttr('ASKED_ABOUT_CABLE', true);
     return band.say('JUST_STEAL_ONE', 'juan')
                 .then(() => {
                     return band.say('I_WOULD_DO_IT_MYSELF', 'juan');
@@ -193,6 +204,7 @@ function talkAboutCable(player: DoctortillaPlayer, band: BandInSofa): Promise<an
 }
 
 function talkAboutSanti(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
+    player.changeAttr('ASKED_ABOUT_SANTI', true);
     return band.say('WE_DONT_REHEARSE_ENOUGH', 'santi')
                 .then(() => {
                     return band.say('WE_HAVENT_PRACTISED_SINCE_2012', 'santi');
@@ -218,6 +230,7 @@ function talkAboutSanti(player: DoctortillaPlayer, band: BandInSofa): Promise<an
 }
 
 function sayWhyCostumes(player: DoctortillaPlayer, band: BandInSofa): Promise<any> {
+    player.changeAttr('ASKED_WHY_COSTUMES', true);
     return band.say('MAN_YOU_SHOULD_KNOW_THIS', 'santi')
                 .then(() => {
                     return band.say('IT_IS_A_LONG_TIME_TRADITION_THAT_WE_ALL_DRESSED_UP', 'juan');

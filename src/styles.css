@@ -75,6 +75,28 @@ footer {
   .social-links a:visited {
       color: #d19c1f;
   }
+
+  .made-by {
+    margin-top: 10px;
+  }
+  .link {
+      color: #f5b824;
+  }
+  .link:hover {
+    background: #d19c1f;
+    color: white;
+  }
+  .link:hover:visited {
+    background: #d19c1f;
+    color: white;
+  }
+  .link:active {
+      color: #bd8d1c;
+  }
+  .link:visited {
+      color: #d19c1f;
+  }
+
   .social-link {
     padding: 0 15px;
     border-right: 1px solid white;

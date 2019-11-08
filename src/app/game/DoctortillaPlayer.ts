@@ -87,6 +87,9 @@ export class DoctortillaPlayer extends Player {
         if(this.deliveredEverything()) {
             let bili = scenes.getSceneById('BACKYARD').getThingById('bili');
             bili.changeAttr('DRUNK', true);
+
+            let stageDoor = scenes.getSceneById('BACKSTAGE').getThingById('backstage_door_to_stage');
+            stageDoor.changeAttr('CANGO', true);
         }
     }
 

@@ -3,6 +3,7 @@ import { DOCTORTILLA_LABELS } from './DoctortillaLabels';
 import { DoctortillaPlayer } from './DoctortillaPlayer';
 import { BackstageScene } from './backstageScene/BackstageScene';
 import { BackyardScene } from './backyardScene/BackyardScene';
+import { KitchenScene } from './kitchenScene/KitchenScene';
 import { Directions } from '../engine/utils/Directions';
 import { uiBlocker } from '../engine/ui/UIBlocker.singleton';
 
@@ -13,7 +14,8 @@ export class DoctortillaGame extends Game {
             player: new DoctortillaPlayer(),
             scenes: [
                 new BackstageScene(),
-                new BackyardScene()
+                new BackyardScene(),
+                new KitchenScene()
             ],
             initialSceneId: 'BACKSTAGE',
             songs: ['ALLI_DONDE', 'SUBETE']
@@ -33,13 +35,7 @@ export class DoctortillaGame extends Game {
                 return player.say('LATE_FOR_CONCERT');
             })
             .then(() => {
-               return player.wait(1000);
-            })
-            .then(() => {
                return player.say('AGAIN');
-            })
-            .then(() => {
-               return player.wait(1000);
             })
             .then(() => {
                return player.say('THE_OTHERS_WILL_BE_READY');

@@ -40,8 +40,15 @@ const SPRITES: ISpritesInfo = {
 
     //Backyard
     'BACKYARD_DOOR_TO_BACKSTAGE_SPRITE': [IMAGES_ROOT + 'backyard/BACKYARD_DOOR_TO_BACKSTAGE_SPRITE.png', 31, 104, 2],
+    'BACKSTAGE_DOOR_TO_STAGE_SPRITE': [IMAGES_ROOT + 'backstage/BACKSTAGE_DOOR_TO_STAGE.png', 89, 84, 2],
     'BILI_SPRITE': [IMAGES_ROOT + 'backyard/BILI_SPRITE.png', 43, 70, 24],
-    'BALLOON_SPRITE': [IMAGES_ROOT + 'backyard/BALLOON_SPRITE.png', 28, 59, 10]
+    'BALLOON_SPRITE': [IMAGES_ROOT + 'backyard/BALLOON_SPRITE.png', 28, 59, 10],
+
+    //Kitchen
+    'STAGE_DOOR_TO_BACKSTAGE_SPRITE': [IMAGES_ROOT + 'kitchen/STAGE_DOOR_TO_BACKSTAGE.png', 28, 117, 2],
+    'TAP_SPRITE': [IMAGES_ROOT + 'kitchen/TAP.png', 37, 16, 2],
+    'STAGE_TO_OUTSIDE_DOOR_SPRITE': [IMAGES_ROOT + 'kitchen/STAGE_OUTSIDE_DOOR.png', 30, 117, 2],
+    'FRIDGE_SPRITE': [IMAGES_ROOT + 'kitchen/FRIDGE.png', 85, 107, 2],
 };
 
 const IMAGES: IImagesInfo = {
@@ -76,7 +83,6 @@ const IMAGES: IImagesInfo = {
     'GLASS': IMAGES_ROOT + 'backstage/GLASS.png',
     'LAMP': IMAGES_ROOT + 'backstage/LAMP.png',
     'BACKSTAGE_DOOR_TO_STREET': IMAGES_ROOT + 'backstage/BACKSTAGE_DOOR_TO_STREET.png',
-    'BACKSTAGE_DOOR_TO_STAGE': IMAGES_ROOT + 'backstage/BACKSTAGE_DOOR_TO_STAGE.png',
     'FLY_CASE': IMAGES_ROOT + 'backstage/FLY_CASE.png',
 
     // Backyard:
@@ -85,7 +91,13 @@ const IMAGES: IImagesInfo = {
     'LAMP_BACKYARD': IMAGES_ROOT + 'backyard/LAMP_BACKYARD.png',
     'MOON': IMAGES_ROOT + 'backyard/MOON.png',
     'STAR': IMAGES_ROOT + 'backyard/STAR.png',
-    'CUT_FLOWERS': IMAGES_ROOT + 'backyard/CUT_FLOWERS.png'
+    'CUT_FLOWERS': IMAGES_ROOT + 'backyard/CUT_FLOWERS.png',
+
+    // Kitchen
+    'KITCHEN_BG': IMAGES_ROOT + 'kitchen/KITCHEN_BG.png',
+    'CREEPY_STAINS': IMAGES_ROOT + 'kitchen/MANCHAS_CHUNGAS.png',
+    'FLASHLIGHT': IMAGES_ROOT + 'kitchen/FLASHLIGHT.png',
+    'FLASHLIGHT_INV': IMAGES_ROOT + 'kitchen/FLASHLIGHT_INV.png'
 };
 
 const FONTS: IFontsInfo = {

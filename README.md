@@ -1,12 +1,9 @@
-# Doctortilla game
+# Test game
 
-Doctortilla game by
-[pacog](https://github.com/pacog).
+Based in Doctortilla game by [pacog](https://github.com/pacog).
 
-[Play the game](http://pacog.github.io/doctortilla-game/)
 
 Initial scaffolding generated with [generator-gamejam](https://github.com/belen-albeza/generator-gamejam/) by [Belén Albeza](https://belenalbeza.com/).
-
 
 
 

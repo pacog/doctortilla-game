@@ -1,4 +1,4 @@
-import { Thing } from '../../engine/models/Thing';
+import { Door } from '../../engine/models/Door';
 import { Player } from '../../engine/models/Player';
 import { Directions } from '../../engine/utils/Directions';
 import { randomText } from '../../engine/utils/RandomText';
@@ -7,29 +7,33 @@ let options = {
     id: 'backstage_door_to_stage',
     x: 330,
     y: 67,
-    spriteId: 'BACKSTAGE_DOOR_TO_STAGE',
+    spriteId: 'BACKSTAGE_DOOR_TO_STAGE_SPRITE',
     name: 'DOOR_TO_STAGE',
     goToPosition: {
         x: 378,
         y: 163
-    }
+    },
+    destinationSceneId: 'KITCHEN',
+    relatedDoorId: 'STAGE_TO_BACKSTAGE'
 };
 
-export class BackstageDoorToStage extends Thing {
+export class BackstageDoorToStage extends Door {
     constructor() {
         super(options);
     }
 
-    protected openAction(player: Player): void  {
-        player.lookAt(Directions.DOWN);
-        player.say('NOPE_I_CANNOT_GO_TO_THE_STAGE')
-            .then(() => {
-                return player.say('FIRST_I_NEED_TO_GET_THE_BAND_READY');
-            });
-    }
-
-    protected closeAction(player: Player): void  {
-        player.say('IT_IS_ALREADY_CLOSED');
+    openAction(player: Player): void  {
+        /**/ this.changeAttr('CANGO', true);
+        if (!this.getAttr('CANGO'))
+        {
+            player.lookAt(Directions.DOWN);
+            player.say('NOPE_I_CANNOT_GO_TO_THE_STAGE')
+                .then(() => {
+                    return player.say('FIRST_I_NEED_TO_GET_THE_BAND_READY');
+                });
+        }   else {
+            super.openAction(player);
+        }
     }
 
     protected takeAction(player: Player): void  {
@@ -37,11 +41,14 @@ export class BackstageDoorToStage extends Thing {
     }
 
     protected pushAction(player: Player): void  {
-        player.lookAt(Directions.DOWN);
-        player.say('NOPE_I_CANNOT_GO_TO_THE_STAGE')
-            .then(() => {
-                return player.say('FIRST_I_NEED_TO_GET_THE_BAND_READY');
-            });
+        if (!this.getAttr('CANGO'))
+        {
+            player.lookAt(Directions.DOWN);
+            player.say('NOPE_I_CANNOT_GO_TO_THE_STAGE')
+                .then(() => {
+                    return player.say('FIRST_I_NEED_TO_GET_THE_BAND_READY');
+                });
+        }
     }
 
     protected speakAction(player: Player): void  {
@@ -52,7 +59,7 @@ export class BackstageDoorToStage extends Thing {
         ));
     }
 
-    protected lookAction(player: Player): void  {
+    lookAction(player: Player): void  {
         player.say(randomText(
             'NICE_SAFE_DOOR',
             'MADE_OF_METAL_RUST_AND_STICKY_STUFF',

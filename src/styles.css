@@ -30,109 +30,19 @@ main {
 }
 
 #game {
-  width: 1066px;
-  height: 600px;
+  width: 99vw;
+  height: auto;
   margin: 0 auto;
-  
 }
+
 #game canvas {
+  box-sizing: border-box;
+  min-width: 99vw !important;
+  height: auto !important;
   cursor: url('assets/images/ui/custom-cursor.png') 16 16, auto !important;
-  cursor: -webkit-image-set(
-    url('assets/images/ui/custom-cursor.png') 1x,
-    url('assets/images/ui/custom-cursor@2x.png') 2x
-  ) 16 16, auto !important;
+  cursor: -webkit-image-set( url('assets/images/ui/custom-cursor.png') 1x, url('assets/images/ui/custom-cursor@2x.png') 2x) 16 16, auto !important;
 }
 
-footer {
-  text-align: center;
-}
 
-.mobile-warning {
-    display: none;
-    padding: 20px;
-}
 
-.social-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-}
-  .social-links a {
-      color: #f5b824;
-  }
-  .social-links a:hover {
-    background: #d19c1f;
-    color: white;
-  }
-  .social-links a:hover:visited {
-    background: #d19c1f;
-    color: white;
-  }
-  .social-links a:active {
-      color: #bd8d1c;
-  }
-  .social-links a:visited {
-      color: #d19c1f;
-  }
-
-  .made-by {
-    margin-top: 10px;
-  }
-  .link {
-      color: #f5b824;
-  }
-  .link:hover {
-    background: #d19c1f;
-    color: white;
-  }
-  .link:hover:visited {
-    background: #d19c1f;
-    color: white;
-  }
-  .link:active {
-      color: #bd8d1c;
-  }
-  .link:visited {
-      color: #d19c1f;
-  }
-
-  .social-link {
-    padding: 0 15px;
-    border-right: 1px solid white;
-  }
-  .social-link:last-child {
-    border-right: 0;
-  }
-
-@media only screen and (max-width: 400px) {
-    .mobile-warning {
-        display: block;
-    }
-    #game {
-        display: none;
-    }
-    .social-links {
-      flex-direction: column;
-    }
-    .social-link {
-      margin: 10px 0;
-      border-right: 0;
-    }
-}
-@media only screen and (max-height: 400px) {
-    .mobile-warning {
-        display: block;
-    }
-    #game {
-        display: none;
-    }
-    .social-links {
-      flex-direction: column;
-    }
-    .social-link {
-      margin: 10px 0;
-      border-right: 0;
-    }
-}
 
